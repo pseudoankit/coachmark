@@ -10,8 +10,5 @@ public interface CoachMarkScope<T> {
 
     public fun hide()
 
-    public fun show(key: T)
-
-    public fun show(keys: List<T>)
-
+    public fun show(vararg keys: T)
 }

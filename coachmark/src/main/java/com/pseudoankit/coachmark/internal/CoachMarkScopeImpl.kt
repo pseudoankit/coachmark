@@ -49,11 +49,7 @@ internal class CoachMarkScopeImpl<T>(
         }
     }
 
-    override fun show(key: T) {
-        show(listOf(key))
-    }
-
-    override fun show(keys: List<T>) {
+    override fun show(vararg keys: T) {
         activeItems = keys.map {
             coachMarkItems[it] ?: throw NotImplementedError("definition for key=$it not found")
         }
