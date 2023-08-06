@@ -17,7 +17,7 @@ import com.pseudoankit.coachmark.internal.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.internal.toDp
 
 @Composable
-fun <T> UnifyCoachmark(
+public fun <T> UnifyCoachmark(
     globalCoachMarkConfig: UnifyCoachMarkGlobalConfig = UnifyCoachMarkGlobalConfig(),
     content: @Composable CoachMarkScope<T>.() -> Unit
 ) {
@@ -31,7 +31,7 @@ fun <T> UnifyCoachmark(
 
 @Preview
 @Composable
-fun UnifyCoachmarkDemo() {
+public fun UnifyCoachmarkDemo() {
     Box(modifier = Modifier.fillMaxSize()) {
 
         UnifyCoachmark<Int> {

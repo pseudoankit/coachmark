@@ -5,17 +5,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-object UnifyCoachMarkDefaults {
-    object Overlay {
-        val color = Color.Black.copy(alpha = .40f)
-        val clickEvent = UnifyCoachMarkOverlayClickEvent.None
+public object UnifyCoachMarkDefaults {
+    public object Overlay {
+        public val color: Color = Color.Black.copy(alpha = .40f)
+        public val clickEvent: UnifyCoachMarkOverlayClickEvent =
+            UnifyCoachMarkOverlayClickEvent.None
     }
 
-
-    object Item {
-        val textColor = Color.White
-        val bgColor = Color(0xFFA4A4EB)
-        val bgShape = RoundedCornerShape(16.dp)
-        val padding = PaddingValues()
+    public object Item {
+        public val textColor: Color = Color.White
+        public val bgColor: Color = Color(0xFFA4A4EB)
+        public val bgShape: RoundedCornerShape = RoundedCornerShape(16.dp)
+        public val padding: PaddingValues = PaddingValues()
     }
 }
