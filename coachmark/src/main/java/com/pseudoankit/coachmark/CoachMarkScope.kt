@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 public interface CoachMarkScope<T> {
     public fun Modifier.enableCoachMark(
         key: T,
-        config: UnifyCoachMarkConfig
+        config: UnifyCoachMarkConfig<T>
     ): Modifier
 
     public fun hide()

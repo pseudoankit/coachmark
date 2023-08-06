@@ -7,13 +7,13 @@ import com.pseudoankit.coachmark.UnifyCoachMarkOverlayClickEvent
 
 internal data class CoachMarkConfigInternal<T>(
     val itemConfig: ItemConfig,
-    val overlayConfig: OverlayConfig,
+    val overlayConfig: OverlayConfig<T>,
     val coordinate: Offset,
     val key: T
 ) {
-    data class OverlayConfig(
+    data class OverlayConfig<T>(
         val overlayColor: Color,
-        val onOverlayClicked: () -> UnifyCoachMarkOverlayClickEvent
+        val onOverlayClicked: (key: T) -> UnifyCoachMarkOverlayClickEvent
     )
 
     data class ItemConfig(

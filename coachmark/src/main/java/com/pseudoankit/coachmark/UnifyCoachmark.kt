@@ -14,7 +14,7 @@ import com.pseudoankit.coachmark.internal.CoachMarkImpl
 
 @Composable
 public fun <T> UnifyCoachmark(
-    globalCoachMarkConfig: UnifyCoachMarkGlobalConfig = UnifyCoachMarkGlobalConfig(),
+    globalCoachMarkConfig: UnifyCoachMarkGlobalConfig<T> = UnifyCoachMarkGlobalConfig(),
     content: @Composable CoachMarkScope<T>.() -> Unit
 ) {
     CoachMarkImpl(
@@ -32,6 +32,11 @@ public fun UnifyCoachmarkDemo() {
             globalCoachMarkConfig = UnifyCoachMarkGlobalConfig(
                 itemConfig = UnifyCoachMarkGlobalConfig.ItemConfig(
                     padding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                ),
+                overlayConfig = UnifyCoachMarkGlobalConfig.OverlayConfig(
+                    onOverlayClicked = {
+                        UnifyCoachMarkOverlayClickEvent.GoNext
+                    }
                 )
             )
         ) {

@@ -14,7 +14,7 @@ import com.pseudoankit.coachmark.UnifyCoachMarkGlobalConfig
 import com.pseudoankit.coachmark.UnifyCoachMarkOverlayClickEvent
 
 internal class CoachMarkScopeImpl<T>(
-    private val globalConfig: UnifyCoachMarkGlobalConfig
+    private val globalConfig: UnifyCoachMarkGlobalConfig<T>
 ) : CoachMarkScope<T> {
 
     private val coachMarkItems = mutableMapOf<T, CoachMarkConfigInternal<T>>()
@@ -35,7 +35,7 @@ internal class CoachMarkScopeImpl<T>(
 
     override fun Modifier.enableCoachMark(
         key: T,
-        config: UnifyCoachMarkConfig
+        config: UnifyCoachMarkConfig<T>
     ): Modifier = composed {
         onGloballyPositioned {
             val coordinates = Offset(
@@ -58,12 +58,11 @@ internal class CoachMarkScopeImpl<T>(
 
     override fun hide() {
         activeItems = listOf()
-        activeItem = null
     }
 
     fun onOverlayClicked() {
         val item = activeItem ?: return
-        when (item.overlayConfig.onOverlayClicked()) {
+        when (item.overlayConfig.onOverlayClicked(item.key)) {
             UnifyCoachMarkOverlayClickEvent.GoNext -> activeItemIndex++
             UnifyCoachMarkOverlayClickEvent.Dismiss -> hide()
             UnifyCoachMarkOverlayClickEvent.None -> {}

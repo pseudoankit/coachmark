@@ -25,8 +25,8 @@ internal fun Modifier.clickable(
 internal fun Float.toDp(density: Density) = with(density) { toDp() }
 
 internal fun <T> mapToInternalConfig(
-    globalConfig: UnifyCoachMarkGlobalConfig,
-    config: UnifyCoachMarkConfig,
+    globalConfig: UnifyCoachMarkGlobalConfig<T>,
+    config: UnifyCoachMarkConfig<T>,
     coordinate: Offset,
     key: T
 ) = CoachMarkConfigInternal(

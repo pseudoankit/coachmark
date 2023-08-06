@@ -18,13 +18,13 @@ public enum class UnifyCoachMarkOverlayClickEvent {
     GoNext, Dismiss, None
 }
 
-public data class UnifyCoachMarkGlobalConfig(
+public data class UnifyCoachMarkGlobalConfig<T>(
     val itemConfig: ItemConfig = ItemConfig(),
-    val overlayConfig: OverlayConfig = OverlayConfig()
+    val overlayConfig: OverlayConfig<T> = OverlayConfig()
 ) {
-    public data class OverlayConfig(
+    public data class OverlayConfig<T>(
         val overlayColor: Color = UnifyCoachMarkDefaults.Overlay.color,
-        val onOverlayClicked: () -> UnifyCoachMarkOverlayClickEvent = { UnifyCoachMarkDefaults.Overlay.clickEvent },
+        val onOverlayClicked: (key: T) -> UnifyCoachMarkOverlayClickEvent = { UnifyCoachMarkDefaults.Overlay.clickEvent },
     )
 
     public data class ItemConfig(
@@ -48,13 +48,13 @@ public data class UnifyCoachMarkGlobalConfig(
     }
 }
 
-public data class UnifyCoachMarkConfig(
+public data class UnifyCoachMarkConfig<T>(
     val itemConfig: ItemConfig,
-    val overlayConfig: OverlayConfig = OverlayConfig()
+    val overlayConfig: OverlayConfig<T> = OverlayConfig()
 ) {
-    public data class OverlayConfig(
+    public data class OverlayConfig<T>(
         val overlayColor: Color? = null,
-        val onOverlayClicked: (() -> UnifyCoachMarkOverlayClickEvent)? = null,
+        val onOverlayClicked: ((key: T) -> UnifyCoachMarkOverlayClickEvent)? = null,
     )
 
     public data class ItemConfig(

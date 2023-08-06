@@ -15,7 +15,7 @@ import com.pseudoankit.coachmark.UnifyCoachMarkGlobalConfig
 
 @Composable
 internal fun <T> CoachMarkImpl(
-    globalCoachMarkConfig: UnifyCoachMarkGlobalConfig = UnifyCoachMarkGlobalConfig(),
+    globalCoachMarkConfig: UnifyCoachMarkGlobalConfig<T> = UnifyCoachMarkGlobalConfig(),
     content: @Composable CoachMarkScope<T>.() -> Unit
 ) {
     val coachMark = remember(globalCoachMarkConfig) { CoachMarkScopeImpl<T>(globalCoachMarkConfig) }
