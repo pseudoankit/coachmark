@@ -18,7 +18,9 @@ internal class CoachMarkScopeImpl<T>(
 
     private val coachMarkItems = mutableMapOf<T, CoachMarkConfigInternal<T>>()
 
-    var visibleItems by mutableStateOf(listOf<CoachMarkConfigInternal<T>>())
+    private var visibleItems = listOf<CoachMarkConfigInternal<T>>()
+    var activeItem: CoachMarkConfigInternal<T>? by mutableStateOf(null)
+
 
     override fun Modifier.enableCoachMark(
         key: T,
@@ -36,29 +38,19 @@ internal class CoachMarkScopeImpl<T>(
         }
     }
 
-    override fun hide(keys: List<T>) {
-        val itemsToRemove = keys.toSet()
-        visibleItems = visibleItems.mapNotNull {
-            if (itemsToRemove.contains(it.key)) null else it
-        }
-    }
-
     override fun show(keys: List<T>) {
-        visibleItems = buildList {
-            addAll(visibleItems)
-            addAll(
-                keys.map {
-                    coachMarkItems[it] ?: throw NotImplementedError("definition of $it not found")
-                }
-            )
+        visibleItems = keys.map {
+            coachMarkItems[it] ?: throw NotImplementedError("definition of $it not found")
         }
-    }
-
-    override fun hide(key: T) {
-        hide(listOf(key))
+        activeItem = visibleItems[0]
     }
 
     override fun show(key: T) {
         show(listOf(key))
+    }
+
+    override fun hide() {
+        visibleItems = listOf()
+        activeItem = null
     }
 }

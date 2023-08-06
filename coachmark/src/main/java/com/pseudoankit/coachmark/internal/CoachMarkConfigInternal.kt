@@ -18,6 +18,7 @@ internal data class CoachMarkConfigInternal<T>(
 
     data class ItemConfig(
         val textColor: Color,
-        val modifier: Modifier
+        val text: String,
+        val modifier: Modifier,
     )
 }

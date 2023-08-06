@@ -8,11 +8,10 @@ public interface CoachMarkScope<T> {
         config: UnifyCoachMarkConfig
     ): Modifier
 
-    public fun hide(key: T)
+    public fun hide()
 
     public fun show(key: T)
 
     public fun show(keys: List<T>)
 
-    public fun hide(keys: List<T>)
 }

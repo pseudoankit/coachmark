@@ -49,7 +49,7 @@ public data class UnifyCoachMarkGlobalConfig(
 }
 
 public data class UnifyCoachMarkConfig(
-    val itemConfig: ItemConfig = ItemConfig(),
+    val itemConfig: ItemConfig,
     val overlayConfig: OverlayConfig = OverlayConfig()
 ) {
     public data class OverlayConfig(
@@ -58,11 +58,13 @@ public data class UnifyCoachMarkConfig(
     )
 
     public data class ItemConfig(
+        val text: String,
         val textColor: Color? = null,
         val modifier: Modifier? = null
     ) {
 
         public constructor(
+            text: String,
             textColor: Color,
             bgColor: Color,
             shape: Shape,
@@ -73,7 +75,8 @@ public data class UnifyCoachMarkConfig(
                 .wrapContentSize()
                 .clip(shape)
                 .background(bgColor)
-                .padding(padding)
+                .padding(padding),
+            text = text
         )
     }
 }

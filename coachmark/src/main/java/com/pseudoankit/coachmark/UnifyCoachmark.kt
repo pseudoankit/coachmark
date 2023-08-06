@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import com.pseudoankit.coachmark.internal.CoachMarkImpl
 import com.pseudoankit.coachmark.internal.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.internal.toDp
 
@@ -21,12 +22,10 @@ public fun <T> UnifyCoachmark(
     globalCoachMarkConfig: UnifyCoachMarkGlobalConfig = UnifyCoachMarkGlobalConfig(),
     content: @Composable CoachMarkScope<T>.() -> Unit
 ) {
-    val coachMark = remember { CoachMarkScopeImpl<T>(globalCoachMarkConfig) }
-
-    Box {
-        content(coachMark)
-
-    }
+    CoachMarkImpl(
+        globalCoachMarkConfig = globalCoachMarkConfig,
+        content = content
+    )
 }
 
 @Preview
@@ -36,15 +35,21 @@ public fun UnifyCoachmarkDemo() {
 
         UnifyCoachmark<Int> {
             Column {
-//                Button(
-//                    onClick = {
-//                        show(0)
-//                    },
-//                    modifier = Modifier.enableCoachMark("text1", 0)
-//                ) {
-//                    Text(text = "Click me")
-//                }
-//
+                Button(
+                    onClick = {
+                        show(0)
+                    },
+                    modifier = Modifier
+                        .enableCoachMark(
+                            0,
+                            UnifyCoachMarkConfig(
+                                UnifyCoachMarkConfig.ItemConfig("demo1")
+                            )
+                        )
+                ) {
+                    Text(text = "Click me")
+                }
+
 //                Button(
 //                    onClick = {
 //                        show(1)

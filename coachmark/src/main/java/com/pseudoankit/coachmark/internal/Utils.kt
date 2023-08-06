@@ -16,6 +16,7 @@ internal fun <T> mapToInternalConfig(
     itemConfig = CoachMarkConfigInternal.ItemConfig(
         textColor = config.itemConfig.textColor ?: globalConfig.itemConfig.textColor,
         modifier = config.itemConfig.modifier ?: globalConfig.itemConfig.modifier,
+        text = config.itemConfig.text
     ),
     overlayConfig = CoachMarkConfigInternal.OverlayConfig(
         overlayColor = config.overlayConfig.overlayColor ?: globalConfig.overlayConfig.overlayColor,
