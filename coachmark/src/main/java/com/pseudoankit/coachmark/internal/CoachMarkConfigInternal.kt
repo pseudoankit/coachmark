@@ -13,7 +13,7 @@ internal data class CoachMarkConfigInternal<T>(
 ) {
     data class OverlayConfig(
         val overlayColor: Color,
-        val overlayClickEvent: UnifyCoachMarkOverlayClickEvent,
+        val onOverlayClicked: () -> UnifyCoachMarkOverlayClickEvent
     )
 
     data class ItemConfig(

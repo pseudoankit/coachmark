@@ -1,11 +1,9 @@
 package com.pseudoankit.coachmark.internal
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -20,31 +18,36 @@ internal fun <T> CoachMarkImpl(
     globalCoachMarkConfig: UnifyCoachMarkGlobalConfig = UnifyCoachMarkGlobalConfig(),
     content: @Composable CoachMarkScope<T>.() -> Unit
 ) {
-    val coachMark = remember { CoachMarkScopeImpl<T>(globalCoachMarkConfig) }
+    val coachMark = remember(globalCoachMarkConfig) { CoachMarkScopeImpl<T>(globalCoachMarkConfig) }
     val item = coachMark.activeItem
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .run {
-                if (item != null) {
-                    background(item.overlayConfig.overlayColor)
-                } else this
-            }
     ) {
         content(coachMark)
 
         if (item != null) {
             Box(
                 modifier = Modifier
-                    .offset(
-                        x = item.coordinate.x.toDp(LocalDensity.current),
-                        y = item.coordinate.y.toDp(LocalDensity.current),
+                    .fillMaxSize()
+                    .background(item.overlayConfig.overlayColor)
+                    .clickable(
+                        showRipple = false,
+                        onClick = coachMark::onOverlayClicked
                     )
-                    .then(item.itemConfig.modifier),
-                contentAlignment = Alignment.Center
             ) {
-                Text(color = item.itemConfig.textColor, text = item.itemConfig.text)
+                Box(
+                    modifier = Modifier
+                        .offset(
+                            x = item.coordinate.x.toDp(LocalDensity.current),
+                            y = item.coordinate.y.toDp(LocalDensity.current),
+                        )
+                        .then(item.itemConfig.modifier),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(color = item.itemConfig.textColor, text = item.itemConfig.text)
+                }
             }
         }
     }

@@ -11,6 +11,7 @@ import androidx.compose.ui.layout.positionInRoot
 import com.pseudoankit.coachmark.CoachMarkScope
 import com.pseudoankit.coachmark.UnifyCoachMarkConfig
 import com.pseudoankit.coachmark.UnifyCoachMarkGlobalConfig
+import com.pseudoankit.coachmark.UnifyCoachMarkOverlayClickEvent
 
 internal class CoachMarkScopeImpl<T>(
     private val globalConfig: UnifyCoachMarkGlobalConfig
@@ -18,9 +19,19 @@ internal class CoachMarkScopeImpl<T>(
 
     private val coachMarkItems = mutableMapOf<T, CoachMarkConfigInternal<T>>()
 
-    private var visibleItems = listOf<CoachMarkConfigInternal<T>>()
-    var activeItem: CoachMarkConfigInternal<T>? by mutableStateOf(null)
+    private var activeItems = listOf<CoachMarkConfigInternal<T>>()
+        set(value) {
+            activeItem = value.getOrNull(activeItemIndex)
+            field = value
+        }
 
+    private var activeItemIndex = 0
+        set(value) {
+            activeItem = activeItems.getOrNull(value)
+            field = value
+        }
+
+    var activeItem: CoachMarkConfigInternal<T>? by mutableStateOf(null)
 
     override fun Modifier.enableCoachMark(
         key: T,
@@ -38,19 +49,28 @@ internal class CoachMarkScopeImpl<T>(
         }
     }
 
-    override fun show(keys: List<T>) {
-        visibleItems = keys.map {
-            coachMarkItems[it] ?: throw NotImplementedError("definition of $it not found")
-        }
-        activeItem = visibleItems[0]
-    }
-
     override fun show(key: T) {
         show(listOf(key))
     }
 
+    override fun show(keys: List<T>) {
+        activeItems = keys.map {
+            coachMarkItems[it] ?: throw NotImplementedError("definition for key=$it not found")
+        }
+        activeItemIndex = 0
+    }
+
     override fun hide() {
-        visibleItems = listOf()
+        activeItems = listOf()
         activeItem = null
+    }
+
+    fun onOverlayClicked() {
+        val item = activeItem ?: return
+        when (item.overlayConfig.onOverlayClicked()) {
+            UnifyCoachMarkOverlayClickEvent.GoNext -> activeItemIndex++
+            UnifyCoachMarkOverlayClickEvent.Dismiss -> hide()
+            UnifyCoachMarkOverlayClickEvent.None -> {}
+        }
     }
 }

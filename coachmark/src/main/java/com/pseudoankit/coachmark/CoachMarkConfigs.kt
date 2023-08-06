@@ -24,7 +24,7 @@ public data class UnifyCoachMarkGlobalConfig(
 ) {
     public data class OverlayConfig(
         val overlayColor: Color = UnifyCoachMarkDefaults.Overlay.color,
-        val overlayClickEvent: UnifyCoachMarkOverlayClickEvent = UnifyCoachMarkDefaults.Overlay.clickEvent,
+        val onOverlayClicked: () -> UnifyCoachMarkOverlayClickEvent = { UnifyCoachMarkDefaults.Overlay.clickEvent },
     )
 
     public data class ItemConfig(
@@ -54,7 +54,7 @@ public data class UnifyCoachMarkConfig(
 ) {
     public data class OverlayConfig(
         val overlayColor: Color? = null,
-        val overlayClickEvent: UnifyCoachMarkOverlayClickEvent? = null,
+        val onOverlayClicked: (() -> UnifyCoachMarkOverlayClickEvent)? = null,
     )
 
     public data class ItemConfig(

@@ -7,9 +7,9 @@ import androidx.compose.ui.unit.dp
 
 public object UnifyCoachMarkDefaults {
     public object Overlay {
-        public val color: Color = Color.Black.copy(alpha = .40f)
+        public val color: Color = Color.Black.copy(alpha = .75f)
         public val clickEvent: UnifyCoachMarkOverlayClickEvent =
-            UnifyCoachMarkOverlayClickEvent.None
+            UnifyCoachMarkOverlayClickEvent.Dismiss
     }
 
     public object Item {
