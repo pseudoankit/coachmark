@@ -3,6 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+kotlin {
+    explicitApi = 'strict'
+}
+
 android {
     namespace 'com.pseudoankit.coachmark'
     compileSdk 33
@@ -33,6 +37,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += '-Xexplicit-api=strict'
     }
 }
 
