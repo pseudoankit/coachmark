@@ -11,14 +11,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import com.pseudoankit.coachmark.CoachMarkScope
-import com.pseudoankit.coachmark.UnifyCoachMarkGlobalConfig
+import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
 
 @Composable
-internal fun <T> CoachMarkImpl(
-    globalCoachMarkConfig: UnifyCoachMarkGlobalConfig<T> = UnifyCoachMarkGlobalConfig(),
-    content: @Composable CoachMarkScope<T>.() -> Unit
+internal fun <KEY> CoachMarkImpl(
+    globalCoachMarkConfig: UnifyCoachMarkGlobalConfig<KEY> = UnifyCoachMarkGlobalConfig(),
+    content: @Composable CoachMarkScope<KEY>.() -> Unit
 ) {
-    val coachMark = remember(globalCoachMarkConfig) { CoachMarkScopeImpl<T>(globalCoachMarkConfig) }
+    val coachMark =
+        remember(globalCoachMarkConfig) { CoachMarkScopeImpl<KEY>(globalCoachMarkConfig) }
     val item = coachMark.activeItem
 
     Box(

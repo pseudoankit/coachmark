@@ -3,17 +3,17 @@ package com.pseudoankit.coachmark.internal
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import com.pseudoankit.coachmark.UnifyCoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.model.UnifyCoachMarkOverlayClickEvent
 
-internal data class CoachMarkConfigInternal<T>(
+internal data class CoachMarkConfigInternal<KEY>(
     val itemConfig: ItemConfig,
-    val overlayConfig: OverlayConfig<T>,
+    val overlayConfig: OverlayConfig<KEY>,
     val coordinate: Offset,
-    val key: T
+    val key: KEY
 ) {
-    data class OverlayConfig<T>(
+    data class OverlayConfig<KEY>(
         val overlayColor: Color,
-        val onOverlayClicked: (key: T) -> UnifyCoachMarkOverlayClickEvent
+        val onOverlayClicked: (key: KEY) -> UnifyCoachMarkOverlayClickEvent
     )
 
     data class ItemConfig(

@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark
+package com.pseudoankit.coachmark.model
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import com.pseudoankit.coachmark.UnifyCoachMarkDefaults
 
 /*
  * TODO
@@ -18,13 +19,13 @@ public enum class UnifyCoachMarkOverlayClickEvent {
     GoNext, Dismiss, None
 }
 
-public data class UnifyCoachMarkGlobalConfig<T>(
+public data class UnifyCoachMarkGlobalConfig<KEY>(
     val itemConfig: ItemConfig = ItemConfig(),
-    val overlayConfig: OverlayConfig<T> = OverlayConfig()
+    val overlayConfig: OverlayConfig<KEY> = OverlayConfig()
 ) {
-    public data class OverlayConfig<T>(
+    public data class OverlayConfig<KEY>(
         val overlayColor: Color = UnifyCoachMarkDefaults.Overlay.color,
-        val onOverlayClicked: (key: T) -> UnifyCoachMarkOverlayClickEvent = { UnifyCoachMarkDefaults.Overlay.clickEvent },
+        val onOverlayClicked: (key: KEY) -> UnifyCoachMarkOverlayClickEvent = { UnifyCoachMarkDefaults.Overlay.clickEvent },
     )
 
     public data class ItemConfig(
@@ -48,13 +49,13 @@ public data class UnifyCoachMarkGlobalConfig<T>(
     }
 }
 
-public data class UnifyCoachMarkConfig<T>(
+public data class UnifyCoachMarkConfig<KEY>(
     val itemConfig: ItemConfig,
-    val overlayConfig: OverlayConfig<T> = OverlayConfig()
+    val overlayConfig: OverlayConfig<KEY> = OverlayConfig()
 ) {
-    public data class OverlayConfig<T>(
+    public data class OverlayConfig<KEY>(
         val overlayColor: Color? = null,
-        val onOverlayClicked: ((key: T) -> UnifyCoachMarkOverlayClickEvent)? = null,
+        val onOverlayClicked: ((key: KEY) -> UnifyCoachMarkOverlayClickEvent)? = null,
     )
 
     public data class ItemConfig(

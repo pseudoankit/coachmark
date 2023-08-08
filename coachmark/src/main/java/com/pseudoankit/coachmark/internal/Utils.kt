@@ -8,8 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.Density
-import com.pseudoankit.coachmark.UnifyCoachMarkConfig
-import com.pseudoankit.coachmark.UnifyCoachMarkGlobalConfig
+import androidx.compose.ui.unit.Dp
+import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
+import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
+
+internal fun Float.toDp(density: Density) = with(density) { toDp() }
+
+internal fun Dp.toPx(density: Density) = with(density) { toPx() }
 
 internal fun Modifier.clickable(
     showRipple: Boolean = true,
@@ -22,13 +27,11 @@ internal fun Modifier.clickable(
     )
 }
 
-internal fun Float.toDp(density: Density) = with(density) { toDp() }
-
-internal fun <T> mapToInternalConfig(
-    globalConfig: UnifyCoachMarkGlobalConfig<T>,
-    config: UnifyCoachMarkConfig<T>,
+internal fun <KEY> mapToInternalConfig(
+    globalConfig: UnifyCoachMarkGlobalConfig<KEY>,
+    config: UnifyCoachMarkConfig<KEY>,
     coordinate: Offset,
-    key: T
+    key: KEY
 ) = CoachMarkConfigInternal(
     itemConfig = CoachMarkConfigInternal.ItemConfig(
         textColor = config.itemConfig.textColor ?: globalConfig.itemConfig.textColor,

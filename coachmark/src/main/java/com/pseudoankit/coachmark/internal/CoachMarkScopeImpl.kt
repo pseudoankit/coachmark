@@ -9,17 +9,17 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import com.pseudoankit.coachmark.CoachMarkScope
-import com.pseudoankit.coachmark.UnifyCoachMarkConfig
-import com.pseudoankit.coachmark.UnifyCoachMarkGlobalConfig
-import com.pseudoankit.coachmark.UnifyCoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
+import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
+import com.pseudoankit.coachmark.model.UnifyCoachMarkOverlayClickEvent
 
-internal class CoachMarkScopeImpl<T>(
-    private val globalConfig: UnifyCoachMarkGlobalConfig<T>
-) : CoachMarkScope<T> {
+internal class CoachMarkScopeImpl<KEY>(
+    private val globalConfig: UnifyCoachMarkGlobalConfig<KEY>
+) : CoachMarkScope<KEY> {
 
-    private val coachMarkItems = mutableMapOf<T, CoachMarkConfigInternal<T>>()
+    private val coachMarkItems = mutableMapOf<KEY, CoachMarkConfigInternal<KEY>>()
 
-    private var activeItems = listOf<CoachMarkConfigInternal<T>>()
+    private var activeItems = listOf<CoachMarkConfigInternal<KEY>>()
         set(value) {
             activeItem = value.getOrNull(activeItemIndex)
             field = value
@@ -31,11 +31,11 @@ internal class CoachMarkScopeImpl<T>(
             field = value
         }
 
-    var activeItem: CoachMarkConfigInternal<T>? by mutableStateOf(null)
+    var activeItem: CoachMarkConfigInternal<KEY>? by mutableStateOf(null)
 
     override fun Modifier.enableCoachMark(
-        key: T,
-        config: UnifyCoachMarkConfig<T>
+        key: KEY,
+        config: UnifyCoachMarkConfig<KEY>
     ): Modifier = composed {
         onGloballyPositioned {
             val coordinates = Offset(
@@ -49,7 +49,7 @@ internal class CoachMarkScopeImpl<T>(
         }
     }
 
-    override fun show(vararg keys: T) {
+    override fun show(vararg keys: KEY) {
         activeItems = keys.map {
             coachMarkItems[it] ?: throw NotImplementedError("definition for key=$it not found")
         }
