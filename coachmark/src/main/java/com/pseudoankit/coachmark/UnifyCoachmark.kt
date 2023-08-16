@@ -10,16 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
-import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
-import com.pseudoankit.coachmark.model.UnifyCoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.model.CoachMarkConfig
+import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
+import com.pseudoankit.coachmark.model.CoachMarkOverlayClickEvent
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.ui.CoachMarkImpl
 
 @Composable
-public fun <KEY> UnifyCoachmark(
-    globalCoachMarkConfig: UnifyCoachMarkGlobalConfig<KEY> = UnifyCoachMarkGlobalConfig(),
-    content: @Composable CoachMarkScope<KEY>.() -> Unit
+public fun UnifyCoachmark(
+    globalCoachMarkConfig: CoachMarkGlobalConfig = CoachMarkGlobalConfig(),
+    content: @Composable CoachMarkScope.() -> Unit
 ) {
     CoachMarkImpl(
         globalCoachMarkConfig = globalCoachMarkConfig,
@@ -34,14 +34,14 @@ private enum class Keys { First, Second }
 public fun UnifyCoachmarkDemo() {
     Box(modifier = Modifier.fillMaxSize()) {
 
-        UnifyCoachmark<Keys>(
-            globalCoachMarkConfig = UnifyCoachMarkGlobalConfig(
-                itemConfig = UnifyCoachMarkGlobalConfig.ItemConfig(
+        UnifyCoachmark(
+            globalCoachMarkConfig = CoachMarkGlobalConfig(
+                itemConfig = CoachMarkGlobalConfig.ItemConfig(
                     padding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                 ),
-                overlayConfig = UnifyCoachMarkGlobalConfig.OverlayConfig(
+                overlayConfig = CoachMarkGlobalConfig.OverlayConfig(
                     onOverlayClicked = {
-                        UnifyCoachMarkOverlayClickEvent.GoNext
+                        CoachMarkOverlayClickEvent.GoNext
                     }
                 )
             )
@@ -54,8 +54,8 @@ public fun UnifyCoachmarkDemo() {
                     modifier = Modifier
                         .enableCoachMark(
                             Keys.First,
-                            UnifyCoachMarkConfig(
-                                UnifyCoachMarkConfig.ItemConfig("demo1")
+                            CoachMarkConfig(
+                                CoachMarkConfig.ItemConfig("demo1")
                             )
                         )
                 ) {
@@ -68,8 +68,8 @@ public fun UnifyCoachmarkDemo() {
                     },
                     modifier = Modifier.enableCoachMark(
                         Keys.Second,
-                        UnifyCoachMarkConfig(
-                            UnifyCoachMarkConfig.ItemConfig("demo1")
+                        CoachMarkConfig(
+                            CoachMarkConfig.ItemConfig("demo1")
                         )
                     )
                 ) {

@@ -9,9 +9,9 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
-import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
-import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
+import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
 
 internal fun Float.toDp(density: Density) = with(density) { toDp() }
 
@@ -28,11 +28,11 @@ internal fun Modifier.clickable(
     )
 }
 
-internal fun <KEY> mapToInternalConfig(
-    globalConfig: UnifyCoachMarkGlobalConfig<KEY>,
-    config: UnifyCoachMarkConfig<KEY>,
+internal fun mapToInternalConfig(
+    globalConfig: CoachMarkGlobalConfig,
+    config: CoachMarkConfig,
     coordinate: Offset,
-    key: KEY
+    key: CoachMarkKey
 ) = CoachMarkConfigInternal(
     itemConfig = CoachMarkConfigInternal.ItemConfig(
         textColor = config.itemConfig.textColor ?: globalConfig.itemConfig.textColor,

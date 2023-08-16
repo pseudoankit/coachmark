@@ -5,13 +5,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import com.pseudoankit.coachmark.model.UnifyCoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.model.CoachMarkOverlayClickEvent
 
-public object UnifyCoachMarkDefaults {
+public object CoachMarkDefaults {
     public object Overlay {
         public val color: Color = Color.Black.copy(alpha = .75f)
-        public val clickEvent: UnifyCoachMarkOverlayClickEvent =
-            UnifyCoachMarkOverlayClickEvent.Dismiss
+        public val clickEvent: CoachMarkOverlayClickEvent =
+            CoachMarkOverlayClickEvent.Dismiss
     }
 
     public object Item {

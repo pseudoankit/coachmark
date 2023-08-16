@@ -8,19 +8,20 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
+import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
-import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
-import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
-import com.pseudoankit.coachmark.model.UnifyCoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
+import com.pseudoankit.coachmark.model.CoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.util.CoachMarkKey
 import com.pseudoankit.coachmark.util.mapToInternalConfig
 
-internal class CoachMarkScopeImpl<KEY>(
-    private val globalConfig: UnifyCoachMarkGlobalConfig<KEY>
-) : CoachMarkScope<KEY> {
+internal class CoachMarkScopeImpl(
+    private val globalConfig: CoachMarkGlobalConfig
+) : CoachMarkScope {
 
-    private val coachMarkItems = mutableMapOf<KEY, CoachMarkConfigInternal<KEY>>()
+    private val coachMarkItems = mutableMapOf<CoachMarkKey, CoachMarkConfigInternal>()
 
-    private var activeItems = listOf<CoachMarkConfigInternal<KEY>>()
+    private var activeItems = listOf<CoachMarkConfigInternal>()
         set(value) {
             activeItem = value.getOrNull(activeItemIndex)
             field = value
@@ -32,11 +33,11 @@ internal class CoachMarkScopeImpl<KEY>(
             field = value
         }
 
-    var activeItem: CoachMarkConfigInternal<KEY>? by mutableStateOf(null)
+    var activeItem: CoachMarkConfigInternal? by mutableStateOf(null)
 
     override fun Modifier.enableCoachMark(
-        key: KEY,
-        config: UnifyCoachMarkConfig<KEY>
+        key: CoachMarkKey,
+        config: CoachMarkConfig
     ): Modifier = composed {
         onGloballyPositioned {
             val coordinates = Offset(
@@ -44,15 +45,15 @@ internal class CoachMarkScopeImpl<KEY>(
                 y = it.positionInRoot().y + it.size.height
             )
 
-            coachMarkItems[key] = mapToInternalConfig(
+            coachMarkItems[key as Any] = mapToInternalConfig(
                 globalConfig, config, coordinates, key
             )
         }
     }
 
-    override fun show(vararg keys: KEY) {
+    override fun show(vararg keys: CoachMarkKey) {
         activeItems = keys.map {
-            coachMarkItems[it] ?: throw NotImplementedError("definition for key=$it not found")
+            coachMarkItems[it] ?: throw NotImplementedError("definition for Any=$it not found")
         }
         activeItemIndex = 0
     }
@@ -64,9 +65,9 @@ internal class CoachMarkScopeImpl<KEY>(
     fun onOverlayClicked() {
         val item = activeItem ?: return
         when (item.overlayConfig.onOverlayClicked(item.key)) {
-            UnifyCoachMarkOverlayClickEvent.GoNext -> activeItemIndex++
-            UnifyCoachMarkOverlayClickEvent.Dismiss -> hide()
-            UnifyCoachMarkOverlayClickEvent.None -> {}
+            CoachMarkOverlayClickEvent.GoNext -> activeItemIndex++
+            CoachMarkOverlayClickEvent.Dismiss -> hide()
+            CoachMarkOverlayClickEvent.None -> {}
         }
     }
 }

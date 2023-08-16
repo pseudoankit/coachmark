@@ -1,15 +1,16 @@
 package com.pseudoankit.coachmark.scope
 
 import androidx.compose.ui.Modifier
-import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
+import com.pseudoankit.coachmark.model.CoachMarkConfig
+import com.pseudoankit.coachmark.util.CoachMarkKey
 
-public interface CoachMarkScope<KEY> {
+public interface CoachMarkScope {
     public fun Modifier.enableCoachMark(
-        key: KEY,
-        config: UnifyCoachMarkConfig<KEY>
+        key: CoachMarkKey,
+        config: CoachMarkConfig
     ): Modifier
 
     public fun hide()
 
-    public fun show(vararg keys: KEY)
+    public fun show(vararg keys: CoachMarkKey)
 }
