@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.internal
+package com.pseudoankit.coachmark.util
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
@@ -9,6 +9,7 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
 import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
 import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
 

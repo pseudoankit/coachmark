@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark
+package com.pseudoankit.coachmark.scope
 
 import androidx.compose.ui.Modifier
 import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig

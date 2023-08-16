@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.internal
+package com.pseudoankit.coachmark.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,8 +10,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import com.pseudoankit.coachmark.CoachMarkScope
 import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
+import com.pseudoankit.coachmark.scope.CoachMarkScope
+import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
+import com.pseudoankit.coachmark.util.clickable
+import com.pseudoankit.coachmark.util.toDp
 
 @Composable
 internal fun <KEY> CoachMarkImpl(

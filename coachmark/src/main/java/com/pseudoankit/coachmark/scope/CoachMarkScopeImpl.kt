@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.internal
+package com.pseudoankit.coachmark.scope
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,10 +8,11 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
-import com.pseudoankit.coachmark.CoachMarkScope
+import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
 import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
 import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
 import com.pseudoankit.coachmark.model.UnifyCoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.util.mapToInternalConfig
 
 internal class CoachMarkScopeImpl<KEY>(
     private val globalConfig: UnifyCoachMarkGlobalConfig<KEY>

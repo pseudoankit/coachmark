@@ -10,10 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.pseudoankit.coachmark.internal.CoachMarkImpl
 import com.pseudoankit.coachmark.model.UnifyCoachMarkConfig
 import com.pseudoankit.coachmark.model.UnifyCoachMarkGlobalConfig
 import com.pseudoankit.coachmark.model.UnifyCoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.scope.CoachMarkScope
+import com.pseudoankit.coachmark.ui.CoachMarkImpl
 
 @Composable
 public fun <KEY> UnifyCoachmark(

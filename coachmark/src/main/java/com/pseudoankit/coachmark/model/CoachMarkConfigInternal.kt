@@ -1,9 +1,8 @@
-package com.pseudoankit.coachmark.internal
+package com.pseudoankit.coachmark.model
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import com.pseudoankit.coachmark.model.UnifyCoachMarkOverlayClickEvent
 
 internal data class CoachMarkConfigInternal<KEY>(
     val itemConfig: ItemConfig,
