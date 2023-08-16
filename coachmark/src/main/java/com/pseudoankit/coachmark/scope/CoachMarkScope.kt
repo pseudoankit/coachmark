@@ -6,7 +6,6 @@ import com.pseudoankit.coachmark.util.CoachMarkKey
 
 public interface CoachMarkScope {
     public fun Modifier.enableCoachMark(
-        key: CoachMarkKey,
         config: CoachMarkConfig
     ): Modifier
 

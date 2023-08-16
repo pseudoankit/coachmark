@@ -1,5 +1,6 @@
 package com.pseudoankit.coachmark.scope
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,7 +12,7 @@ import androidx.compose.ui.layout.positionInRoot
 import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
-import com.pseudoankit.coachmark.model.CoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.overlay.OverlayClickEvent
 import com.pseudoankit.coachmark.util.CoachMarkKey
 import com.pseudoankit.coachmark.util.mapToInternalConfig
 
@@ -19,24 +20,25 @@ internal class CoachMarkScopeImpl(
     private val globalConfig: CoachMarkGlobalConfig
 ) : CoachMarkScope {
 
+    var currentVisibleTooltip: CoachMarkConfigInternal? by mutableStateOf(null)
+
     private val coachMarkItems = mutableMapOf<CoachMarkKey, CoachMarkConfigInternal>()
 
-    private var activeItems = listOf<CoachMarkConfigInternal>()
+    private var visibleTooltips = listOf<CoachMarkConfigInternal>()
         set(value) {
-            activeItem = value.getOrNull(activeItemIndex)
+            visibleTooltipIndex = 0
+            currentVisibleTooltip = value.getOrNull(visibleTooltipIndex)
             field = value
         }
 
-    private var activeItemIndex = 0
+    private var visibleTooltipIndex = 0
         set(value) {
-            activeItem = activeItems.getOrNull(value)
+            currentVisibleTooltip = visibleTooltips.getOrNull(value)
             field = value
         }
 
-    var activeItem: CoachMarkConfigInternal? by mutableStateOf(null)
-
+    @SuppressLint("UnnecessaryComposedModifier")
     override fun Modifier.enableCoachMark(
-        key: CoachMarkKey,
         config: CoachMarkConfig
     ): Modifier = composed {
         onGloballyPositioned {
@@ -45,29 +47,31 @@ internal class CoachMarkScopeImpl(
                 y = it.positionInRoot().y + it.size.height
             )
 
-            coachMarkItems[key as Any] = mapToInternalConfig(
-                globalConfig, config, coordinates, key
+            coachMarkItems[config.key] = mapToInternalConfig(
+                globalConfig = globalConfig,
+                config = config,
+                layoutCoordinates = it,
             )
         }
     }
 
     override fun show(vararg keys: CoachMarkKey) {
-        activeItems = keys.map {
-            coachMarkItems[it] ?: throw NotImplementedError("definition for Any=$it not found")
+        visibleTooltips = keys.map { key ->
+            coachMarkItems[key]
+                ?: throw NotImplementedError("definition for key $key not found, please provide key by using [Modifier.enableCoachMark]")
         }
-        activeItemIndex = 0
     }
 
     override fun hide() {
-        activeItems = listOf()
+        visibleTooltips = listOf()
     }
 
     fun onOverlayClicked() {
-        val item = activeItem ?: return
-        when (item.overlayConfig.onOverlayClicked(item.key)) {
-            CoachMarkOverlayClickEvent.GoNext -> activeItemIndex++
-            CoachMarkOverlayClickEvent.Dismiss -> hide()
-            CoachMarkOverlayClickEvent.None -> {}
+        val item = currentVisibleTooltip ?: return
+        when (item.overlay.onClick(item.key)) {
+            OverlayClickEvent.GoNext -> visibleTooltipIndex++
+            OverlayClickEvent.Dismiss -> hide()
+            OverlayClickEvent.None -> {}
         }
     }
 }

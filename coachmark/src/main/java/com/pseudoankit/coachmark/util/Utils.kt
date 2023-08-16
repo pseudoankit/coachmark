@@ -7,6 +7,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import com.pseudoankit.coachmark.model.CoachMarkConfig
@@ -31,19 +33,20 @@ internal fun Modifier.clickable(
 internal fun mapToInternalConfig(
     globalConfig: CoachMarkGlobalConfig,
     config: CoachMarkConfig,
-    coordinate: Offset,
-    key: CoachMarkKey
+    layoutCoordinates: LayoutCoordinates,
 ) = CoachMarkConfigInternal(
-    itemConfig = CoachMarkConfigInternal.ItemConfig(
-        textColor = config.itemConfig.textColor ?: globalConfig.itemConfig.textColor,
-        modifier = config.itemConfig.modifier ?: globalConfig.itemConfig.modifier,
-        text = config.itemConfig.text
+    tooltip = CoachMarkConfigInternal.Tooltip(
+        textColor = config.tooltip.textColor ?: globalConfig.tooltip.textColor,
+        modifier = config.tooltip.modifier ?: globalConfig.tooltip.modifier,
+        text = config.tooltip.text,
+        coordinate = Offset(
+            x = layoutCoordinates.positionInRoot().x,
+            y = layoutCoordinates.positionInRoot().y + layoutCoordinates.size.height
+        )
     ),
-    overlayConfig = CoachMarkConfigInternal.OverlayConfig(
-        overlayColor = config.overlayConfig.overlayColor ?: globalConfig.overlayConfig.overlayColor,
-        onOverlayClicked = config.overlayConfig.onOverlayClicked
-            ?: globalConfig.overlayConfig.onOverlayClicked,
+    overlay = CoachMarkConfigInternal.Overlay(
+        color = config.overlay.color ?: globalConfig.overlay.color,
+        onClick = config.overlay.onClick ?: globalConfig.overlay.onClick,
     ),
-    coordinate = coordinate,
-    key = key
+    key = config.key
 )

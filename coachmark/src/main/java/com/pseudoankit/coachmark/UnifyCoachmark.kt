@@ -12,18 +12,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
-import com.pseudoankit.coachmark.model.CoachMarkOverlayClickEvent
+import com.pseudoankit.coachmark.overlay.OverlayClickEvent
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.ui.CoachMarkImpl
 
 @Composable
 public fun UnifyCoachmark(
-    globalCoachMarkConfig: CoachMarkGlobalConfig = CoachMarkGlobalConfig(),
+    config: CoachMarkGlobalConfig,
     content: @Composable CoachMarkScope.() -> Unit
 ) {
     CoachMarkImpl(
-        globalCoachMarkConfig = globalCoachMarkConfig,
-        content = content
+        content = content,
+        config = config
     )
 }
 
@@ -35,13 +35,13 @@ public fun UnifyCoachmarkDemo() {
     Box(modifier = Modifier.fillMaxSize()) {
 
         UnifyCoachmark(
-            globalCoachMarkConfig = CoachMarkGlobalConfig(
-                itemConfig = CoachMarkGlobalConfig.ItemConfig(
+            config = CoachMarkGlobalConfig(
+                tooltip = CoachMarkGlobalConfig.Tooltip(
                     padding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                 ),
-                overlayConfig = CoachMarkGlobalConfig.OverlayConfig(
-                    onOverlayClicked = {
-                        CoachMarkOverlayClickEvent.GoNext
+                overlay = CoachMarkGlobalConfig.Overlay(
+                    onClick = {
+                        OverlayClickEvent.GoNext
                     }
                 )
             )
@@ -53,27 +53,31 @@ public fun UnifyCoachmarkDemo() {
                     },
                     modifier = Modifier
                         .enableCoachMark(
-                            Keys.First,
                             CoachMarkConfig(
-                                CoachMarkConfig.ItemConfig("demo1")
+                                tooltip = CoachMarkConfig.Tooltip(
+                                    text = "demo1"
+                                ),
+                                key = Keys.First
                             )
                         )
                 ) {
-                    Text(text = "Click me")
+                    Text(text = "Click me 1")
                 }
 
                 Button(
                     onClick = {
-                        show(Keys.Second)
+                        show(Keys.Second, Keys.First)
                     },
                     modifier = Modifier.enableCoachMark(
-                        Keys.Second,
                         CoachMarkConfig(
-                            CoachMarkConfig.ItemConfig("demo1")
+                            tooltip = CoachMarkConfig.Tooltip(
+                                text = "demo2"
+                            ),
+                            key = Keys.Second
                         )
                     )
                 ) {
-                    Text(text = "Click me")
+                    Text(text = "Click me 2")
                 }
             }
         }

@@ -18,24 +18,26 @@ import com.pseudoankit.coachmark.util.toDp
 
 @Composable
 internal fun CoachMarkImpl(
-    globalCoachMarkConfig: CoachMarkGlobalConfig = CoachMarkGlobalConfig(),
+    config: CoachMarkGlobalConfig,
+    modifier: Modifier = Modifier,
     content: @Composable CoachMarkScope.() -> Unit
 ) {
-    val coachMark =
-        remember(globalCoachMarkConfig) { CoachMarkScopeImpl(globalCoachMarkConfig) }
-    val item = coachMark.activeItem
+    val coachMark = remember(config) {
+        CoachMarkScopeImpl(globalConfig = config)
+    }
+
+    val activeItem = coachMark.currentVisibleTooltip
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         content(coachMark)
 
-        if (item != null) {
+        if (activeItem != null) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(item.overlayConfig.overlayColor)
+                    .background(activeItem.overlay.color)
                     .clickable(
                         showRipple = false,
                         onClick = coachMark::onOverlayClicked
@@ -44,13 +46,13 @@ internal fun CoachMarkImpl(
                 Box(
                     modifier = Modifier
                         .offset(
-                            x = item.coordinate.x.toDp(LocalDensity.current),
-                            y = item.coordinate.y.toDp(LocalDensity.current),
+                            x = activeItem.tooltip.coordinate.x.toDp(LocalDensity.current),
+                            y = activeItem.tooltip.coordinate.y.toDp(LocalDensity.current),
                         )
-                        .then(item.itemConfig.modifier),
+                        .then(activeItem.tooltip.modifier),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(color = item.itemConfig.textColor, text = item.itemConfig.text)
+                    Text(color = activeItem.tooltip.textColor, text = activeItem.tooltip.text)
                 }
             }
         }
