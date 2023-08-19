@@ -6,7 +6,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.unit.Density
@@ -39,9 +38,11 @@ internal fun mapToInternalConfig(
         textColor = config.tooltip.textColor ?: globalConfig.tooltip.textColor,
         modifier = config.tooltip.modifier ?: globalConfig.tooltip.modifier,
         text = config.tooltip.text,
-        coordinate = Offset(
-            x = layoutCoordinates.positionInRoot().x,
-            y = layoutCoordinates.positionInRoot().y + layoutCoordinates.size.height
+        positionConifg = CoachMarkConfigInternal.PositionConifg(
+            startX = layoutCoordinates.positionInRoot().x,
+            startY = layoutCoordinates.positionInRoot().y,
+            width = layoutCoordinates.size.width,
+            height = layoutCoordinates.size.height
         )
     ),
     overlay = CoachMarkConfigInternal.Overlay(

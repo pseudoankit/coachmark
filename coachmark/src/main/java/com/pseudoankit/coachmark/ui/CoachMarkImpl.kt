@@ -46,8 +46,8 @@ internal fun CoachMarkImpl(
                 Box(
                     modifier = Modifier
                         .offset(
-                            x = activeItem.tooltip.coordinate.x.toDp(LocalDensity.current),
-                            y = activeItem.tooltip.coordinate.y.toDp(LocalDensity.current),
+                            x = activeItem.tooltip.positionConifg.startX.toDp(LocalDensity.current),
+                            y = activeItem.tooltip.positionConifg.startY.toDp(LocalDensity.current),
                         )
                         .then(activeItem.tooltip.modifier),
                     contentAlignment = Alignment.Center

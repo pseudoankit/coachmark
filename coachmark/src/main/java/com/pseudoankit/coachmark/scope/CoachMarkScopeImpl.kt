@@ -6,9 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInRoot
 import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
@@ -42,11 +40,6 @@ internal class CoachMarkScopeImpl(
         config: CoachMarkConfig
     ): Modifier = composed {
         onGloballyPositioned {
-            val coordinates = Offset(
-                x = it.positionInRoot().x,
-                y = it.positionInRoot().y + it.size.height
-            )
-
             coachMarkItems[config.key] = mapToInternalConfig(
                 globalConfig = globalConfig,
                 config = config,
