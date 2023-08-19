@@ -19,10 +19,10 @@ internal data class CoachMarkConfigInternal(
         val textColor: Color,
         val text: String,
         val modifier: Modifier,
-        val positionConifg: PositionConifg,
+        val position: Position,
     )
 
-    data class PositionConifg(
+    data class Position(
         val startX: Float,
         val startY: Float,
         val width: Int,

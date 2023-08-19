@@ -31,4 +31,9 @@ public interface Arrow {
         override val height: Dp = CoachMarkDefaults.Tooltip.Arrow.height,
         val alignment: Alignment.Vertical = Alignment.CenterVertically
     ) : Arrow
+
+    public data class Auto(
+        override val width: Dp = CoachMarkDefaults.Tooltip.Arrow.width,
+        override val height: Dp = CoachMarkDefaults.Tooltip.Arrow.height
+    ) : Arrow
 }

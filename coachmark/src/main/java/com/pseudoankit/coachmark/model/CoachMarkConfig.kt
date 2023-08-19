@@ -1,15 +1,12 @@
 package com.pseudoankit.coachmark.model
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import com.pseudoankit.coachmark.overlay.OverlayClickEvent
 import com.pseudoankit.coachmark.util.CoachMarkKey
+import com.pseudoankit.coachmark.util.createToolTipModifier
 
 public data class CoachMarkConfig(
     val tooltip: Tooltip,
@@ -36,11 +33,7 @@ public data class CoachMarkConfig(
             padding: PaddingValues,
         ) : this(
             textColor = textColor,
-            modifier = Modifier
-                .wrapContentSize()
-                .clip(shape)
-                .background(bgColor)
-                .padding(padding),
+            modifier = createToolTipModifier(bgColor, shape, padding),
             text = text
         )
     }

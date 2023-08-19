@@ -31,6 +31,7 @@ public fun Preview() {
             .padding(20.dp)
             .wrapContentSize()
             .graphicsLayer {
+                shadowElevation = 1f
                 shape = ArrowToolTipShape(Arrow.Top())
                 clip = true
             }
@@ -43,7 +44,7 @@ public fun Preview() {
 }
 
 public class ArrowToolTipShape(
-    private val arrow: Arrow,
+    internal val arrow: Arrow,
     private val cornerRadius: Dp = CoachMarkDefaults.Tooltip.cornerRadius,
 ) : Shape {
 
@@ -63,7 +64,7 @@ public class ArrowToolTipShape(
                     left = 0f,
                     right = size.width,
                     top = arrowHeight,
-                    bottom = (size.height + arrowHeight),
+                    bottom = size.height,
                     cornerRadius = CornerRadius(radius)
                 )
             )
