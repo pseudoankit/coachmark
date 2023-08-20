@@ -73,15 +73,4 @@ public sealed interface Arrow {
             lineTo(size.width - widthPx, size.height.div(2) + heightPx.div(2))
         }
     }
-
-    public data class Auto(
-        override val width: Dp = CoachMarkDefaults.Tooltip.Arrow.width,
-        override val height: Dp = CoachMarkDefaults.Tooltip.Arrow.height
-    ) : Arrow {
-        override fun draw(size: Size, density: Density): Path = buildPath {
-            TODO("WIP")
-            val widthPx = width.toPx(density)
-            val heightPx = height.toPx(density)
-        }
-    }
 }

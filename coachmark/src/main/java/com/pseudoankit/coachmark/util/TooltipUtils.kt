@@ -18,7 +18,6 @@ internal fun Modifier.toolTipContentPadding(shape: Shape): Modifier = run {
 }
 
 internal fun Arrow.leftPadding() = when (this) {
-    is Arrow.Auto -> 0.dp
     is Arrow.Bottom -> 0.dp
     is Arrow.End -> 0.dp
     is Arrow.Start -> width
@@ -26,7 +25,6 @@ internal fun Arrow.leftPadding() = when (this) {
 }
 
 internal fun Arrow.rightPadding() = when (this) {
-    is Arrow.Auto -> 0.dp
     is Arrow.Bottom -> 0.dp
     is Arrow.End -> width
     is Arrow.Start -> 0.dp
@@ -34,7 +32,6 @@ internal fun Arrow.rightPadding() = when (this) {
 }
 
 internal fun Arrow.bottomPadding() = when (this) {
-    is Arrow.Auto -> 0.dp
     is Arrow.Bottom -> height
     is Arrow.End -> 0.dp
     is Arrow.Start -> 0.dp
@@ -42,7 +39,6 @@ internal fun Arrow.bottomPadding() = when (this) {
 }
 
 internal fun Arrow.topPadding() = when (this) {
-    is Arrow.Auto -> 0.dp
     is Arrow.Bottom -> 0.dp
     is Arrow.End -> 0.dp
     is Arrow.Start -> 0.dp

@@ -25,7 +25,7 @@ public data class CoachMarkGlobalConfig(
     ) {
 
         public constructor(
-            shape: Shape = CoachMarkDefaults.Tooltip.shape,
+            shape: Shape,
             textColor: Color = CoachMarkDefaults.Tooltip.textColor,
             bgColor: Color = CoachMarkDefaults.Tooltip.bgColor,
             padding: PaddingValues = CoachMarkDefaults.Tooltip.padding
