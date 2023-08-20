@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
 import com.pseudoankit.coachmark.scope.CoachMarkScope
@@ -55,8 +54,7 @@ internal fun CoachMarkImpl(
                 ) {
                     Text(
                         color = activeItem.tooltip.textColor,
-                        text = activeItem.tooltip.text,
-                        modifier = Modifier.background(Color.Yellow)
+                        text = activeItem.tooltip.text
                     )
                 }
             }
