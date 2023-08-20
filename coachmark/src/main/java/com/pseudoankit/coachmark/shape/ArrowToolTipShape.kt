@@ -12,7 +12,6 @@ import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,7 +20,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.util.CoachMarkDefaults
+import com.pseudoankit.coachmark.util.bottomPadding
+import com.pseudoankit.coachmark.util.buildPath
+import com.pseudoankit.coachmark.util.leftPadding
+import com.pseudoankit.coachmark.util.rightPadding
 import com.pseudoankit.coachmark.util.toPx
+import com.pseudoankit.coachmark.util.topPadding
 
 @Preview
 @Composable
@@ -54,29 +58,21 @@ public class ArrowToolTipShape(
         density: Density
     ): Outline {
         val radius = cornerRadius.toPx(density)
-        val arrowWidth = arrow.width.toPx(density)
-        val arrowHeight = arrow.height.toPx(density)
 
-        return Outline.Generic(Path().apply {
+        return Outline.Generic(buildPath {
 
             addRoundRect(
                 RoundRect(
-                    left = 0f,
-                    right = size.width,
-                    top = arrowHeight,
-                    bottom = size.height,
+                    left = arrow.leftPadding().toPx(density),
+                    right = size.width - arrow.rightPadding().toPx(density),
+                    top = arrow.topPadding().toPx(density),
+                    bottom = size.height - arrow.bottomPadding().toPx(density),
                     cornerRadius = CornerRadius(radius)
                 )
             )
 
-            addPath(Path().apply {
-                moveTo(size.width.div(2) - arrowWidth.div(2), arrowHeight)
-                lineTo(size.width.div(2), 0f)
-                lineTo(size.width.div(2) + arrowWidth.div(2), arrowHeight)
-                close()
-            })
+            addPath(arrow.draw(size, density))
 
-            close()
         })
     }
 }

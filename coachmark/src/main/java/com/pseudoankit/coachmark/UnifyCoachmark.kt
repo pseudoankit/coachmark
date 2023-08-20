@@ -14,6 +14,8 @@ import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
 import com.pseudoankit.coachmark.overlay.OverlayClickEvent
 import com.pseudoankit.coachmark.scope.CoachMarkScope
+import com.pseudoankit.coachmark.shape.Arrow
+import com.pseudoankit.coachmark.shape.ArrowToolTipShape
 import com.pseudoankit.coachmark.ui.CoachMarkImpl
 
 @Composable
@@ -37,7 +39,8 @@ public fun UnifyCoachmarkDemo() {
         UnifyCoachmark(
             config = CoachMarkGlobalConfig(
                 tooltip = CoachMarkGlobalConfig.Tooltip(
-                    padding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                    padding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                    shape = ArrowToolTipShape(Arrow.End(18.dp, 10.dp))
                 ),
                 overlay = CoachMarkGlobalConfig.Overlay(
                     onClick = {
