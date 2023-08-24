@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 
+internal fun Int.toDp(density: Density) = toFloat().toDp(density)
+
 internal fun Float.toDp(density: Density) = with(density) { toDp() }
 
 internal fun Dp.toPx(density: Density) = with(density) { toPx() }

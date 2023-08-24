@@ -16,7 +16,7 @@ public object CoachMarkDefaults {
         public val textColor: Color = Color.White
         public val bgColor: Color = Color(0xFFA4A4EB)
         public val cornerRadius: Dp = 12.dp
-        public val padding: PaddingValues = PaddingValues()
+        public val padding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 6.dp)
 
         public object Arrow {
             public val height: Dp = 15.dp

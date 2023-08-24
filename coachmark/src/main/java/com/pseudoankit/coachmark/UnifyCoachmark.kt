@@ -2,7 +2,6 @@ package com.pseudoankit.coachmark
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -12,11 +11,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
+import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.overlay.OverlayClickEvent
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.shape.Arrow
 import com.pseudoankit.coachmark.shape.ArrowToolTipShape
 import com.pseudoankit.coachmark.ui.CoachMarkImpl
+import com.pseudoankit.coachmark.util.CoachMarkDefaults
 
 @Composable
 public fun UnifyCoachmark(
@@ -38,10 +39,7 @@ public fun UnifyCoachmarkDemo() {
 
         UnifyCoachmark(
             config = CoachMarkGlobalConfig(
-                tooltip = CoachMarkGlobalConfig.Tooltip(
-                    padding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-                    shape = ArrowToolTipShape(Arrow.End(18.dp, 10.dp))
-                ),
+                tooltip = CoachMarkGlobalConfig.Tooltip(),
                 overlay = CoachMarkGlobalConfig.Overlay(
                     onClick = {
                         OverlayClickEvent.GoNext
@@ -58,7 +56,12 @@ public fun UnifyCoachmarkDemo() {
                         .enableCoachMark(
                             CoachMarkConfig(
                                 tooltip = CoachMarkConfig.Tooltip(
-                                    text = "demo1"
+                                    text = "demo1",
+                                    placement = ToolTipPlacement.End,
+                                    shape = ArrowToolTipShape(Arrow.Start(16.dp, 12.dp)),
+                                    textColor = CoachMarkDefaults.Tooltip.textColor,
+                                    bgColor = CoachMarkDefaults.Tooltip.bgColor,
+                                    padding = CoachMarkDefaults.Tooltip.padding
                                 ),
                                 key = Keys.First
                             )
@@ -74,7 +77,12 @@ public fun UnifyCoachmarkDemo() {
                     modifier = Modifier.enableCoachMark(
                         CoachMarkConfig(
                             tooltip = CoachMarkConfig.Tooltip(
-                                text = "demo2"
+                                text = "demo2",
+                                placement = ToolTipPlacement.End,
+                                shape = ArrowToolTipShape(Arrow.Start(16.dp, 12.dp)),
+                                textColor = CoachMarkDefaults.Tooltip.textColor,
+                                bgColor = CoachMarkDefaults.Tooltip.bgColor,
+                                padding = CoachMarkDefaults.Tooltip.padding
                             ),
                             key = Keys.Second
                         )

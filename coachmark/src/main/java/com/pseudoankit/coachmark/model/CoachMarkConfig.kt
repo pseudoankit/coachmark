@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import com.pseudoankit.coachmark.overlay.OverlayClickEvent
+import com.pseudoankit.coachmark.util.CoachMarkDefaults
 import com.pseudoankit.coachmark.util.CoachMarkKey
 import com.pseudoankit.coachmark.util.createToolTipModifier
 
@@ -22,7 +23,8 @@ public data class CoachMarkConfig(
     public data class Tooltip(
         val text: String,
         val textColor: Color? = null,
-        val modifier: Modifier? = null
+        val modifier: Modifier? = null,
+        val placement: ToolTipPlacement
     ) {
 
         public constructor(
@@ -30,11 +32,13 @@ public data class CoachMarkConfig(
             textColor: Color,
             bgColor: Color,
             shape: Shape,
-            padding: PaddingValues,
+            padding: PaddingValues = CoachMarkDefaults.Tooltip.padding,
+            placement: ToolTipPlacement
         ) : this(
             textColor = textColor,
             modifier = createToolTipModifier(bgColor, shape, padding),
-            text = text
+            text = text,
+            placement = placement
         )
     }
 }

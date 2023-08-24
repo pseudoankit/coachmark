@@ -38,12 +38,11 @@ internal fun mapToInternalConfig(
         textColor = config.tooltip.textColor ?: globalConfig.tooltip.textColor,
         modifier = config.tooltip.modifier ?: globalConfig.tooltip.modifier,
         text = config.tooltip.text,
-        position = CoachMarkConfigInternal.Position(
-            startX = layoutCoordinates.positionInRoot().x,
-            startY = layoutCoordinates.positionInRoot().y,
-            width = layoutCoordinates.size.width,
-            height = layoutCoordinates.size.height
-        )
+        startX = layoutCoordinates.positionInRoot().x,
+        startY = layoutCoordinates.positionInRoot().y,
+        placement = config.tooltip.placement,
+        width = layoutCoordinates.size.width,
+        height = layoutCoordinates.size.height
     ),
     overlay = CoachMarkConfigInternal.Overlay(
         color = config.overlay.color ?: globalConfig.overlay.color,

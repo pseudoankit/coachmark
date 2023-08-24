@@ -21,7 +21,7 @@ public data class CoachMarkGlobalConfig(
 
     public data class Tooltip(
         val textColor: Color = CoachMarkDefaults.Tooltip.textColor,
-        val modifier: Modifier
+        val modifier: Modifier = Modifier
     ) {
 
         public constructor(

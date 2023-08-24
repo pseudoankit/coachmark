@@ -19,14 +19,11 @@ internal data class CoachMarkConfigInternal(
         val textColor: Color,
         val text: String,
         val modifier: Modifier,
-        val position: Position,
-    )
-
-    data class Position(
+        val width: Int,
+        val height: Int,
+        val placement: ToolTipPlacement,
         val startX: Float,
         val startY: Float,
-        val width: Int,
-        val height: Int
     ) {
         val endX: Float = startX + width
         val endY: Float = startY + height
