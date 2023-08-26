@@ -1,11 +1,9 @@
 package com.pseudoankit.coachmark.internal
 
-import android.annotation.SuppressLint
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.layout.onGloballyPositioned
 import com.pseudoankit.coachmark.CoachMarkKey
 import com.pseudoankit.coachmark.CoachMarkScope
@@ -35,17 +33,14 @@ internal class CoachMarkScopeImpl(
             field = value
         }
 
-    @SuppressLint("UnnecessaryComposedModifier")
     override fun Modifier.enableCoachMark(
         config: CoachMarkConfig
-    ): Modifier = composed {
-        onGloballyPositioned {
-            coachMarkItems[config.key] = mapToInternalConfig(
-                globalConfig = globalConfig,
-                config = config,
-                layoutCoordinates = it,
-            )
-        }
+    ): Modifier = onGloballyPositioned {
+        coachMarkItems[config.key] = mapToInternalConfig(
+            globalConfig = globalConfig,
+            config = config,
+            layoutCoordinates = it,
+        )
     }
 
     override fun show(vararg keys: CoachMarkKey) {
