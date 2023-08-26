@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.scope
+package com.pseudoankit.coachmark.internal
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.getValue
@@ -7,12 +7,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.layout.onGloballyPositioned
+import com.pseudoankit.coachmark.CoachMarkKey
+import com.pseudoankit.coachmark.CoachMarkScope
+import com.pseudoankit.coachmark.internal.util.mapToInternalConfig
 import com.pseudoankit.coachmark.model.CoachMarkConfig
-import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
-import com.pseudoankit.coachmark.overlay.OverlayClickEvent
-import com.pseudoankit.coachmark.util.CoachMarkKey
-import com.pseudoankit.coachmark.util.mapToInternalConfig
+import com.pseudoankit.coachmark.model.OverlayClickEvent
 
 internal class CoachMarkScopeImpl(
     private val globalConfig: CoachMarkGlobalConfig

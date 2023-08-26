@@ -4,10 +4,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import com.pseudoankit.coachmark.overlay.OverlayClickEvent
-import com.pseudoankit.coachmark.util.CoachMarkDefaults
-import com.pseudoankit.coachmark.util.CoachMarkKey
-import com.pseudoankit.coachmark.util.createToolTipModifier
+import com.pseudoankit.coachmark.CoachMarkDefaults
+import com.pseudoankit.coachmark.CoachMarkKey
+import com.pseudoankit.coachmark.internal.util.createToolTipModifier
 
 public data class CoachMarkConfig(
     val tooltip: Tooltip,

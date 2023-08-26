@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.util
+package com.pseudoankit.coachmark.internal.util
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier

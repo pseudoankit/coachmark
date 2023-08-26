@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.overlay
+package com.pseudoankit.coachmark.model
 
 public enum class OverlayClickEvent {
     GoNext, Dismiss, None

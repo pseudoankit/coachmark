@@ -1,8 +1,7 @@
-package com.pseudoankit.coachmark.scope
+package com.pseudoankit.coachmark
 
 import androidx.compose.ui.Modifier
 import com.pseudoankit.coachmark.model.CoachMarkConfig
-import com.pseudoankit.coachmark.util.CoachMarkKey
 
 public interface CoachMarkScope {
     public fun Modifier.enableCoachMark(

@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.ui
+package com.pseudoankit.coachmark.internal.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -6,9 +6,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.pseudoankit.coachmark.CoachMarkScope
+import com.pseudoankit.coachmark.internal.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
-import com.pseudoankit.coachmark.scope.CoachMarkScope
-import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
 
 @Composable
 internal fun CoachMarkImpl(

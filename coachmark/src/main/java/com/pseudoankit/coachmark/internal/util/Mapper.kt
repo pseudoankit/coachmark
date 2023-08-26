@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.util
+package com.pseudoankit.coachmark.internal.util
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInRoot
+import com.pseudoankit.coachmark.internal.CoachMarkConfigInternal
 import com.pseudoankit.coachmark.model.CoachMarkConfig
-import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
 import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
 
 @SuppressLint("ModifierFactoryExtensionFunction")

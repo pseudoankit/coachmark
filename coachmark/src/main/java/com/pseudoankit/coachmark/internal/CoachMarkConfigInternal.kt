@@ -1,9 +1,10 @@
-package com.pseudoankit.coachmark.model
+package com.pseudoankit.coachmark.internal
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.pseudoankit.coachmark.overlay.OverlayClickEvent
-import com.pseudoankit.coachmark.util.CoachMarkKey
+import com.pseudoankit.coachmark.CoachMarkKey
+import com.pseudoankit.coachmark.model.OverlayClickEvent
+import com.pseudoankit.coachmark.model.ToolTipPlacement
 
 internal data class CoachMarkConfigInternal(
     val tooltip: Tooltip,

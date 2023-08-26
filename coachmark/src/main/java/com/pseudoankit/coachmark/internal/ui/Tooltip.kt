@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.ui
+package com.pseudoankit.coachmark.internal.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -8,9 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
-import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
+import com.pseudoankit.coachmark.internal.CoachMarkConfigInternal
+import com.pseudoankit.coachmark.internal.util.toDp
 import com.pseudoankit.coachmark.model.ToolTipPlacement
-import com.pseudoankit.coachmark.util.toDp
 
 @Composable
 internal fun Tooltip(

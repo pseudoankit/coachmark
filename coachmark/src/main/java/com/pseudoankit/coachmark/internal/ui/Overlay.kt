@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.ui
+package com.pseudoankit.coachmark.internal.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.pseudoankit.coachmark.model.CoachMarkConfigInternal
-import com.pseudoankit.coachmark.util.clickable
+import com.pseudoankit.coachmark.internal.CoachMarkConfigInternal
+import com.pseudoankit.coachmark.internal.util.clickable
 
 @Composable
 internal fun Overlay(

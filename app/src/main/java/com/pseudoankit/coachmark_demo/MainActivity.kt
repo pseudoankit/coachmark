@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.pseudoankit.coachmark.UnifyCoachmarkDemo
+import com.pseudoankit.coachmark.demo.UnifyCoachmarkDemo
 import com.pseudoankit.coachmark_demo.ui.theme.CoachmarkTheme
 
 class MainActivity : ComponentActivity() {

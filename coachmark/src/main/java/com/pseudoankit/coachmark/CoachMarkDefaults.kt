@@ -1,10 +1,10 @@
-package com.pseudoankit.coachmark.util
+package com.pseudoankit.coachmark
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.pseudoankit.coachmark.overlay.OverlayClickEvent
+import com.pseudoankit.coachmark.model.OverlayClickEvent
 
 public object CoachMarkDefaults {
     public object Overlay {
