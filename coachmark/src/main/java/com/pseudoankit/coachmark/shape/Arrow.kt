@@ -5,6 +5,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.CoachMarkDefaults
 import com.pseudoankit.coachmark.internal.util.buildPath
 import com.pseudoankit.coachmark.internal.util.toPx
@@ -12,28 +13,47 @@ import com.pseudoankit.coachmark.internal.util.toPx
 public sealed interface Arrow {
     public val width: Dp
     public val height: Dp
+
+    public val startPadding: Dp
+    public val endPadding: Dp
+    public val topPadding: Dp
+    public val bottomPadding: Dp
+
     public fun draw(size: Size, density: Density): Path
 
+
     public data class Top(
-        override val width: Dp = CoachMarkDefaults.Tooltip.Arrow.width,
-        override val height: Dp = CoachMarkDefaults.Tooltip.Arrow.height,
-        val alignment: Alignment.Horizontal = Alignment.CenterHorizontally
+        override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
+        override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
+        val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
     ) : Arrow {
+
+        override val topPadding: Dp = height
+        override val startPadding: Dp = 0.dp
+        override val endPadding: Dp = 0.dp
+        override val bottomPadding: Dp = 0.dp
+
         override fun draw(size: Size, density: Density): Path = buildPath {
             val widthPx = width.toPx(density)
             val heightPx = height.toPx(density)
 
-            moveTo(size.width.div(2) - widthPx.div(2), heightPx)
-            lineTo(size.width.div(2), 0f)
-            lineTo(size.width.div(2) + widthPx.div(2), heightPx)
+            moveTo(size.width.times(bias) - widthPx.div(2), heightPx)
+            lineTo(size.width.times(bias), 0f)
+            lineTo(size.width.times(bias) + widthPx.div(2), heightPx)
         }
     }
 
     public data class Bottom(
-        override val width: Dp = CoachMarkDefaults.Tooltip.Arrow.width,
-        override val height: Dp = CoachMarkDefaults.Tooltip.Arrow.height,
+        override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
+        override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
         val alignment: Alignment.Horizontal = Alignment.CenterHorizontally
     ) : Arrow {
+
+        override val bottomPadding: Dp = height
+        override val topPadding: Dp = 0.dp
+        override val startPadding: Dp = 0.dp
+        override val endPadding: Dp = 0.dp
+
         override fun draw(size: Size, density: Density): Path = buildPath {
             val widthPx = width.toPx(density)
             val heightPx = height.toPx(density)
@@ -45,10 +65,16 @@ public sealed interface Arrow {
     }
 
     public data class Start(
-        override val width: Dp = CoachMarkDefaults.Tooltip.Arrow.width,
-        override val height: Dp = CoachMarkDefaults.Tooltip.Arrow.height,
+        override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
+        override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
         val alignment: Alignment.Vertical = Alignment.CenterVertically
     ) : Arrow {
+
+        override val startPadding: Dp = width
+        override val topPadding: Dp = 0.dp
+        override val endPadding: Dp = 0.dp
+        override val bottomPadding: Dp = 0.dp
+
         override fun draw(size: Size, density: Density): Path = buildPath {
             val widthPx = width.toPx(density)
             val heightPx = height.toPx(density)
@@ -60,10 +86,16 @@ public sealed interface Arrow {
     }
 
     public data class End(
-        override val width: Dp = CoachMarkDefaults.Tooltip.Arrow.width,
-        override val height: Dp = CoachMarkDefaults.Tooltip.Arrow.height,
+        override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
+        override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
         val alignment: Alignment.Vertical = Alignment.CenterVertically
     ) : Arrow {
+
+        override val endPadding: Dp = width
+        override val topPadding: Dp = 0.dp
+        override val startPadding: Dp = 0.dp
+        override val bottomPadding: Dp = 0.dp
+
         override fun draw(size: Size, density: Density): Path = buildPath {
             val widthPx = width.toPx(density)
             val heightPx = height.toPx(density)

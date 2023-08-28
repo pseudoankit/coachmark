@@ -26,7 +26,7 @@ private enum class Keys { Start, End, Top, Bottom }
 @Preview
 @Composable
 public fun UnifyCoachmarkDemo() {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier) {
 
         UnifyCoachmark(
             config = CoachMarkGlobalConfig(
@@ -54,7 +54,17 @@ public fun UnifyCoachmarkDemo() {
                                     tooltip = CoachMarkConfig.Tooltip(
                                         text = it.name,
                                         placement = it,
-                                        shape = ArrowToolTipShape(Arrow.Start(16.dp, 12.dp)),
+                                        shape = ArrowToolTipShape(
+                                            when (it) {
+                                                ToolTipPlacement.Start -> Arrow.Start(16.dp, 12.dp)
+                                                ToolTipPlacement.End -> Arrow.End(16.dp, 12.dp)
+                                                ToolTipPlacement.Top -> Arrow.Top(16.dp, 12.dp)
+                                                ToolTipPlacement.Bottom -> Arrow.Bottom(
+                                                    16.dp,
+                                                    12.dp
+                                                )
+                                            }
+                                        ),
                                         textColor = CoachMarkDefaults.Tooltip.textColor,
                                         bgColor = CoachMarkDefaults.Tooltip.bgColor,
                                         padding = CoachMarkDefaults.Tooltip.padding
