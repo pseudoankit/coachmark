@@ -1,6 +1,5 @@
 package com.pseudoankit.coachmark.shape
 
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.Density
@@ -46,7 +45,7 @@ public sealed interface Arrow {
     public data class Bottom(
         override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
         override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
-        val alignment: Alignment.Horizontal = Alignment.CenterHorizontally
+        val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
     ) : Arrow {
 
         override val bottomPadding: Dp = height
@@ -58,16 +57,16 @@ public sealed interface Arrow {
             val widthPx = width.toPx(density)
             val heightPx = height.toPx(density)
 
-            moveTo(size.width.div(2) - widthPx.div(2), size.height - heightPx)
-            lineTo(size.width.div(2), size.height)
-            lineTo(size.width.div(2) + widthPx.div(2), size.height - heightPx)
+            moveTo(size.width.times(bias) - widthPx.div(2), size.height - heightPx)
+            lineTo(size.width.times(bias), size.height)
+            lineTo(size.width.times(bias) + widthPx.div(2), size.height - heightPx)
         }
     }
 
     public data class Start(
         override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
         override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
-        val alignment: Alignment.Vertical = Alignment.CenterVertically
+        val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
     ) : Arrow {
 
         override val startPadding: Dp = width
@@ -79,16 +78,16 @@ public sealed interface Arrow {
             val widthPx = width.toPx(density)
             val heightPx = height.toPx(density)
 
-            moveTo(widthPx, size.height.div(2) - heightPx.div(2))
-            lineTo(0f, size.height.div(2))
-            lineTo(widthPx, size.height.div(2) + heightPx.div(2))
+            moveTo(widthPx, size.height.times(bias) - heightPx.div(2))
+            lineTo(0f, size.height.times(bias))
+            lineTo(widthPx, size.height.times(bias) + heightPx.div(2))
         }
     }
 
     public data class End(
         override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
         override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
-        val alignment: Alignment.Vertical = Alignment.CenterVertically
+        val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
     ) : Arrow {
 
         override val endPadding: Dp = width
@@ -100,9 +99,9 @@ public sealed interface Arrow {
             val widthPx = width.toPx(density)
             val heightPx = height.toPx(density)
 
-            moveTo(size.width - widthPx, size.height.div(2) - heightPx.div(2))
-            lineTo(size.width, size.height.div(2))
-            lineTo(size.width - widthPx, size.height.div(2) + heightPx.div(2))
+            moveTo(size.width - widthPx, size.height.times(bias) - heightPx.div(2))
+            lineTo(size.width, size.height.times(bias))
+            lineTo(size.width - widthPx, size.height.times(bias) + heightPx.div(2))
         }
     }
 }
