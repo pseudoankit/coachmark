@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark.internal.util
+package com.pseudoankit.coachmark.util
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable

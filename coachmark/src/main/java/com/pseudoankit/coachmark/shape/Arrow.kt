@@ -5,9 +5,9 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.pseudoankit.coachmark.CoachMarkDefaults
-import com.pseudoankit.coachmark.internal.util.buildPath
-import com.pseudoankit.coachmark.internal.util.toPx
+import com.pseudoankit.coachmark.util.CoachMarkDefaults
+import com.pseudoankit.coachmark.util.buildPath
+import com.pseudoankit.coachmark.util.toPx
 
 public sealed interface Arrow {
     public val width: Dp

@@ -1,29 +1,22 @@
 package com.pseudoankit.coachmark.shape
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.GenericShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import com.pseudoankit.coachmark.CoachMarkDefaults
-import com.pseudoankit.coachmark.internal.util.toPx
+import com.pseudoankit.coachmark.util.CoachMarkDefaults
+import com.pseudoankit.coachmark.util.toPx
 
 @Composable
 public fun Balloon(
@@ -76,25 +69,3 @@ private fun balloonShape(
     addPath(arrow.draw(size, density))
 }
 
-@Preview
-@Composable
-public fun BalloonPreview() {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Balloon(arrow = Arrow.Start()) {
-            Text(text = "Start")
-        }
-        Balloon(arrow = Arrow.End()) {
-            Text(text = "End")
-        }
-        Balloon(arrow = Arrow.Top()) {
-            Text(text = "Top")
-        }
-        Balloon(arrow = Arrow.Bottom()) {
-            Text(text = "Bottom")
-        }
-    }
-}

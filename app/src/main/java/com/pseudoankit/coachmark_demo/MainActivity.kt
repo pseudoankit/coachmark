@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
-import com.pseudoankit.coachmark.shape.BalloonPreview
 import com.pseudoankit.coachmark_demo.ui.theme.CoachmarkTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,8 +18,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                 ) {
 //                    UnifyCoachmarkDemo()
-
-                    BalloonPreview()
                 }
             }
         }

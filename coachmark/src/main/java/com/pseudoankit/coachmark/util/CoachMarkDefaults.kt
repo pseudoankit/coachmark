@@ -1,4 +1,4 @@
-package com.pseudoankit.coachmark
+package com.pseudoankit.coachmark.util
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.graphics.Color

@@ -1,43 +1,34 @@
 package com.pseudoankit.coachmark.model
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import com.pseudoankit.coachmark.CoachMarkDefaults
-import com.pseudoankit.coachmark.CoachMarkKey
-import com.pseudoankit.coachmark.internal.util.createToolTipModifier
+import com.pseudoankit.coachmark.util.CoachMarkKey
 
-public data class CoachMarkConfig(
+internal data class CoachMarkConfig(
     val tooltip: Tooltip,
-    val overlay: Overlay = Overlay(),
-    val key: CoachMarkKey
+    val overlay: Overlay,
+    val key: CoachMarkKey,
+    val focusedView: FocusedView
 ) {
-
-    public data class Overlay(
-        val color: Color? = null,
-        val onClick: ((key: CoachMarkKey) -> OverlayClickEvent)? = null,
+    data class Overlay(
+        val color: Color,
+        val onClick: (key: CoachMarkKey) -> OverlayClickEvent
     )
 
-    public data class Tooltip(
-        val text: String,
-        val textColor: Color? = null,
-        val modifier: Modifier? = null,
-        val placement: ToolTipPlacement
+    data class FocusedView(
+        val width: Int,
+        val height: Int,
+        val startX: Float,
+        val startY: Float,
     ) {
-
-        public constructor(
-            text: String,
-            textColor: Color,
-            bgColor: Color,
-            shape: Shape,
-            padding: PaddingValues = CoachMarkDefaults.Tooltip.padding,
-            placement: ToolTipPlacement
-        ) : this(
-            textColor = textColor,
-            modifier = createToolTipModifier(bgColor, shape, padding),
-            text = text,
-            placement = placement
-        )
+        val endX: Float = startX + width
+        val endY: Float = startY + height
     }
+
+    data class Tooltip(
+        val textColor: Color,
+        val text: String,
+        val modifier: Modifier,
+        val placement: ToolTipPlacement,
+    )
 }

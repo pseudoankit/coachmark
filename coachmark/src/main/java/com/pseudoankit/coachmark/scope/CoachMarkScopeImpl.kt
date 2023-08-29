@@ -1,26 +1,21 @@
-package com.pseudoankit.coachmark.internal
+package com.pseudoankit.coachmark.scope
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onGloballyPositioned
-import com.pseudoankit.coachmark.CoachMarkKey
-import com.pseudoankit.coachmark.CoachMarkScope
-import com.pseudoankit.coachmark.internal.util.mapToInternalConfig
 import com.pseudoankit.coachmark.model.CoachMarkConfig
-import com.pseudoankit.coachmark.model.CoachMarkGlobalConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
+import com.pseudoankit.coachmark.util.CoachMarkKey
 
 internal class CoachMarkScopeImpl(
-    private val globalConfig: CoachMarkGlobalConfig
+//    private val globalConfig: CoachMarkGlobalConfig
 ) : CoachMarkScope {
 
-    var currentVisibleTooltip: CoachMarkConfigInternal? by mutableStateOf(null)
+    var currentVisibleTooltip: CoachMarkConfig? by mutableStateOf(null)
 
-    private val coachMarkItems = mutableMapOf<CoachMarkKey, CoachMarkConfigInternal>()
+    private val coachMarkItems = mutableMapOf<CoachMarkKey, CoachMarkConfig>()
 
-    private var visibleTooltips = listOf<CoachMarkConfigInternal>()
+    private var visibleTooltips = listOf<CoachMarkConfig>()
         set(value) {
             visibleTooltipIndex = 0
             currentVisibleTooltip = value.getOrNull(visibleTooltipIndex)
@@ -33,15 +28,15 @@ internal class CoachMarkScopeImpl(
             field = value
         }
 
-    override fun Modifier.enableCoachMark(
-        config: CoachMarkConfig
-    ): Modifier = onGloballyPositioned {
-        coachMarkItems[config.key] = mapToInternalConfig(
-            globalConfig = globalConfig,
-            config = config,
-            layoutCoordinates = it,
-        )
-    }
+//    override fun Modifier.enableCoachMark(
+//        config: CoachMarkConfig
+//    ): Modifier = onGloballyPositioned {
+//        coachMarkItems[config.key] = mapToInternalConfig(
+//            globalConfig = globalConfig,
+//            config = config,
+//            layoutCoordinates = it,
+//        )
+//    }
 
     override fun show(vararg keys: CoachMarkKey) {
         visibleTooltips = keys.map { key ->
