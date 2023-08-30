@@ -21,7 +21,8 @@ import com.pseudoankit.coachmark.util.toPx
 @Composable
 public fun Balloon(
     arrow: Arrow,
-    modifier: Modifier = Modifier.padding(CoachMarkDefaults.Balloon.padding),
+    modifier: Modifier = Modifier,
+    padding: PaddingValues = CoachMarkDefaults.Balloon.padding,
     cornerRadius: Dp = CoachMarkDefaults.Balloon.cornerRadius,
     shadowElevation: Dp = CoachMarkDefaults.Balloon.shadowElevation,
     bgColor: Color = CoachMarkDefaults.Balloon.bgColor,
@@ -43,6 +44,7 @@ public fun Balloon(
                 top = arrow.topPadding,
                 bottom = arrow.bottomPadding
             )
+            .padding(padding)
             .then(modifier),
         content = content
     )
