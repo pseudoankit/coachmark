@@ -3,12 +3,16 @@ package com.pseudoankit.coachmark.scope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
+import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.util.CoachMarkKey
 
 internal class CoachMarkScopeImpl(
-//    private val globalConfig: CoachMarkGlobalConfig
+    internal val onOverlayClicked: (CoachMarkKey) -> OverlayClickEvent
 ) : CoachMarkScope {
 
     var currentVisibleTooltip: CoachMarkConfig? by mutableStateOf(null)
@@ -28,15 +32,21 @@ internal class CoachMarkScopeImpl(
             field = value
         }
 
-//    override fun Modifier.enableCoachMark(
-//        config: CoachMarkConfig
-//    ): Modifier = onGloballyPositioned {
-//        coachMarkItems[config.key] = mapToInternalConfig(
-//            globalConfig = globalConfig,
-//            config = config,
-//            layoutCoordinates = it,
-//        )
-//    }
+    override fun Modifier.enableCoachMark(
+        key: CoachMarkKey,
+        toolTipPlacement: ToolTipPlacement
+    ): Modifier = onGloballyPositioned { layoutCoordinates ->
+        coachMarkItems[key] = CoachMarkConfig(
+            toolTipPlacement = toolTipPlacement,
+            key = key,
+            layout = CoachMarkConfig.Layout(
+                width = layoutCoordinates.size.width,
+                height = layoutCoordinates.size.height,
+                startX = layoutCoordinates.positionInRoot().x,
+                startY = layoutCoordinates.positionInRoot().y,
+            )
+        )
+    }
 
     override fun show(vararg keys: CoachMarkKey) {
         visibleTooltips = keys.map { key ->
@@ -51,10 +61,12 @@ internal class CoachMarkScopeImpl(
 
     fun onOverlayClicked() {
         val item = currentVisibleTooltip ?: return
-        when (item.overlay.onClick(item.key)) {
+
+        when (onOverlayClicked(item.key)) {
             OverlayClickEvent.GoNext -> visibleTooltipIndex++
-            OverlayClickEvent.Dismiss -> hide()
+            OverlayClickEvent.DismissAll -> hide()
             OverlayClickEvent.None -> {}
+            OverlayClickEvent.GoPrevious -> visibleTooltipIndex--
         }
     }
 }

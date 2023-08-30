@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import com.pseudoankit.coachmark.demo.UnifyCoachmarkDemo
 import com.pseudoankit.coachmark_demo.ui.theme.CoachmarkTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,7 +18,7 @@ class MainActivity : ComponentActivity() {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-//                    UnifyCoachmarkDemo()
+                    UnifyCoachmarkDemo()
                 }
             }
         }
