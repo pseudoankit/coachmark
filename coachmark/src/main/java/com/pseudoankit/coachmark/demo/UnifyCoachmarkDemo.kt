@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.UnifyCoachmark
 import com.pseudoankit.coachmark.model.ToolTipPlacement
+import com.pseudoankit.coachmark.overlay.TransparentOverlayEffect
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.shape.Arrow
 import com.pseudoankit.coachmark.shape.Balloon
@@ -29,7 +30,8 @@ import com.pseudoankit.coachmark.util.clickable
 @Composable
 public fun UnifyCoachmarkDemo() {
     UnifyCoachmark(
-        overlayContent = { OverlayContent(it) }
+        overlayContent = { OverlayContent(it) },
+        overlayEffect = TransparentOverlayEffect
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(50.dp),

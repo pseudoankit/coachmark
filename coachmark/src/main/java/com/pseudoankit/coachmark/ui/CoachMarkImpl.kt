@@ -11,9 +11,9 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntSize
-import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.ToolTipPlacement
-import com.pseudoankit.coachmark.overlay.UnifyOverlayBackground
+import com.pseudoankit.coachmark.model.TooltipConfig
+import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.util.CoachMarkKey
@@ -23,11 +23,11 @@ import com.pseudoankit.coachmark.util.toDp
 
 @Composable
 internal fun CoachMarkImpl(
-    overlay: UnifyOverlayBackground,
+    overlayEffect: UnifyOverlayEffect,
     scope: CoachMarkScopeImpl,
     overlayContent: @Composable CoachMarkScope.(CoachMarkKey) -> Unit,
     content: @Composable (CoachMarkScope.() -> Unit),
-) {
+) = with(overlayEffect) {
     val activeItem = scope.currentVisibleTooltip
 
     val density = LocalDensity.current
@@ -37,7 +37,7 @@ internal fun CoachMarkImpl(
         content(scope)
 
         if (activeItem != null) {
-            overlay.Background {
+            scope.Background {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -61,7 +61,7 @@ internal fun CoachMarkImpl(
     }
 }
 
-private fun CoachMarkConfig.offsetX(
+private fun TooltipConfig.offsetX(
     density: Density, toolTipSize: IntSize
 ) = when (toolTipPlacement) {
     ToolTipPlacement.Start -> layout.startX - toolTipSize.width
@@ -73,7 +73,7 @@ private fun CoachMarkConfig.offsetX(
     }
 }.toDp(density)
 
-private fun CoachMarkConfig.offsetY(
+private fun TooltipConfig.offsetY(
     density: Density, toolTipSize: IntSize
 ) = when (toolTipPlacement) {
     ToolTipPlacement.Start, ToolTipPlacement.End -> {

@@ -6,40 +6,43 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
-import com.pseudoankit.coachmark.model.CoachMarkConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
 import com.pseudoankit.coachmark.model.ToolTipPlacement
+import com.pseudoankit.coachmark.model.TooltipConfig
 import com.pseudoankit.coachmark.util.CoachMarkKey
 
 internal class CoachMarkScopeImpl(
     internal val onOverlayClicked: (CoachMarkKey) -> OverlayClickEvent
 ) : CoachMarkScope {
 
-    var currentVisibleTooltip: CoachMarkConfig? by mutableStateOf(null)
+    private var _currentVisibleTooltip: TooltipConfig? by mutableStateOf(null)
+    private val coachMarkItems = mutableMapOf<CoachMarkKey, TooltipConfig>()
 
-    private val coachMarkItems = mutableMapOf<CoachMarkKey, CoachMarkConfig>()
-
-    private var visibleTooltips = listOf<CoachMarkConfig>()
+    private var visibleTooltips = listOf<TooltipConfig>()
         set(value) {
             visibleTooltipIndex = 0
-            currentVisibleTooltip = value.getOrNull(visibleTooltipIndex)
+            _currentVisibleTooltip = value.getOrNull(visibleTooltipIndex)
             field = value
         }
 
     private var visibleTooltipIndex = 0
         set(value) {
-            currentVisibleTooltip = visibleTooltips.getOrNull(value)
+            _currentVisibleTooltip = visibleTooltips.getOrNull(value)
             field = value
         }
+
+
+    override val currentVisibleTooltip: TooltipConfig?
+        get() = _currentVisibleTooltip
 
     override fun Modifier.enableCoachMark(
         key: CoachMarkKey,
         toolTipPlacement: ToolTipPlacement
     ): Modifier = onGloballyPositioned { layoutCoordinates ->
-        coachMarkItems[key] = CoachMarkConfig(
+        coachMarkItems[key] = TooltipConfig(
             toolTipPlacement = toolTipPlacement,
             key = key,
-            layout = CoachMarkConfig.Layout(
+            layout = TooltipConfig.Layout(
                 width = layoutCoordinates.size.width,
                 height = layoutCoordinates.size.height,
                 startX = layoutCoordinates.positionInRoot().x,

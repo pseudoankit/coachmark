@@ -3,7 +3,7 @@ package com.pseudoankit.coachmark
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import com.pseudoankit.coachmark.model.OverlayClickEvent
-import com.pseudoankit.coachmark.overlay.UnifyOverlayBackground
+import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.ui.CoachMarkImpl
@@ -12,7 +12,7 @@ import com.pseudoankit.coachmark.util.CoachMarkKey
 
 @Composable
 public fun UnifyCoachmark(
-    overlayBackground: UnifyOverlayBackground = CoachMarkDefaults.Overlay.background,
+    overlayEffect: UnifyOverlayEffect = CoachMarkDefaults.Overlay.background,
     onOverlayClicked: (CoachMarkKey) -> OverlayClickEvent = { CoachMarkDefaults.Overlay.clickEvent },
     overlayContent: @Composable CoachMarkScope.(CoachMarkKey) -> Unit,
     content: @Composable CoachMarkScope.() -> Unit
@@ -22,7 +22,7 @@ public fun UnifyCoachmark(
     }
 
     CoachMarkImpl(
-        overlay = overlayBackground,
+        overlayEffect = overlayEffect,
         content = content,
         scope = scope,
         overlayContent = overlayContent
