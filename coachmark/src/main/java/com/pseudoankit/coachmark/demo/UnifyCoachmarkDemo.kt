@@ -47,11 +47,11 @@ public fun UnifyCoachmarkDemo() {
                             show(it)
                         }
                         .background(Color.Red.copy(alpha = .5f))
-                        .padding(16.dp)
                         .enableCoachMark(
                             key = it,
                             toolTipPlacement = it
-                        ),
+                        )
+                        .padding(16.dp),
                     color = Color.White
                 )
             }

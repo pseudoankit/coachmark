@@ -64,11 +64,14 @@ internal fun CoachMarkImpl(
 private fun CoachMarkConfig.offsetX(
     density: Density, toolTipSize: IntSize
 ) = when (toolTipPlacement) {
-    ToolTipPlacement.Start -> layout.startX.toDp(density)
-    ToolTipPlacement.End -> layout.endX.toDp(density)
-    ToolTipPlacement.Top -> layout.startX.toDp(density)
-    ToolTipPlacement.Bottom -> layout.startX.toDp(density)
-}
+    ToolTipPlacement.Start -> layout.startX - toolTipSize.width
+    ToolTipPlacement.End -> layout.endX
+    ToolTipPlacement.Top, ToolTipPlacement.Bottom -> {
+        val viewCenter = (layout.startX + layout.endX).div(2)
+        val toolTipCenter = (toolTipSize.width).div(2)
+        viewCenter - toolTipCenter
+    }
+}.toDp(density)
 
 private fun CoachMarkConfig.offsetY(
     density: Density, toolTipSize: IntSize
@@ -76,9 +79,9 @@ private fun CoachMarkConfig.offsetY(
     ToolTipPlacement.Start, ToolTipPlacement.End -> {
         val viewCenter = (layout.startY + layout.endY).div(2)
         val toolTipCenter = toolTipSize.height.div(2)
-        (viewCenter - toolTipCenter).toDp(density)
+        viewCenter - toolTipCenter
     }
 
-    ToolTipPlacement.Top -> (layout.startY - toolTipSize.height).toDp(density)
-    ToolTipPlacement.Bottom -> layout.endY.toDp(density)
-}
+    ToolTipPlacement.Top -> layout.startY - toolTipSize.height
+    ToolTipPlacement.Bottom -> layout.endY
+}.toDp(density)
