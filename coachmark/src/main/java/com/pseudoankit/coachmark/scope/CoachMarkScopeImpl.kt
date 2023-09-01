@@ -16,21 +16,24 @@ internal class CoachMarkScopeImpl(
 ) : CoachMarkScope {
 
     private var _currentVisibleTooltip: TooltipConfig? by mutableStateOf(null)
+    private var _lastVisibleTooltip: TooltipConfig? by mutableStateOf(null)
     private val coachMarkItems = mutableMapOf<CoachMarkKey, TooltipConfig>()
 
     private var visibleTooltips = listOf<TooltipConfig>()
         set(value) {
             visibleTooltipIndex = 0
-            _currentVisibleTooltip = value.getOrNull(visibleTooltipIndex)
+            updateVisibleItem(value, visibleTooltipIndex)
             field = value
         }
 
     private var visibleTooltipIndex = 0
         set(value) {
-            _currentVisibleTooltip = visibleTooltips.getOrNull(value)
+            updateVisibleItem(visibleTooltips, value)
             field = value
         }
 
+    override val lastVisibleTooltip: TooltipConfig?
+        get() = _lastVisibleTooltip
 
     override val currentVisibleTooltip: TooltipConfig?
         get() = _currentVisibleTooltip
@@ -71,5 +74,10 @@ internal class CoachMarkScopeImpl(
             OverlayClickEvent.None -> {}
             OverlayClickEvent.GoPrevious -> visibleTooltipIndex--
         }
+    }
+
+    private fun updateVisibleItem(items: List<TooltipConfig>, visibleTooltipIndex: Int) {
+        _lastVisibleTooltip = _currentVisibleTooltip
+        _currentVisibleTooltip = items.getOrNull(visibleTooltipIndex)
     }
 }

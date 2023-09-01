@@ -8,6 +8,7 @@ import com.pseudoankit.coachmark.util.CoachMarkKey
 public interface CoachMarkScope {
 
     public val currentVisibleTooltip: TooltipConfig?
+    public val lastVisibleTooltip: TooltipConfig?
 
     public fun Modifier.enableCoachMark(
         key: CoachMarkKey,

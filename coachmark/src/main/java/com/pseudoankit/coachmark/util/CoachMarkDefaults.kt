@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.model.OverlayClickEvent
-import com.pseudoankit.coachmark.overlay.TransparentOverlayEffect
+import com.pseudoankit.coachmark.overlay.DimOverlayEffect
 import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
 
 public object CoachMarkDefaults {
@@ -23,7 +23,7 @@ public object CoachMarkDefaults {
     }
 
     public object Overlay {
-        public val background: UnifyOverlayEffect = TransparentOverlayEffect
+        public val background: UnifyOverlayEffect = DimOverlayEffect()
         public val clickEvent: OverlayClickEvent = OverlayClickEvent.GoNext
     }
 }
