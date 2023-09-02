@@ -3,6 +3,7 @@ package com.pseudoankit.coachmark.demo
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.UnifyCoachmark
+import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.shape.Arrow
@@ -49,7 +51,11 @@ public fun UnifyCoachmarkDemo() {
                         .background(Color.Red.copy(alpha = .5f))
                         .enableCoachMark(
                             key = it,
-                            toolTipPlacement = it
+                            toolTipPlacement = it,
+                            highlightedViewConfig = HighlightedViewConfig(
+                                shape = HighlightedViewConfig.Shape.RoundedRect(12.dp),
+                                padding = PaddingValues(12.dp)
+                            )
                         )
                         .padding(16.dp),
                     color = Color.White

@@ -1,6 +1,7 @@
 package com.pseudoankit.coachmark.scope
 
 import androidx.compose.ui.Modifier
+import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.model.TooltipConfig
 import com.pseudoankit.coachmark.util.CoachMarkKey
@@ -12,7 +13,8 @@ public interface CoachMarkScope {
 
     public fun Modifier.enableCoachMark(
         key: CoachMarkKey,
-        toolTipPlacement: ToolTipPlacement
+        toolTipPlacement: ToolTipPlacement,
+        highlightedViewConfig: HighlightedViewConfig = HighlightedViewConfig()
     ): Modifier
 
     public fun hide()

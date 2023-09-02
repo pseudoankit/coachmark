@@ -5,16 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import com.pseudoankit.coachmark.model.TooltipConfig
+import com.pseudoankit.coachmark.model.pathToHighlight
 import com.pseudoankit.coachmark.scope.CoachMarkScope
-import com.pseudoankit.coachmark.util.buildPath
 
 public class DimOverlayEffect(
     private val color: Color = Color.Black.copy(alpha = .75f)
@@ -26,22 +26,33 @@ public class DimOverlayEffect(
         content: @Composable () -> Unit
     ) {
 
+        val density = LocalDensity.current
+
         Box(
             modifier = modifier
                 .graphicsLayer(alpha = .99f)
                 .drawBehind {
                     drawRect(color)
-                    highlightActualView(currentVisibleTooltip)
+                    highlightActualView(currentVisibleTooltip, density)
                 }
         ) {
             content()
         }
     }
 
-    private fun DrawScope.highlightActualView(toolTip: TooltipConfig?) {
+    private fun DrawScope.highlightActualView(
+        toolTip: TooltipConfig?,
+        density: Density
+    ) {
         if (toolTip == null) return
 
-        val path = toolTip.createPathToHighlightActualView().apply {
+        val path = toolTip.highlightedViewConfig.shape.pathToHighlight(
+            density = density,
+            size = Size(
+                width = toolTip.layout.width.toFloat(),
+                height = toolTip.layout.height.toFloat()
+            )
+        ).apply {
             translate(
                 Offset(
                     x = toolTip.layout.startX,
@@ -55,20 +66,6 @@ public class DimOverlayEffect(
             color = Color.Black,
             alpha = 1f,
             blendMode = BlendMode.DstOut,
-        )
-    }
-
-    private fun TooltipConfig.createPathToHighlightActualView() = buildPath {
-        addRoundRect(
-            roundRect = RoundRect(
-                rect = Rect(
-                    offset = Offset.Zero,
-                    size = Size(
-                        width = layout.width.toFloat(),
-                        height = layout.height.toFloat()
-                    )
-                )
-            )
         )
     }
 }

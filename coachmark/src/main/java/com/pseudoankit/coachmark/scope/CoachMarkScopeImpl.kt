@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
+import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
 import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.model.TooltipConfig
@@ -40,7 +41,8 @@ internal class CoachMarkScopeImpl(
 
     override fun Modifier.enableCoachMark(
         key: CoachMarkKey,
-        toolTipPlacement: ToolTipPlacement
+        toolTipPlacement: ToolTipPlacement,
+        highlightedViewConfig: HighlightedViewConfig,
     ): Modifier = onGloballyPositioned { layoutCoordinates ->
         coachMarkItems[key] = TooltipConfig(
             toolTipPlacement = toolTipPlacement,
@@ -50,7 +52,8 @@ internal class CoachMarkScopeImpl(
                 height = layoutCoordinates.size.height,
                 startX = layoutCoordinates.positionInRoot().x,
                 startY = layoutCoordinates.positionInRoot().y,
-            )
+            ),
+            highlightedViewConfig = highlightedViewConfig
         )
     }
 

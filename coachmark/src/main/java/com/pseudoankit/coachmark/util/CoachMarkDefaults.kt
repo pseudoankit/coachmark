@@ -1,7 +1,9 @@
 package com.pseudoankit.coachmark.util
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.model.OverlayClickEvent
@@ -25,5 +27,10 @@ public object CoachMarkDefaults {
     public object Overlay {
         public val background: UnifyOverlayEffect = DimOverlayEffect()
         public val clickEvent: OverlayClickEvent = OverlayClickEvent.GoNext
+    }
+
+    public object HighlightedView {
+        public val shape: Shape = RoundedCornerShape(12.dp)
+        public val padding: PaddingValues = PaddingValues(8.dp)
     }
 }
