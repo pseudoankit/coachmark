@@ -26,7 +26,6 @@ import com.pseudoankit.coachmark.shape.Balloon
 import com.pseudoankit.coachmark.util.CoachMarkKey
 import com.pseudoankit.coachmark.util.clickable
 
-
 @Preview
 @Composable
 public fun UnifyCoachmarkDemo() {
@@ -54,7 +53,7 @@ public fun UnifyCoachmarkDemo() {
                             toolTipPlacement = it,
                             highlightedViewConfig = HighlightedViewConfig(
                                 shape = HighlightedViewConfig.Shape.RoundedRect(12.dp),
-                                padding = PaddingValues(12.dp)
+                                padding = PaddingValues(8.dp)
                             )
                         )
                         .padding(16.dp),
