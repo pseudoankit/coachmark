@@ -12,6 +12,9 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 
+internal const val INVISIBLE_ALPHA = 0f
+internal const val VISIBLE_ALPHA = 1f
+
 internal fun Int.toDp(density: Density) = toFloat().toDp(density)
 
 internal fun Float.toDp(density: Density) = with(density) { toDp() }
