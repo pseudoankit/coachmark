@@ -13,7 +13,8 @@ import com.pseudoankit.coachmark.model.TooltipConfig
 
 internal data class TooltipHolder(
     val item: TooltipConfig?,
-    val alpha: Float
+    val alpha: Float,
+    val isVisible: Boolean
 )
 
 @Composable
@@ -47,7 +48,8 @@ internal fun rememberTooltipHolder(
         derivedStateOf {
             TooltipHolder(
                 item = actualItem,
-                alpha = alpha
+                alpha = alpha,
+                isVisible = isVisible
             )
         }
     }

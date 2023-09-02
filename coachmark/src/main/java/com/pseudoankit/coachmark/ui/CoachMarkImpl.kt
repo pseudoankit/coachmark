@@ -1,5 +1,6 @@
 package com.pseudoankit.coachmark.ui
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -19,6 +20,7 @@ import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.util.CoachMarkKey
 import com.pseudoankit.coachmark.util.INVISIBLE_ALPHA
+import com.pseudoankit.coachmark.util.VISIBLE_ALPHA
 import com.pseudoankit.coachmark.util.clickable
 import com.pseudoankit.coachmark.util.rememberMutableStateOf
 import com.pseudoankit.coachmark.util.rememberTooltipHolder
@@ -33,7 +35,7 @@ internal fun CoachMarkImpl(
 ) = with(overlayEffect) {
     val currentVisibleTooltip by rememberTooltipHolder(
         item = scope.currentVisibleTooltip,
-        animationSpec = overlayEffect.overlayAnimationSpec()
+        animationSpec = overlayEffect.tooltipAnimationSpec()
     )
 
     val density = LocalDensity.current
@@ -50,7 +52,12 @@ internal fun CoachMarkImpl(
                         clickable(showRipple = false, onClick = scope::onOverlayClicked)
                     } else this
                 }
-                .alpha(currentVisibleTooltip.alpha)
+                .alpha(
+                    animateFloatAsState(
+                        targetValue = if (currentVisibleTooltip.isVisible) VISIBLE_ALPHA else INVISIBLE_ALPHA,
+                        animationSpec = overlayEffect.overlayAnimationSpec()
+                    ).value
+                )
         ) {
             currentVisibleTooltip.item?.let { activeItem ->
                 Box(
