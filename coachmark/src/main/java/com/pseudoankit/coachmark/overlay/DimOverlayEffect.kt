@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import com.pseudoankit.coachmark.model.TooltipConfig
-import com.pseudoankit.coachmark.model.pathToHighlight
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.util.rememberTooltipHolder
 
