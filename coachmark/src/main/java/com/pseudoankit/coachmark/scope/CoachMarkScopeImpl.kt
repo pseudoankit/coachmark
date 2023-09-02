@@ -1,19 +1,26 @@
 package com.pseudoankit.coachmark.scope
 
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.LayoutDirection
 import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
 import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.model.TooltipConfig
 import com.pseudoankit.coachmark.util.CoachMarkKey
+import com.pseudoankit.coachmark.util.toPx
 
 internal class CoachMarkScopeImpl(
-    internal val onOverlayClicked: (CoachMarkKey) -> OverlayClickEvent
+    internal val onOverlayClicked: (CoachMarkKey) -> OverlayClickEvent,
+    private val density: Density,
+    private val layoutDirection: LayoutDirection
 ) : CoachMarkScope {
 
     private var _currentVisibleTooltip: TooltipConfig? by mutableStateOf(null)
@@ -44,16 +51,23 @@ internal class CoachMarkScopeImpl(
         toolTipPlacement: ToolTipPlacement,
         highlightedViewConfig: HighlightedViewConfig,
     ): Modifier = onGloballyPositioned { layoutCoordinates ->
+        val startPadding =
+            highlightedViewConfig.padding.calculateStartPadding(layoutDirection).toPx(density)
+        val topPadding = highlightedViewConfig.padding.calculateTopPadding().toPx(density)
+        val endPadding =
+            highlightedViewConfig.padding.calculateEndPadding(layoutDirection).toPx(density)
+        val bottomPadding = highlightedViewConfig.padding.calculateBottomPadding().toPx(density)
+
         coachMarkItems[key] = TooltipConfig(
             toolTipPlacement = toolTipPlacement,
             key = key,
             layout = TooltipConfig.Layout(
-                width = layoutCoordinates.size.width,
-                height = layoutCoordinates.size.height,
-                startX = layoutCoordinates.positionInRoot().x,
-                startY = layoutCoordinates.positionInRoot().y,
+                width = layoutCoordinates.size.width + startPadding.toInt() + endPadding.toInt(),
+                height = layoutCoordinates.size.height + topPadding.toInt() + bottomPadding.toInt(),
+                startX = layoutCoordinates.positionInRoot().x - startPadding,
+                startY = layoutCoordinates.positionInRoot().y - endPadding,
             ),
-            highlightedViewConfig = highlightedViewConfig
+            highlightedViewShape = highlightedViewConfig.shape
         )
     }
 

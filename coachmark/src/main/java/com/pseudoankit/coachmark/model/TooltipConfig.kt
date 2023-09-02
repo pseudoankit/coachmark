@@ -6,7 +6,7 @@ public data class TooltipConfig(
     val layout: Layout,
     val toolTipPlacement: ToolTipPlacement,
     val key: CoachMarkKey,
-    val highlightedViewConfig: HighlightedViewConfig
+    val highlightedViewShape: HighlightedViewConfig.Shape
 ) {
 
     public data class Layout(

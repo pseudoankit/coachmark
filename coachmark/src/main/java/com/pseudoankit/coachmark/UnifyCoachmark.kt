@@ -2,6 +2,8 @@ package com.pseudoankit.coachmark
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import com.pseudoankit.coachmark.model.OverlayClickEvent
 import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
 import com.pseudoankit.coachmark.scope.CoachMarkScope
@@ -17,8 +19,15 @@ public fun UnifyCoachmark(
     overlayContent: @Composable CoachMarkScope.(CoachMarkKey) -> Unit,
     content: @Composable CoachMarkScope.() -> Unit
 ) {
+    val density = LocalDensity.current
+    val layoutDirection = LocalLayoutDirection.current
+
     val scope = remember(onOverlayClicked) {
-        CoachMarkScopeImpl(onOverlayClicked = onOverlayClicked)
+        CoachMarkScopeImpl(
+            onOverlayClicked = onOverlayClicked,
+            density = density,
+            layoutDirection = layoutDirection
+        )
     }
 
     CoachMarkImpl(
