@@ -33,7 +33,7 @@ internal fun CoachMarkImpl(
 ) = with(overlayEffect) {
     val currentVisibleTooltip by rememberTooltipHolder(
         item = scope.currentVisibleTooltip,
-        animationSpec = overlayEffect.animationSpec()
+        animationSpec = overlayEffect.overlayAnimationSpec()
     )
 
     val density = LocalDensity.current

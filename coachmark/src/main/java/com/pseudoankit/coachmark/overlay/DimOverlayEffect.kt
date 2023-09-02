@@ -2,6 +2,7 @@ package com.pseudoankit.coachmark.overlay
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -15,9 +16,10 @@ import androidx.compose.ui.unit.Density
 import com.pseudoankit.coachmark.model.TooltipConfig
 import com.pseudoankit.coachmark.model.pathToHighlight
 import com.pseudoankit.coachmark.scope.CoachMarkScope
+import com.pseudoankit.coachmark.util.rememberTooltipHolder
 
 public class DimOverlayEffect(
-    private val color: Color = Color.Black.copy(alpha = .75f),
+    private val color: Color = Color.Black.copy(alpha = .75f)
 ) : UnifyOverlayEffect {
 
     @Composable
@@ -27,13 +29,19 @@ public class DimOverlayEffect(
     ) {
 
         val density = LocalDensity.current
+        val currentVisibleTooltip by rememberTooltipHolder(
+            item = currentVisibleTooltip,
+            animationSpec = tooltipAnimationSpec()
+        )
 
         Box(
             modifier = modifier
                 .graphicsLayer(alpha = .99f)
                 .drawBehind {
                     drawRect(color)
-                    highlightActualView(currentVisibleTooltip, density)
+                    currentVisibleTooltip.item?.let { tooltip ->
+                        highlightActualView(tooltip, density, currentVisibleTooltip.alpha)
+                    }
                 }
         ) {
             content()
@@ -41,11 +49,10 @@ public class DimOverlayEffect(
     }
 
     private fun DrawScope.highlightActualView(
-        toolTip: TooltipConfig?,
-        density: Density
+        toolTip: TooltipConfig,
+        density: Density,
+        alpha: Float
     ) {
-        if (toolTip == null) return
-
         val path = toolTip.highlightedViewShape.pathToHighlight(
             density = density,
             size = Size(
@@ -64,7 +71,7 @@ public class DimOverlayEffect(
         drawPath(
             path = path,
             color = Color.Black,
-            alpha = 1f,
+            alpha = alpha,
             blendMode = BlendMode.DstOut,
         )
     }

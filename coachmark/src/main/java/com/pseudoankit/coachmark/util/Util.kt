@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.Dp
 
 internal const val INVISIBLE_ALPHA = 0f
 internal const val VISIBLE_ALPHA = 1f
+internal const val ANIMATION_DURATION = 500
 
 internal fun Int.toDp(density: Density) = toFloat().toDp(density)
 
