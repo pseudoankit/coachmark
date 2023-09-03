@@ -22,7 +22,7 @@ Now provide seamless onboarding experience to end users with just few lines of c
 
 In your settings.gradle
 ```
-pluginManagement {
+dependencyResolutionManagement {
     repositories {
         ...
         maven { url 'https://jitpack.io' }
