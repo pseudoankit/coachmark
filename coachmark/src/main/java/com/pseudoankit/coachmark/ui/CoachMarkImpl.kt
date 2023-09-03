@@ -11,6 +11,7 @@ import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.util.CoachMarkKey
 import com.pseudoankit.coachmark.util.clickable
+import com.pseudoankit.coachmark.util.coachMarkLog
 import com.pseudoankit.coachmark.util.rememberTooltipHolder
 
 @Composable
@@ -25,12 +26,17 @@ internal fun CoachMarkImpl(
             item = it,
             animationSpec = tooltipAnimationSpec(),
         )
+    }?.also {
+        coachMarkLog("cur ${it.item.key}, alpha=${it.alpha.value}, state=${it.item.animationState}")
     }
+
     val previousTooltip = coachMarkScope.lastVisibleTooltip?.let {
         rememberTooltipHolder(
             item = it,
             animationSpec = tooltipAnimationSpec(),
         )
+    }?.also {
+        coachMarkLog("prev ${it.item.key}, alpha=${it.alpha.value}, state=${it.item.animationState}")
     }
 
     Box(modifier = Modifier.fillMaxSize()) {

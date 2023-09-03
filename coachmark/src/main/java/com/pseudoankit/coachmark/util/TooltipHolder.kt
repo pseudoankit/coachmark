@@ -1,14 +1,11 @@
 package com.pseudoankit.coachmark.util
 
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animate
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import com.pseudoankit.coachmark.model.TooltipConfig
-import com.pseudoankit.coachmark.model.TooltipConfig.State.Visible
 import com.pseudoankit.coachmark.model.TooltipHolder
 
 @Composable
@@ -17,21 +14,21 @@ internal fun rememberTooltipHolder(
     animationSpec: AnimationSpec<Float>,
 ): TooltipHolder {
 
-    var state by rememberMutableStateOf(value = item.animationState.from, item.animationState)
-
-    LaunchedEffect(item.animationState) {
-        state = item.animationState.to
-    }
-
-    val alpha = animateFloatAsState(
-        targetValue = if (state == Visible) 1f else 0f,
-        animationSpec = animationSpec,
-        finishedListener = {
-            if (it == INVISIBLE_ALPHA) {
-                // todo actual item to null
-            }
-        }
+    val alpha = rememberMutableStateOf(
+        value = item.animationState.initialAlpha,
+        item.animationState.initialAlpha
     )
+
+    LaunchedEffect(item) {
+        animate(
+            initialValue = item.animationState.initialAlpha,
+            targetValue = item.animationState.targetAlpha,
+            animationSpec = animationSpec,
+            block = { value, velocity ->
+                alpha.value = value
+            }
+        )
+    }
 
     return remember(alpha, item) {
         TooltipHolder(

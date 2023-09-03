@@ -21,11 +21,7 @@ public data class TooltipConfig(
     }
 
     public data class AnimationState(
-        val from: State = State.Gone,
-        val to: State = State.Gone
+        val initialAlpha: Float = 0f,
+        val targetAlpha: Float = 0f
     )
-
-    public enum class State {
-        Visible, Gone
-    }
 }
