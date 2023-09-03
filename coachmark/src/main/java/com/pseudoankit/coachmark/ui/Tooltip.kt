@@ -36,7 +36,7 @@ internal fun Tooltip(
                     x = activeItem.offsetX(density, toolTipSize),
                     y = activeItem.offsetY(density, toolTipSize),
                 )
-                .alpha(tooltipHolder.alpha.value)
+                .alpha(tooltipHolder.alpha)
         ) {
             content(activeItem.key)
         }

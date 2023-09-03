@@ -31,10 +31,10 @@ public class DimOverlayEffect(
                 .drawBehind {
                     drawRect(color)
                     currentTooltip?.item?.let { tooltip ->
-                        highlightActualView(tooltip, density, currentTooltip.alpha.value)
+                        highlightActualView(tooltip, density, currentTooltip.alpha)
                     }
                     previousTooltip?.item?.let { tooltip ->
-                        highlightActualView(tooltip, density, previousTooltip.alpha.value)
+                        highlightActualView(tooltip, density, previousTooltip.alpha)
                     }
                 }
         ) {
