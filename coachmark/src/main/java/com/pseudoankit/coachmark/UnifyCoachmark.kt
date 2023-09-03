@@ -16,7 +16,7 @@ import com.pseudoankit.coachmark.util.CoachMarkKey
 public fun UnifyCoachmark(
     overlayEffect: UnifyOverlayEffect = CoachMarkDefaults.Overlay.background,
     onOverlayClicked: (CoachMarkKey) -> OverlayClickEvent = { CoachMarkDefaults.Overlay.clickEvent },
-    overlayContent: @Composable CoachMarkScope.(CoachMarkKey) -> Unit,
+    tooltip: @Composable CoachMarkScope.(CoachMarkKey) -> Unit,
     content: @Composable CoachMarkScope.() -> Unit
 ) {
     val density = LocalDensity.current
@@ -33,7 +33,7 @@ public fun UnifyCoachmark(
     CoachMarkImpl(
         overlayEffect = overlayEffect,
         content = content,
-        scope = scope,
-        overlayContent = overlayContent
+        coachMarkScope = scope,
+        tooltip = tooltip
     )
 }

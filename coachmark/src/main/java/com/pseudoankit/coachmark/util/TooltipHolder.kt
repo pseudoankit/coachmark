@@ -1,56 +1,41 @@
 package com.pseudoankit.coachmark.util
 
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animate
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.pseudoankit.coachmark.model.TooltipConfig
-
-internal data class TooltipHolder(
-    val item: TooltipConfig?,
-    val alpha: Float,
-    val isVisible: Boolean
-)
+import com.pseudoankit.coachmark.model.TooltipHolder
 
 @Composable
 internal fun rememberTooltipHolder(
-    item: TooltipConfig?,
-    animationSpec: AnimationSpec<Float>
-): State<TooltipHolder> {
-    var actualItem by rememberMutableStateOf(value = item)
+    item: TooltipConfig,
+    animationSpec: AnimationSpec<Float>,
+): TooltipHolder {
 
-    var isVisible by rememberMutableStateOf(value = false)
+    var alpha by rememberMutableStateOf(
+        value = item.animationState.initialAlpha,
+        item
+    )
+
     LaunchedEffect(item) {
-        if (item == null) {
-            isVisible = false
-        } else {
-            isVisible = true
-            actualItem = item
-        }
+        animate(
+            initialValue = item.animationState.initialAlpha,
+            targetValue = item.animationState.targetAlpha,
+            animationSpec = animationSpec,
+            block = { value, _ ->
+                alpha = value
+            }
+        )
     }
 
-    val alpha = animateFloatAsState(
-        targetValue = if (isVisible) VISIBLE_ALPHA else INVISIBLE_ALPHA,
-        animationSpec = animationSpec,
-        finishedListener = {
-            if (it == INVISIBLE_ALPHA) {
-                // todo actual item to null
-            }
-        }
-    ).value
-
-    return remember(alpha, actualItem) {
-        derivedStateOf {
-            TooltipHolder(
-                item = actualItem,
-                alpha = alpha,
-                isVisible = isVisible
-            )
-        }
+    return remember(item, alpha) {
+        TooltipHolder(
+            item = item,
+            alpha = alpha,
+        )
     }
 }

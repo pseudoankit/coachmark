@@ -25,18 +25,18 @@ internal class CoachMarkScopeImpl(
 
     private var _currentVisibleTooltip: TooltipConfig? by mutableStateOf(null)
     private var _lastVisibleTooltip: TooltipConfig? by mutableStateOf(null)
-    private val coachMarkItems = mutableMapOf<CoachMarkKey, TooltipConfig>()
+    private val _coachMarkItems = mutableMapOf<CoachMarkKey, TooltipConfig>()
 
-    private var visibleTooltips = listOf<TooltipConfig>()
+    private var _visibleTooltips = listOf<TooltipConfig>()
         set(value) {
-            visibleTooltipIndex = 0
-            updateVisibleItem(value, visibleTooltipIndex)
+            _visibleTooltipIndex = 0
+            updateVisibleItem(value, _visibleTooltipIndex)
             field = value
         }
 
-    private var visibleTooltipIndex = 0
+    private var _visibleTooltipIndex = 0
         set(value) {
-            updateVisibleItem(visibleTooltips, value)
+            updateVisibleItem(_visibleTooltips, value)
             field = value
         }
 
@@ -58,7 +58,7 @@ internal class CoachMarkScopeImpl(
             highlightedViewConfig.padding.calculateEndPadding(layoutDirection).toPx(density)
         val bottomPadding = highlightedViewConfig.padding.calculateBottomPadding().toPx(density)
 
-        coachMarkItems[key] = TooltipConfig(
+        _coachMarkItems[key] = TooltipConfig(
             toolTipPlacement = toolTipPlacement,
             key = key,
             layout = TooltipConfig.Layout(
@@ -72,29 +72,40 @@ internal class CoachMarkScopeImpl(
     }
 
     override fun show(vararg keys: CoachMarkKey) {
-        visibleTooltips = keys.map { key ->
-            coachMarkItems[key]
+        _visibleTooltips = keys.map { key ->
+            _coachMarkItems[key]
                 ?: throw NotImplementedError("definition for key $key not found, please provide key by using [Modifier.enableCoachMark]")
         }
     }
 
     override fun hide() {
-        visibleTooltips = listOf()
+        _visibleTooltips = listOf()
     }
 
     fun onOverlayClicked() {
         val item = currentVisibleTooltip ?: return
 
         when (onOverlayClicked(item.key)) {
-            OverlayClickEvent.GoNext -> visibleTooltipIndex++
+            OverlayClickEvent.GoNext -> _visibleTooltipIndex++
             OverlayClickEvent.DismissAll -> hide()
             OverlayClickEvent.None -> {}
-            OverlayClickEvent.GoPrevious -> visibleTooltipIndex--
+            OverlayClickEvent.GoPrevious -> _visibleTooltipIndex--
         }
     }
 
     private fun updateVisibleItem(items: List<TooltipConfig>, visibleTooltipIndex: Int) {
-        _lastVisibleTooltip = _currentVisibleTooltip
-        _currentVisibleTooltip = items.getOrNull(visibleTooltipIndex)
+        _lastVisibleTooltip = _currentVisibleTooltip?.copy(
+            animationState = TooltipConfig.AnimationState(
+                initialAlpha = 1f,
+                targetAlpha = 0f
+            )
+        )
+
+        _currentVisibleTooltip = items.getOrNull(visibleTooltipIndex)?.copy(
+            animationState = TooltipConfig.AnimationState(
+                initialAlpha = 0f,
+                targetAlpha = 1f
+            )
+        )
     }
 }

@@ -19,8 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.UnifyCoachmark
 import com.pseudoankit.coachmark.model.HighlightedViewConfig
+import com.pseudoankit.coachmark.model.OverlayClickEvent
 import com.pseudoankit.coachmark.model.ToolTipPlacement
-import com.pseudoankit.coachmark.scope.CoachMarkScope
+import com.pseudoankit.coachmark.overlay.DimOverlayEffect
 import com.pseudoankit.coachmark.shape.Arrow
 import com.pseudoankit.coachmark.shape.Balloon
 import com.pseudoankit.coachmark.util.CoachMarkKey
@@ -30,7 +31,9 @@ import com.pseudoankit.coachmark.util.clickable
 @Composable
 public fun UnifyCoachmarkDemo() {
     UnifyCoachmark(
-        overlayContent = { OverlayContent(it) },
+        tooltip = { Tooltip(it) },
+        overlayEffect = DimOverlayEffect(Color.Black.copy(alpha = .5f)),
+        onOverlayClicked = { OverlayClickEvent.GoNext }
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(50.dp),
@@ -45,14 +48,14 @@ public fun UnifyCoachmarkDemo() {
                     modifier = Modifier
                         .clip(RoundedCornerShape(12.dp))
                         .clickable {
-                            show(it)
+                            show(*ToolTipPlacement.values())
                         }
                         .background(Color.Red.copy(alpha = .5f))
                         .enableCoachMark(
                             key = it,
                             toolTipPlacement = it,
                             highlightedViewConfig = HighlightedViewConfig(
-                                shape = HighlightedViewConfig.Shape.RoundedRect(12.dp),
+                                shape = HighlightedViewConfig.Shape.Rect(12.dp),
                                 padding = PaddingValues(8.dp)
                             )
                         )
@@ -65,29 +68,29 @@ public fun UnifyCoachmarkDemo() {
 }
 
 @Composable
-private fun CoachMarkScope.OverlayContent(key: CoachMarkKey) {
+private fun Tooltip(key: CoachMarkKey) {
     when (key) {
         ToolTipPlacement.Start -> {
             Balloon(arrow = Arrow.End()) {
-                Text(text = "Start")
+                Text(text = "Start", color = Color.White)
             }
         }
 
         ToolTipPlacement.End -> {
             Balloon(arrow = Arrow.Start()) {
-                Text(text = "End")
+                Text(text = "End", color = Color.White)
             }
         }
 
         ToolTipPlacement.Top -> {
             Balloon(arrow = Arrow.Bottom()) {
-                Text(text = "Top")
+                Text(text = "Top", color = Color.White)
             }
         }
 
         ToolTipPlacement.Bottom -> {
             Balloon(arrow = Arrow.Top()) {
-                Text(text = "Bottom")
+                Text(text = "Bottom", color = Color.White)
             }
         }
     }
