@@ -17,9 +17,9 @@ internal fun rememberTooltipHolder(
     animationSpec: AnimationSpec<Float>,
 ): TooltipHolder {
 
-    var state by rememberMutableStateOf(value = item.animationState.from)
+    var state by rememberMutableStateOf(value = item.animationState.from, item.animationState)
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(item.animationState) {
         state = item.animationState.to
     }
 
