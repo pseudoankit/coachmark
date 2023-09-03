@@ -13,8 +13,8 @@ public interface UnifyOverlayEffect {
     @Composable
     public fun CoachMarkScope.Overlay(
         modifier: Modifier,
-        currentTooltip: TooltipHolder,
-        previousTooltip: TooltipHolder,
+        currentTooltip: TooltipHolder?,
+        previousTooltip: TooltipHolder?,
         content: @Composable () -> Unit
     )
 

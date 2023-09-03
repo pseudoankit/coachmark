@@ -13,19 +13,14 @@ import com.pseudoankit.coachmark.model.TooltipHolder
 
 @Composable
 internal fun rememberTooltipHolder(
-    item: TooltipConfig?,
+    item: TooltipConfig,
     animationSpec: AnimationSpec<Float>,
 ): TooltipHolder {
-    var actualItem by rememberMutableStateOf(value = item)
-    var state by rememberMutableStateOf(value = item?.animationState?.from)
 
-    LaunchedEffect(item) {
-        if (item != null) {
-            actualItem = item
-        }
-    }
+    var state by rememberMutableStateOf(value = item.animationState.from)
+
     LaunchedEffect(Unit) {
-        state = item?.animationState?.to
+        state = item.animationState.to
     }
 
     val alpha = animateFloatAsState(
@@ -38,9 +33,9 @@ internal fun rememberTooltipHolder(
         }
     )
 
-    return remember(alpha, actualItem) {
+    return remember(alpha, item) {
         TooltipHolder(
-            item = actualItem,
+            item = item,
             alpha = alpha,
         )
     }

@@ -20,15 +20,18 @@ internal fun CoachMarkImpl(
     tooltip: @Composable CoachMarkScope.(CoachMarkKey) -> Unit,
     content: @Composable (CoachMarkScope.() -> Unit),
 ) = with(overlayEffect) {
-
-    val currentTooltip = rememberTooltipHolder(
-        item = coachMarkScope.currentVisibleTooltip,
-        animationSpec = tooltipAnimationSpec(),
-    )
-    val previousTooltip = rememberTooltipHolder(
-        item = coachMarkScope.lastVisibleTooltip,
-        animationSpec = tooltipAnimationSpec(),
-    )
+    val currentTooltip = coachMarkScope.currentVisibleTooltip?.let {
+        rememberTooltipHolder(
+            item = it,
+            animationSpec = tooltipAnimationSpec(),
+        )
+    }
+    val previousTooltip = coachMarkScope.lastVisibleTooltip?.let {
+        rememberTooltipHolder(
+            item = it,
+            animationSpec = tooltipAnimationSpec(),
+        )
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         content(coachMarkScope)
@@ -37,13 +40,13 @@ internal fun CoachMarkImpl(
             modifier = Modifier
                 .fillMaxSize()
                 .run {
-                    if (currentTooltip.isVisible) {
+                    if (currentTooltip?.isVisible == true) {
                         clickable(showRipple = false, onClick = coachMarkScope::onOverlayClicked)
                     } else this
                 }
                 .alpha(
                     animateFloatAsState(
-                        targetValue = if (currentTooltip.isVisible) 1f else 0f,
+                        targetValue = if (currentTooltip?.isVisible == true) 1f else 0f,
                         animationSpec = overlayEffect.overlayAnimationSpec()
                     ).value
                 ),

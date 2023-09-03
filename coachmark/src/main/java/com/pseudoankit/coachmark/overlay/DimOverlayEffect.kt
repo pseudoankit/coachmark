@@ -18,8 +18,8 @@ public class DimOverlayEffect(
     @Composable
     override fun CoachMarkScope.Overlay(
         modifier: Modifier,
-        currentTooltip: TooltipHolder,
-        previousTooltip: TooltipHolder,
+        currentTooltip: TooltipHolder?,
+        previousTooltip: TooltipHolder?,
         content: @Composable () -> Unit
     ) {
 
@@ -30,10 +30,10 @@ public class DimOverlayEffect(
                 .graphicsLayer(alpha = .99f)
                 .drawBehind {
                     drawRect(color)
-                    currentTooltip.item?.let { tooltip ->
+                    currentTooltip?.item?.let { tooltip ->
                         highlightActualView(tooltip, density, currentTooltip.alpha.value)
                     }
-                    previousTooltip.item?.let { tooltip ->
+                    previousTooltip?.item?.let { tooltip ->
                         highlightActualView(tooltip, density, previousTooltip.alpha.value)
                     }
                 }

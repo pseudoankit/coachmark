@@ -19,13 +19,13 @@ import com.pseudoankit.coachmark.util.toDp
 
 @Composable
 internal fun Tooltip(
-    currentVisibleTooltip: TooltipHolder,
+    currentVisibleTooltip: TooltipHolder?,
     content: @Composable (CoachMarkKey) -> Unit
 ) {
     val density = LocalDensity.current
     var toolTipSize by rememberMutableStateOf(value = IntSize(0, 0))
 
-    currentVisibleTooltip.item?.let { activeItem ->
+    currentVisibleTooltip?.item?.let { activeItem ->
         Box(
             modifier = Modifier
                 .onGloballyPositioned {
