@@ -4,6 +4,7 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.pseudoankit.coachmark.model.TooltipHolder
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.util.ANIMATION_DURATION
 
@@ -12,6 +13,8 @@ public interface UnifyOverlayEffect {
     @Composable
     public fun CoachMarkScope.Overlay(
         modifier: Modifier,
+        currentTooltip: TooltipHolder,
+        previousTooltip: TooltipHolder,
         content: @Composable () -> Unit
     )
 

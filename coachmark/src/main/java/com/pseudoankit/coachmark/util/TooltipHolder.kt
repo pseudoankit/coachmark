@@ -4,53 +4,44 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.pseudoankit.coachmark.model.TooltipConfig
-
-internal data class TooltipHolder(
-    val item: TooltipConfig?,
-    val alpha: Float,
-    val isVisible: Boolean
-)
+import com.pseudoankit.coachmark.model.TooltipConfig.State.Visible
+import com.pseudoankit.coachmark.model.TooltipHolder
 
 @Composable
 internal fun rememberTooltipHolder(
     item: TooltipConfig?,
-    animationSpec: AnimationSpec<Float>
-): State<TooltipHolder> {
+    animationSpec: AnimationSpec<Float>,
+): TooltipHolder {
     var actualItem by rememberMutableStateOf(value = item)
+    var state by rememberMutableStateOf(value = item?.animationState?.from)
 
-    var isVisible by rememberMutableStateOf(value = false)
     LaunchedEffect(item) {
-        if (item == null) {
-            isVisible = false
-        } else {
-            isVisible = true
+        if (item != null) {
             actualItem = item
         }
     }
+    LaunchedEffect(Unit) {
+        state = item?.animationState?.to
+    }
 
     val alpha = animateFloatAsState(
-        targetValue = if (isVisible) VISIBLE_ALPHA else INVISIBLE_ALPHA,
+        targetValue = if (state == Visible) 1f else 0f,
         animationSpec = animationSpec,
         finishedListener = {
             if (it == INVISIBLE_ALPHA) {
                 // todo actual item to null
             }
         }
-    ).value
+    )
 
     return remember(alpha, actualItem) {
-        derivedStateOf {
-            TooltipHolder(
-                item = actualItem,
-                alpha = alpha,
-                isVisible = isVisible
-            )
-        }
+        TooltipHolder(
+            item = actualItem,
+            alpha = alpha,
+        )
     }
 }

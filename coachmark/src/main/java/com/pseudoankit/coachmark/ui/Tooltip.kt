@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntSize
 import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.model.TooltipConfig
+import com.pseudoankit.coachmark.model.TooltipHolder
 import com.pseudoankit.coachmark.util.CoachMarkKey
-import com.pseudoankit.coachmark.util.TooltipHolder
 import com.pseudoankit.coachmark.util.rememberMutableStateOf
 import com.pseudoankit.coachmark.util.toDp
 

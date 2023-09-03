@@ -4,15 +4,12 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.util.CoachMarkKey
-import com.pseudoankit.coachmark.util.INVISIBLE_ALPHA
-import com.pseudoankit.coachmark.util.VISIBLE_ALPHA
 import com.pseudoankit.coachmark.util.clickable
 import com.pseudoankit.coachmark.util.rememberTooltipHolder
 
@@ -24,9 +21,13 @@ internal fun CoachMarkImpl(
     content: @Composable (CoachMarkScope.() -> Unit),
 ) = with(overlayEffect) {
 
-    val currentVisibleTooltip by rememberTooltipHolder(
+    val currentTooltip = rememberTooltipHolder(
         item = coachMarkScope.currentVisibleTooltip,
-        animationSpec = overlayEffect.tooltipAnimationSpec()
+        animationSpec = tooltipAnimationSpec(),
+    )
+    val previousTooltip = rememberTooltipHolder(
+        item = coachMarkScope.lastVisibleTooltip,
+        animationSpec = tooltipAnimationSpec(),
     )
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -36,18 +37,23 @@ internal fun CoachMarkImpl(
             modifier = Modifier
                 .fillMaxSize()
                 .run {
-                    if (currentVisibleTooltip.alpha > INVISIBLE_ALPHA) {
+                    if (currentTooltip.isVisible) {
                         clickable(showRipple = false, onClick = coachMarkScope::onOverlayClicked)
                     } else this
                 }
                 .alpha(
                     animateFloatAsState(
-                        targetValue = if (currentVisibleTooltip.isVisible) VISIBLE_ALPHA else INVISIBLE_ALPHA,
+                        targetValue = if (currentTooltip.isVisible) 1f else 0f,
                         animationSpec = overlayEffect.overlayAnimationSpec()
                     ).value
-                )
+                ),
+            currentTooltip = currentTooltip,
+            previousTooltip = previousTooltip
         ) {
-            Tooltip(currentVisibleTooltip) {
+            Tooltip(currentTooltip) {
+                coachMarkScope.tooltip(it)
+            }
+            Tooltip(previousTooltip) {
                 coachMarkScope.tooltip(it)
             }
         }

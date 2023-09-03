@@ -94,7 +94,18 @@ internal class CoachMarkScopeImpl(
     }
 
     private fun updateVisibleItem(items: List<TooltipConfig>, visibleTooltipIndex: Int) {
-        _lastVisibleTooltip = _currentVisibleTooltip
-        _currentVisibleTooltip = items.getOrNull(visibleTooltipIndex)
+        _lastVisibleTooltip = _currentVisibleTooltip?.copy(
+            animationState = TooltipConfig.AnimationState(
+                from = TooltipConfig.State.Visible,
+                to = TooltipConfig.State.Gone
+            )
+        )
+
+        _currentVisibleTooltip = items.getOrNull(visibleTooltipIndex)?.copy(
+            animationState = TooltipConfig.AnimationState(
+                from = TooltipConfig.State.Gone,
+                to = TooltipConfig.State.Visible
+            )
+        )
     }
 }
