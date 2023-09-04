@@ -1,5 +1,7 @@
 # Jetpack Compose Coachmark/Onboarding Library
 
+[![](https://jitpack.io/v/pseudoankit/coachmark.svg)](https://jitpack.io/#pseudoankit/coachmark)
+
 A library for creating coachmarks or onboarding flows using Jetpack Compose.
 
 <img src="https://github.com/pseudoankit/coachmark/assets/54987308/38c18ebb-5057-46f8-bdd8-6d9c966a603b" width="200" height="400"/>
@@ -16,10 +18,6 @@ Now provide seamless onboarding experience to end users with just few lines of c
 - Compatible with Jetpack Compose UI components.
 
 ## Getting Started
-| Compose Version | Library Version              |
-| --------------- | ---------------------------- |
-| Compose 1.3 (1.3.x) | [![](https://jitpack.io/v/pseudoankit/coachmark.svg)](https://jitpack.io/#pseudoankit/coachmark) |
-
 In your settings.gradle
 ```
 dependencyResolutionManagement {
@@ -33,7 +31,7 @@ dependencyResolutionManagement {
 In your module's build.gradle
 ```
 dependencies {
-    implementation 'com.github.pseudoankit:coachmark:<version^>'
+    implementation 'com.github.pseudoankit:coachmark:<version>'
 }
 ```
 
