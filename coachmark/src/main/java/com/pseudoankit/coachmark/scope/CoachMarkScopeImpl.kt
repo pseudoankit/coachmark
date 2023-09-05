@@ -1,5 +1,6 @@
 package com.pseudoankit.coachmark.scope
 
+import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.runtime.getValue
@@ -49,6 +50,7 @@ internal class CoachMarkScopeImpl(
     override fun Modifier.enableCoachMark(
         key: CoachMarkKey,
         toolTipPlacement: ToolTipPlacement,
+        tooltipAnimationSpec: AnimationSpec<Float>,
         highlightedViewConfig: HighlightedViewConfig,
     ): Modifier = onGloballyPositioned { layoutCoordinates ->
         val startPadding =
@@ -67,7 +69,10 @@ internal class CoachMarkScopeImpl(
                 startX = layoutCoordinates.positionInRoot().x - startPadding,
                 startY = layoutCoordinates.positionInRoot().y - endPadding,
             ),
-            highlightedViewShape = highlightedViewConfig.shape
+            highlightedViewShape = highlightedViewConfig.shape,
+            animationState = TooltipConfig.AnimationState(
+                tooltipAnimationSpec = tooltipAnimationSpec
+            )
         )
     }
 
@@ -94,18 +99,22 @@ internal class CoachMarkScopeImpl(
     }
 
     private fun updateVisibleItem(items: List<TooltipConfig>, visibleTooltipIndex: Int) {
-        _lastVisibleTooltip = _currentVisibleTooltip?.copy(
-            animationState = TooltipConfig.AnimationState(
-                initialAlpha = 1f,
-                targetAlpha = 0f
+        _lastVisibleTooltip = _currentVisibleTooltip?.let {
+            it.copy(
+                animationState = it.animationState.copy(
+                    initialAlpha = 1f,
+                    targetAlpha = 0f
+                )
             )
-        )
+        }
 
-        _currentVisibleTooltip = items.getOrNull(visibleTooltipIndex)?.copy(
-            animationState = TooltipConfig.AnimationState(
-                initialAlpha = 0f,
-                targetAlpha = 1f
+        _currentVisibleTooltip = items.getOrNull(visibleTooltipIndex)?.let {
+            it.copy(
+                animationState = it.animationState.copy(
+                    initialAlpha = 0f,
+                    targetAlpha = 1f
+                )
             )
-        )
+        }
     }
 }

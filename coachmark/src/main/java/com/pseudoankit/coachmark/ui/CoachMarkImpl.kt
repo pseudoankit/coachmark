@@ -23,14 +23,14 @@ internal fun CoachMarkImpl(
     val currentTooltip = coachMarkScope.currentVisibleTooltip?.let {
         rememberTooltipHolder(
             item = it,
-            animationSpec = tooltipAnimationSpec(),
+            animationSpec = it.animationState.tooltipAnimationSpec,
         )
     }
 
     val previousTooltip = coachMarkScope.lastVisibleTooltip?.let {
         rememberTooltipHolder(
             item = it,
-            animationSpec = tooltipAnimationSpec(),
+            animationSpec = it.animationState.tooltipAnimationSpec,
         )
     }
 
@@ -48,7 +48,7 @@ internal fun CoachMarkImpl(
                 .alpha(
                     animateFloatAsState(
                         targetValue = if (currentTooltip?.isVisible == true) 1f else 0f,
-                        animationSpec = overlayEffect.overlayAnimationSpec()
+                        animationSpec = overlayEffect.overlayAnimationSpec
                     ).value
                 ),
             currentTooltip = currentTooltip,

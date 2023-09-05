@@ -1,5 +1,7 @@
 package com.pseudoankit.coachmark.util
 
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
@@ -24,9 +26,14 @@ public object CoachMarkDefaults {
         }
     }
 
+    public object ToolTip {
+        public val animationSpec: AnimationSpec<Float> = tween(ANIMATION_DURATION)
+    }
+
     public object Overlay {
         public val background: UnifyOverlayEffect = DimOverlayEffect()
         public val clickEvent: OverlayClickEvent = OverlayClickEvent.GoNext
+        public val animationSpec: AnimationSpec<Float> = tween(ANIMATION_DURATION)
     }
 
     public object HighlightedView {
