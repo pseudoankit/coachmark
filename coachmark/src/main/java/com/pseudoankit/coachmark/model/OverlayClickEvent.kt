@@ -13,6 +13,7 @@ import com.pseudoankit.coachmark.scope.CoachMarkScope
  */
 @Immutable
 public enum class OverlayClickEvent {
+
     /**
      * Event denoting that on click on overlay, it would switch to previous item
      * If nothing on previous then it will dismiss

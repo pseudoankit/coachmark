@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import com.pseudoankit.coachmark.model.TooltipConfig
 
-internal const val INVISIBLE_ALPHA = 0f
-internal const val VISIBLE_ALPHA = 1f
 internal const val ANIMATION_DURATION = 500
 
 internal fun Int.toDp(density: Density) = toFloat().toDp(density)
@@ -55,6 +53,10 @@ internal fun coachMarkLog(vararg log: String) {
     println("UnifyCoachMarkLogs : ${log.joinToString(", ")}")
 }
 
+/**
+ * utility to highlight the view when tooltip is visible
+ * it draws the cuts to highlight the view when overlay is showing
+ */
 public fun DrawScope.highlightActualView(
     toolTip: TooltipConfig,
     density: Density,

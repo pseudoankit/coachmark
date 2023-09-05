@@ -12,6 +12,9 @@ import com.pseudoankit.coachmark.model.OverlayClickEvent
 import com.pseudoankit.coachmark.overlay.DimOverlayEffect
 import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
 
+/**
+ * default values of coachmark items
+ */
 public object CoachMarkDefaults {
     public object Balloon {
         public val bgColor: Color = Color(0xFFA4A4EB)

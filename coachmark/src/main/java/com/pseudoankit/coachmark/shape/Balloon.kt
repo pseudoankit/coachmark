@@ -18,6 +18,16 @@ import androidx.compose.ui.unit.Dp
 import com.pseudoankit.coachmark.util.CoachMarkDefaults
 import com.pseudoankit.coachmark.util.toPx
 
+/**
+ * default tooltip shape provided from the library
+ * @param arrow configurations of arrow to be shown in the view
+ * @param modifier modifier to be applied in the composable
+ * @param padding content padding of the view
+ * @param cornerRadius corner radius of balloon shape
+ * @param shadowElevation elevation when balloon is visible
+ * @param bgColor background color of balloon
+ * @param content content to be rendered inside balloon
+ */
 @Composable
 public fun Balloon(
     arrow: Arrow,

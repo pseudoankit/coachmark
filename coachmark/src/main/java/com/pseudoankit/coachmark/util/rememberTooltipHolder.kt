@@ -10,6 +10,9 @@ import androidx.compose.runtime.setValue
 import com.pseudoankit.coachmark.model.TooltipConfig
 import com.pseudoankit.coachmark.model.TooltipHolder
 
+/**
+ * utility to create a tooltip holder which wraps the tooltip along with alpha of the view to animate
+ */
 @Composable
 internal fun rememberTooltipHolder(
     item: TooltipConfig,

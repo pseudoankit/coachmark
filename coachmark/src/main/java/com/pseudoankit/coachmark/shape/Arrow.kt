@@ -9,22 +9,59 @@ import com.pseudoankit.coachmark.util.CoachMarkDefaults
 import com.pseudoankit.coachmark.util.buildPath
 import com.pseudoankit.coachmark.util.toPx
 
+/**
+ * contract containing required fields/methods to draw arrow when drawing [Balloon] shape
+ */
 public sealed interface Arrow {
+
+    /**
+     * width of arrow
+     */
     public val width: Dp
+
+    /**
+     * height of arrow
+     */
     public val height: Dp
 
+    /**
+     * bias of the of arrow w.r.t view where it's applied
+     * it basically denotes the position of arrow when placing it
+     */
+    public val bias: Float
+
+    /**
+     * padding to be applied from start/left of the view
+     */
     public val startPadding: Dp
+
+    /**
+     * padding to be applied from end/right of the view
+     */
     public val endPadding: Dp
+
+    /**
+     * padding to be applied from top of the view
+     */
     public val topPadding: Dp
+
+    /**
+     * padding to be applied from bottom of the view
+     */
     public val bottomPadding: Dp
 
+    /**
+     * @return path of the arrow to be added to the view
+     */
     public fun draw(size: Size, density: Density): Path
 
-
+    /**
+     * draws arrow at top of view
+     */
     public data class Top(
         override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
         override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
-        val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
+        override val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
     ) : Arrow {
 
         override val topPadding: Dp = height
@@ -42,10 +79,13 @@ public sealed interface Arrow {
         }
     }
 
+    /**
+     * draws arrow at bottom of view
+     */
     public data class Bottom(
         override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
         override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
-        val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
+        override val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
     ) : Arrow {
 
         override val bottomPadding: Dp = height
@@ -63,10 +103,13 @@ public sealed interface Arrow {
         }
     }
 
+    /**
+     * draws arrow at start/left of view
+     */
     public data class Start(
         override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
         override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
-        val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
+        override val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
     ) : Arrow {
 
         override val startPadding: Dp = width
@@ -84,10 +127,13 @@ public sealed interface Arrow {
         }
     }
 
+    /**
+     * draws arrow at right/end of view
+     */
     public data class End(
         override val width: Dp = CoachMarkDefaults.Balloon.Arrow.width,
         override val height: Dp = CoachMarkDefaults.Balloon.Arrow.height,
-        val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
+        override val bias: Float = CoachMarkDefaults.Balloon.Arrow.bias
     ) : Arrow {
 
         override val endPadding: Dp = width

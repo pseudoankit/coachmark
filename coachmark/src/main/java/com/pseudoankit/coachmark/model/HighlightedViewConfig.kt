@@ -21,7 +21,7 @@ import com.pseudoankit.coachmark.util.toPx
  * @param shape shape of the view
  * @param padding padding of the view
  *
- * to enable coachmark in a view see[CoachMarkScope.enableCoachMark]
+ * @see CoachMarkScope.enableCoachMark to enable coachmark in a view
  */
 @Stable
 public data class HighlightedViewConfig(
@@ -30,6 +30,10 @@ public data class HighlightedViewConfig(
 ) {
 
     public sealed interface Shape {
+
+        /**
+         * @return path to be applied around the actual view when tooltip is visible
+         */
         public fun pathToHighlight(density: Density, size: Size): Path
 
         /**

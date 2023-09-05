@@ -8,7 +8,7 @@ import com.pseudoankit.coachmark.util.CoachMarkKey
 /**
  * actual tooltip config containing all details about tooltip and it's view on which tooltip is shown
  * @param layout layout configuration/coordinates of the view
- * @param toolTipPlacement denotes placement of tooltip w.r.t to view
+ * @param toolTipPlacement denotes placement of tooltip w.r.t  view
  * @param key key of a view where enabling tooltip, used to show/hide on the basis of key
  * basically it acts a unique identifier of the view/tooltip
  * @param highlightedViewShape configuration of the view when tooltip is showing/active for the view

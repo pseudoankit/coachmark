@@ -18,6 +18,13 @@ import com.pseudoankit.coachmark.util.CoachMarkKey
 import com.pseudoankit.coachmark.util.rememberMutableStateOf
 import com.pseudoankit.coachmark.util.toDp
 
+/**
+ * composable to render the tooltip
+ * responsible to place and animate the tooltip
+ *
+ * @param tooltipHolder contains the tooltip to be shown and alpha to be applied
+ * @param content content to be rendered when showing, to be passed by client
+ */
 @Composable
 internal fun Tooltip(
     tooltipHolder: TooltipHolder?,

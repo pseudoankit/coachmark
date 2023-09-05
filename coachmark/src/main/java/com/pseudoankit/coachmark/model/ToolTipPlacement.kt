@@ -3,7 +3,7 @@ package com.pseudoankit.coachmark.model
 import androidx.compose.runtime.Immutable
 
 /**
- * denotes the placement of tooltip w.r.t to the actual view
+ * denotes the placement of tooltip w.r.t  the actual view
  */
 @Immutable
 public enum class ToolTipPlacement {
