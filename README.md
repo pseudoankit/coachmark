@@ -114,3 +114,5 @@ private fun Tooltip(key: CoachMarkKey) {
     }
 }
 ```
+
+Inspired from <a href = "https://github.com/svenjacobs/reveal">reveal</a> library
