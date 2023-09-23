@@ -2,6 +2,11 @@
 buildscript {
     ext {
         compose_compiler = '1.3.2'
+        GROUP_ID = "io.github.pseudoankit"
+        ARTIFACT_ID = "coachmark"
+        VERSION = "1.0.0"
+        SITE_URL = 'https://github.com/pseudoankit/coachmark'
+        GIT_URL = 'https://github.com/pseudoankit/coachmark.git'
     }
 }
 plugins {
@@ -23,5 +28,5 @@ nexusPublishing {
     }
 }
 
-group = "io.github.pseudoankit"
-version = "1.0.2"
+group = GROUP_ID
+version = VERSION

@@ -4,14 +4,6 @@ plugins {
     id 'maven-publish'
 }
 
-
-ext {
-    GROUP_ID = "io.github.pseudoankit"
-    ARTIFACT_ID = "coachmark"
-    VERSION = "1.0.2"
-    SITE_URL = 'https://github.com/pseudoankit/coachmark'
-    GIT_URL = 'https://github.com/pseudoankit/coachmark.git'
-}
 apply from: '../publish.gradle'
 
 kotlin {
