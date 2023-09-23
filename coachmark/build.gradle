@@ -4,6 +4,16 @@ plugins {
     id 'maven-publish'
 }
 
+
+ext {
+    GROUP_ID = "io.github.pseudoankit"
+    ARTIFACT_ID = "coachmark"
+    VERSION = "1.0.2"
+    SITE_URL = 'https://github.com/pseudoankit/coachmark'
+    GIT_URL = 'https://github.com/pseudoankit/coachmark.git'
+}
+apply from: '../publish.gradle'
+
 kotlin {
     explicitApi = 'strict'
 }
@@ -48,17 +58,4 @@ dependencies {
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.pseudoankit'
-                artifactId = 'compose-coachmark'
-                version = '1.0.0'
-            }
-        }
-    }
 }

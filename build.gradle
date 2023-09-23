@@ -8,4 +8,20 @@ plugins {
     id 'com.android.application' version '8.0.1' apply false
     id 'com.android.library' version '8.0.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+    id("io.github.gradle-nexus.publish-plugin").version("1.1.0")
 }
+
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            username = System.getenv("OSS_USERNAME")
+            password = System.getenv("OSS_PASSWORD")
+            stagingProfileId = System.getenv("OSS_STAGING_PROFILE_ID")
+        }
+    }
+}
+
+group = "io.github.pseudoankit"
+version = "1.0.2"
