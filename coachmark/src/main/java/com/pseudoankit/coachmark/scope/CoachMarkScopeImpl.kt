@@ -67,7 +67,7 @@ internal class CoachMarkScopeImpl(
                 width = layoutCoordinates.size.width + startPadding.toInt() + endPadding.toInt(),
                 height = layoutCoordinates.size.height + topPadding.toInt() + bottomPadding.toInt(),
                 startX = layoutCoordinates.positionInRoot().x - startPadding,
-                startY = layoutCoordinates.positionInRoot().y - endPadding,
+                startY = layoutCoordinates.positionInRoot().y - topPadding,
             ),
             highlightedViewShape = highlightedViewConfig.shape,
             animationState = TooltipConfig.AnimationState(

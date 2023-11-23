@@ -32,7 +32,7 @@ public data class TooltipConfig(
      * @param width width of the view including [HighlightedViewConfig]
      * @param height height of the view including [HighlightedViewConfig]
      * @param startX starting x coordinate of the view including [HighlightedViewConfig]
-     * @param startY starting x coordinate of the view including [HighlightedViewConfig]
+     * @param startY starting y coordinate of the view including [HighlightedViewConfig]
      */
     @Stable
     public data class Layout(
