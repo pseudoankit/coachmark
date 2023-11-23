@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.pseudoankit.coachmark.LocalCoachMarkScope
 import com.pseudoankit.coachmark.UnifyCoachmark
 import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
@@ -23,6 +24,42 @@ import com.pseudoankit.coachmark.shape.Balloon
 import com.pseudoankit.coachmark.util.CoachMarkKey
 
 public enum class Keys { Text1, Text2 }
+
+@Composable
+private fun PlotTextsAndUseLocalCoachMarkScope() {
+    val coachMarkScope = LocalCoachMarkScope.current
+    coachMarkScope?.apply {
+        Text(
+            text = "Will show tooltip 1",
+            modifier = Modifier
+                .enableCoachMark(
+                    key = Keys.Text1,
+                    toolTipPlacement = ToolTipPlacement.End,
+                    highlightedViewConfig = HighlightedViewConfig(
+                        shape = HighlightedViewConfig.Shape.Rect(12.dp),
+                        padding = PaddingValues(8.dp)
+                    )
+                )
+                .padding(16.dp),
+            color = Color.Black
+        )
+
+        Text(
+            text = "Will show tooltip 2",
+            modifier = Modifier
+                .enableCoachMark(
+                    key = Keys.Text2,
+                    toolTipPlacement = ToolTipPlacement.End,
+                    highlightedViewConfig = HighlightedViewConfig(
+                        shape = HighlightedViewConfig.Shape.Rect(12.dp),
+                        padding = PaddingValues(8.dp)
+                    )
+                )
+                .padding(16.dp),
+            color = Color.Black
+        )
+    }
+}
 
 @Preview
 @Composable
@@ -38,34 +75,7 @@ public fun UnifyCoachmarkDemo() {
                 .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(
-                text = "Will show tooltip 1",
-                modifier = Modifier
-                    .enableCoachMark(
-                        key = Keys.Text1,
-                        toolTipPlacement = ToolTipPlacement.End,
-                        highlightedViewConfig = HighlightedViewConfig(
-                            shape = HighlightedViewConfig.Shape.Rect(12.dp),
-                            padding = PaddingValues(8.dp)
-                        )
-                    )
-                    .padding(16.dp),
-                color = Color.Black
-            )
-            Text(
-                text = "Will show tooltip 2",
-                modifier = Modifier
-                    .enableCoachMark(
-                        key = Keys.Text2,
-                        toolTipPlacement = ToolTipPlacement.End,
-                        highlightedViewConfig = HighlightedViewConfig(
-                            shape = HighlightedViewConfig.Shape.Rect(12.dp),
-                            padding = PaddingValues(8.dp)
-                        )
-                    )
-                    .padding(16.dp),
-                color = Color.Black
-            )
+            PlotTextsAndUseLocalCoachMarkScope()
             Button(
                 onClick = {
                     show(Keys.Text1)
