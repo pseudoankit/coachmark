@@ -1,6 +1,9 @@
 package com.pseudoankit.coachmark
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -11,6 +14,9 @@ import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
 import com.pseudoankit.coachmark.ui.CoachMarkImpl
 import com.pseudoankit.coachmark.util.CoachMarkDefaults
 import com.pseudoankit.coachmark.util.CoachMarkKey
+
+public val LocalCoachMarkScope: ProvidableCompositionLocal<CoachMarkScope?> =
+    compositionLocalOf { null }
 
 @Composable
 public fun UnifyCoachmark(
@@ -30,10 +36,12 @@ public fun UnifyCoachmark(
         )
     }
 
-    CoachMarkImpl(
-        overlayEffect = overlayEffect,
-        content = content,
-        coachMarkScope = scope,
-        tooltip = tooltip
-    )
+    CompositionLocalProvider(LocalCoachMarkScope provides scope) {
+        CoachMarkImpl(
+            overlayEffect = overlayEffect,
+            content = content,
+            coachMarkScope = scope,
+            tooltip = tooltip
+        )
+    }
 }
