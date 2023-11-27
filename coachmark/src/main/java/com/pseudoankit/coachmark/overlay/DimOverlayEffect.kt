@@ -1,7 +1,6 @@
 package com.pseudoankit.coachmark.overlay
 
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -25,11 +24,13 @@ public class DimOverlayEffect(
         previousTooltip: TooltipHolder?,
         content: @Composable () -> Unit
     ) {
-
         val density = LocalDensity.current
 
-        Box(
-            modifier = modifier
+        OverlayLayout(
+            content,
+            currentTooltip?.item,
+            previousTooltip?.item,
+            modifier
                 .graphicsLayer(alpha = .99f)
                 .drawBehind {
                     drawRect(color)
@@ -39,11 +40,8 @@ public class DimOverlayEffect(
                     previousTooltip?.item?.let { tooltip ->
                         highlightActualView(tooltip, density, previousTooltip.alpha)
                     }
-                }
-        ) {
-            content()
-        }
+                },
+        )
     }
-
 
 }

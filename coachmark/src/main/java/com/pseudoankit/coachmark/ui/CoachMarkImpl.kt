@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.layout.layoutId
+import com.pseudoankit.coachmark.overlay.OverlayChildLayoutId
 import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
@@ -48,16 +50,23 @@ internal fun CoachMarkImpl(
                 .alpha(
                     animateFloatAsState(
                         targetValue = if (currentTooltip?.isVisible == true) 1f else 0f,
-                        animationSpec = overlayEffect.overlayAnimationSpec
+                        animationSpec = overlayEffect.overlayAnimationSpec,
+                        label = "OverlayAlphaAnimation", // just to avoid warning
                     ).value
                 ),
             currentTooltip = currentTooltip,
             previousTooltip = previousTooltip
         ) {
-            Tooltip(currentTooltip) {
+            Tooltip(
+                currentTooltip,
+                modifier = Modifier.layoutId(OverlayChildLayoutId.CURRENT),
+            ) {
                 coachMarkScope.tooltip(it)
             }
-            Tooltip(previousTooltip) {
+            Tooltip(
+                previousTooltip,
+                modifier = Modifier.layoutId(OverlayChildLayoutId.PREVIOUS),
+            ) {
                 coachMarkScope.tooltip(it)
             }
         }
