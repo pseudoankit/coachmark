@@ -9,12 +9,15 @@ import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.model.TooltipConfig
+import com.pseudoankit.coachmark.util.CoachMarkDefaults
 
 /** Containing composable must use these values for layoutId on current and previous tooltip. */
-public enum class OverlayChildLayoutId { CURRENT, PREVIOUS }
+public object TooltipId {
+    public const val current: Int = 1
+    public const val previous: Int = 2
+}
 
 /** Proposed minimum useful tooltip width; this can be adjusted if needed */
 private const val TOOLTIP_MAX_WIDTH_OVERRIDE_PX = 30
@@ -24,26 +27,38 @@ private const val TOOLTIP_MAX_WIDTH_OVERRIDE_PX = 30
  *
  * @param configCurrent of coach mark highlight; null suits case where there's no "current" tooltip in content
  * @param configPrevious of coach mark highlight; null suits case where there's no "previous" tooltip in content
- * @param gapTooltipScreen min distance between tooltip and edge of screen
+ * @param paddingForTooltip min distance between tooltip and left/right side of screen/overlay
  */
 @Composable
 public fun OverlayLayout(
-    content: @Composable @UiComposable () -> Unit,
     configCurrent: TooltipConfig?,
     configPrevious: TooltipConfig?,
     modifier: Modifier = Modifier,
-    gapTooltipScreen: Dp = 8.dp,
+    paddingForTooltip: Dp = CoachMarkDefaults.ToolTip.paddingForTooltip,
+    content: @Composable @UiComposable () -> Unit,
 ) {
     Layout(content, modifier) { measurables, constraints ->
 
         // child count < 2 occurs on first and last coach mark
         require(measurables.size <= 2) { "OverlayLayout cannot have more than two children" }
 
-        val gapTooltipScreenPx = gapTooltipScreen.roundToPx()
+        val gapTooltipScreenPx = paddingForTooltip.roundToPx()
 
         // measure children
-        val placeableCurrent = measure(configCurrent, OverlayChildLayoutId.CURRENT, measurables, constraints, gapTooltipScreenPx)
-        val placeablePrevious = measure(configPrevious, OverlayChildLayoutId.PREVIOUS, measurables, constraints, gapTooltipScreenPx)
+        val placeableCurrent = measure(
+            tooltipConfig = configCurrent,
+            layoutId = TooltipId.current,
+            measurables = measurables,
+            constraintsParent = constraints,
+            gapTooltipScreenPx = gapTooltipScreenPx
+        )
+        val placeablePrevious = measure(
+            tooltipConfig = configPrevious,
+            layoutId = TooltipId.previous,
+            measurables = measurables,
+            constraintsParent = constraints,
+            gapTooltipScreenPx = gapTooltipScreenPx
+        )
 
         // place children
         layout(constraints.maxWidth, constraints.maxHeight) {
@@ -55,11 +70,12 @@ public fun OverlayLayout(
 
 
 /**
+ * @param layoutId use consts from TooltipId
  * @return null if tooltipConfig is null
  */
 private fun measure(
     tooltipConfig: TooltipConfig?,
-    layoutId: OverlayChildLayoutId,
+    layoutId: Int,
     measurables: List<Measurable>,
     constraintsParent: Constraints,
     gapTooltipScreenPx: Int,
@@ -69,7 +85,7 @@ private fun measure(
     // constrain max width to prevent tooltip running off screen
     var maxWidth = when (tooltipConfig.toolTipPlacement) {
         ToolTipPlacement.Start -> {
-            constraintsParent.maxWidth - gapTooltipScreenPx - (constraintsParent.maxWidth - tooltipConfig.layout.startX.toInt())
+            tooltipConfig.layout.startX.toInt() - gapTooltipScreenPx // left edge of highlight, minus overlay padding
         }
         ToolTipPlacement.End -> {
             constraintsParent.maxWidth - gapTooltipScreenPx - tooltipConfig.layout.endX.toInt()
@@ -106,42 +122,40 @@ private fun measure(
 
 /**
  * Centralizes null checks and switching on toolTipPlacement value.
- * @param placeableOrNull no-op if null
- * @param configOrNull no-op if null
+ * @param placeable no-op if null
+ * @param config no-op if null
  */
-private fun Placeable.PlacementScope.place(placeableOrNull: Placeable?, configOrNull: TooltipConfig?) {
-    placeableOrNull?.let { placeable ->
-        configOrNull?.let { config ->
-            val layout = config.layout
-            var x = 0
-            var y = 0
+private fun Placeable.PlacementScope.place(placeable: Placeable?, config: TooltipConfig?) {
+    if (placeable != null && config != null) {
+        val layout = config.layout
+        var x = 0
+        var y = 0
 
-            // result positive when highlight is larger, negative when tooltip is larger
-            fun calculateCenteringOffset(independentHeight: Int, dependentHeight: Int): Int = (independentHeight - dependentHeight) shr 1
+        // result positive when highlight is larger, negative when tooltip is larger
+        fun calculateCenteringOffset(independentHeight: Int, dependentHeight: Int): Int = (independentHeight - dependentHeight) shr 1
 
-            fun centerVertically() = (layout.startY + calculateCenteringOffset(layout.height, placeable.height)).toInt()
-            fun centerHorizontally() = (layout.startX + calculateCenteringOffset(layout.width, placeable.width)).toInt()
+        fun centerVertically() = (layout.startY + calculateCenteringOffset(layout.height, placeable.height)).toInt()
+        fun centerHorizontally() = (layout.startX + calculateCenteringOffset(layout.width, placeable.width)).toInt()
 
-            when (config.toolTipPlacement) {
-                ToolTipPlacement.Start -> {
-                    x = layout.startX.toInt() - placeable.width
-                    y = centerVertically()
-                }
-                ToolTipPlacement.End -> {
-                    x = layout.endX.toInt()
-                    y = centerVertically()
-                }
-                ToolTipPlacement.Top -> {
-                    x = centerHorizontally()
-                    y = layout.startY.toInt() - placeable.height
-                }
-                ToolTipPlacement.Bottom -> {
-                    x = centerHorizontally()
-                    y = layout.endY.toInt()
-                }
+        when (config.toolTipPlacement) {
+            ToolTipPlacement.Start -> {
+                x = layout.startX.toInt() - placeable.width
+                y = centerVertically()
             }
-
-            placeable.placeRelative(x, y)
+            ToolTipPlacement.End -> {
+                x = layout.endX.toInt()
+                y = centerVertically()
+            }
+            ToolTipPlacement.Top -> {
+                x = centerHorizontally()
+                y = layout.startY.toInt() - placeable.height
+            }
+            ToolTipPlacement.Bottom -> {
+                x = centerHorizontally()
+                y = layout.endY.toInt()
+            }
         }
+
+        placeable.placeRelative(x, y)
     }
 }

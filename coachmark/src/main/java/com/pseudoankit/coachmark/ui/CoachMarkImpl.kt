@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.layoutId
-import com.pseudoankit.coachmark.overlay.OverlayChildLayoutId
+import com.pseudoankit.coachmark.overlay.TooltipId
 import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.scope.CoachMarkScopeImpl
@@ -58,14 +58,14 @@ internal fun CoachMarkImpl(
             previousTooltip = previousTooltip
         ) {
             Tooltip(
-                currentTooltip,
-                modifier = Modifier.layoutId(OverlayChildLayoutId.CURRENT),
+                tooltipHolder = currentTooltip,
+                modifier = Modifier.layoutId(TooltipId.current),
             ) {
                 coachMarkScope.tooltip(it)
             }
             Tooltip(
-                previousTooltip,
-                modifier = Modifier.layoutId(OverlayChildLayoutId.PREVIOUS),
+                tooltipHolder = previousTooltip,
+                modifier = Modifier.layoutId(TooltipId.previous),
             ) {
                 coachMarkScope.tooltip(it)
             }

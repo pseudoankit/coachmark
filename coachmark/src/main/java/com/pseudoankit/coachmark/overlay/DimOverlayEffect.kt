@@ -7,14 +7,19 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import com.pseudoankit.coachmark.model.TooltipHolder
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.util.CoachMarkDefaults
 import com.pseudoankit.coachmark.util.highlightActualView
 
+/**
+ * @param paddingForTooltip min distance between tooltip and left/right side of screen/overlay
+ */
 public class DimOverlayEffect(
     private val color: Color = Color.Black.copy(alpha = .75f),
-    override val overlayAnimationSpec: AnimationSpec<Float> = CoachMarkDefaults.Overlay.animationSpec
+    override val overlayAnimationSpec: AnimationSpec<Float> = CoachMarkDefaults.Overlay.animationSpec,
+    private val paddingForTooltip: Dp = CoachMarkDefaults.ToolTip.paddingForTooltip,
 ) : UnifyOverlayEffect {
 
     @Composable
@@ -27,10 +32,9 @@ public class DimOverlayEffect(
         val density = LocalDensity.current
 
         OverlayLayout(
-            content,
-            currentTooltip?.item,
-            previousTooltip?.item,
-            modifier
+            configCurrent = currentTooltip?.item,
+            configPrevious = previousTooltip?.item,
+            modifier = modifier
                 .graphicsLayer(alpha = .99f)
                 .drawBehind {
                     drawRect(color)
@@ -41,6 +45,8 @@ public class DimOverlayEffect(
                         highlightActualView(tooltip, density, previousTooltip.alpha)
                     }
                 },
+            content = content,
+            paddingForTooltip = paddingForTooltip,
         )
     }
 
