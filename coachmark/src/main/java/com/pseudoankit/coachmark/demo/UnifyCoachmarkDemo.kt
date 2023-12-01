@@ -2,6 +2,7 @@ package com.pseudoankit.coachmark.demo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -23,33 +24,40 @@ import com.pseudoankit.coachmark.shape.Arrow
 import com.pseudoankit.coachmark.shape.Balloon
 import com.pseudoankit.coachmark.util.CoachMarkKey
 
-public enum class Keys { Text1, Text2 }
+public enum class Keys { Text1, Text2, TextStart, TextBottom, TextTop }
 
 @Composable
-private fun PlotTextsAndUseLocalCoachMarkScope() {
+private fun ColumnScope.PlotTextsAndUseLocalCoachMarkScope() {
+
+    CoachMarkTargetText("Will show tooltip 1", Alignment.Start, Keys.Text1, ToolTipPlacement.End)
+
+    CoachMarkTargetText("Will show tooltip 2", Alignment.Start, Keys.Text2, ToolTipPlacement.End)
+
+    CoachMarkTargetText("Will show tooltip to left", Alignment.End, Keys.TextStart, ToolTipPlacement.Start)
+
+    CoachMarkTargetText("Will show tooltip below", Alignment.CenterHorizontally, Keys.TextBottom, ToolTipPlacement.Bottom)
+
+    CoachMarkTargetText("Will show tooltip above", Alignment.CenterHorizontally, Keys.TextTop, ToolTipPlacement.Top)
+
+}
+
+@Composable
+private fun ColumnScope.CoachMarkTargetText(
+    text: String,
+    alignment: Alignment.Horizontal,
+    key: Keys,
+    placement: ToolTipPlacement,
+) {
     val coachMarkScope = LocalCoachMarkScope.current
+
     coachMarkScope?.apply {
         Text(
-            text = "Will show tooltip 1",
+            text = text,
             modifier = Modifier
+                .align(alignment)
                 .enableCoachMark(
-                    key = Keys.Text1,
-                    toolTipPlacement = ToolTipPlacement.End,
-                    highlightedViewConfig = HighlightedViewConfig(
-                        shape = HighlightedViewConfig.Shape.Rect(12.dp),
-                        padding = PaddingValues(8.dp)
-                    )
-                )
-                .padding(16.dp),
-            color = Color.Black
-        )
-
-        Text(
-            text = "Will show tooltip 2",
-            modifier = Modifier
-                .enableCoachMark(
-                    key = Keys.Text2,
-                    toolTipPlacement = ToolTipPlacement.End,
+                    key = key,
+                    toolTipPlacement = placement,
                     highlightedViewConfig = HighlightedViewConfig(
                         shape = HighlightedViewConfig.Shape.Rect(12.dp),
                         padding = PaddingValues(8.dp)
@@ -82,15 +90,15 @@ public fun UnifyCoachmarkDemo() {
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
-                Text(text = "Highlight1")
+                Text(text = "Highlight 1")
             }
             Button(
                 onClick = {
-                    show(Keys.Text1, Keys.Text2)
+                    show(*Keys.values())
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
-                Text(text = "Highlight 1 & 2")
+                Text(text = "Highlight All")
             }
         }
     }
@@ -108,6 +116,24 @@ private fun Tooltip(key: CoachMarkKey) {
         Keys.Text2 -> {
             Balloon(arrow = Arrow.Start()) {
                 Text(text = "Highlighting Text2", color = Color.White)
+            }
+        }
+
+        Keys.TextStart -> {
+            Balloon(arrow = Arrow.End()) {
+                Text(text = "A tooltip to the left", color = Color.White)
+            }
+        }
+
+        Keys.TextBottom -> {
+            Balloon(arrow = Arrow.Top()) {
+                Text(text = "A tooltip below", color = Color.White)
+            }
+        }
+
+        Keys.TextTop -> {
+            Balloon(arrow = Arrow.Bottom()) {
+                Text(text = "A tooltip above", color = Color.White)
             }
         }
     }
