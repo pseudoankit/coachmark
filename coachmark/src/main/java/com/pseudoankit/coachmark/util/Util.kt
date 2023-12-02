@@ -84,3 +84,7 @@ public fun DrawScope.highlightActualView(
         blendMode = BlendMode.DstOut,
     )
 }
+
+internal fun log(msg: String) {
+    println("CoachMark | $msg")
+}

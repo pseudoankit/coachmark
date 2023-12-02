@@ -100,6 +100,9 @@ public fun UnifyCoachmarkDemo() {
             ) {
                 Text(text = "Highlight All")
             }
+            Button(onClick = { show(Keys.TextBottom, Keys.TextTop) }) {
+                Text(text = "Highlight Some")
+            }
         }
     }
 }
