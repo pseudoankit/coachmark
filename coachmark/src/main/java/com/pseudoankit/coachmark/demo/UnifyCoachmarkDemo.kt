@@ -33,11 +33,26 @@ private fun ColumnScope.PlotTextsAndUseLocalCoachMarkScope() {
 
     CoachMarkTargetText("Will show tooltip 2", Alignment.Start, Keys.Text2, ToolTipPlacement.End)
 
-    CoachMarkTargetText("Will show tooltip to left", Alignment.End, Keys.TextStart, ToolTipPlacement.Start)
+    CoachMarkTargetText(
+        "Will show tooltip to left",
+        Alignment.End,
+        Keys.TextStart,
+        ToolTipPlacement.Start
+    )
 
-    CoachMarkTargetText("Will show tooltip below", Alignment.CenterHorizontally, Keys.TextBottom, ToolTipPlacement.Bottom)
+    CoachMarkTargetText(
+        "Will show tooltip below",
+        Alignment.CenterHorizontally,
+        Keys.TextBottom,
+        ToolTipPlacement.Bottom
+    )
 
-    CoachMarkTargetText("Will show tooltip above", Alignment.CenterHorizontally, Keys.TextTop, ToolTipPlacement.Top)
+    CoachMarkTargetText(
+        "Will show tooltip above",
+        Alignment.CenterHorizontally,
+        Keys.TextTop,
+        ToolTipPlacement.Top
+    )
 
 }
 

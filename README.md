@@ -20,7 +20,9 @@ Now provide seamless onboarding experience to end users with just few lines of c
 - Compatible with Jetpack Compose UI components.
 
 ## Getting Started
+
 In your settings.gradle
+
 ```
 dependencyResolutionManagement {
     repositories {
@@ -31,6 +33,7 @@ dependencyResolutionManagement {
 ```
 
 In your module's build.gradle
+
 ```
 dependencies {
     implementation 'com.github.pseudoankit:coachmark:<version>'
@@ -38,6 +41,7 @@ dependencies {
 ```
 
 ## Usage
+
 ```
 public enum class Keys { Text1, Text2 }
 

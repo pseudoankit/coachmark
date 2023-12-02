@@ -87,6 +87,7 @@ private fun measure(
         ToolTipPlacement.Start -> {
             tooltipConfig.layout.startX.toInt() - gapTooltipScreenPx // left edge of highlight, minus overlay padding
         }
+
         ToolTipPlacement.End -> {
             constraintsParent.maxWidth - gapTooltipScreenPx - tooltipConfig.layout.endX.toInt()
         }
@@ -132,24 +133,31 @@ private fun Placeable.PlacementScope.place(placeable: Placeable?, config: Toolti
         var y = 0
 
         // result positive when highlight is larger, negative when tooltip is larger
-        fun calculateCenteringOffset(independentHeight: Int, dependentHeight: Int): Int = (independentHeight - dependentHeight) shr 1
+        fun calculateCenteringOffset(independentHeight: Int, dependentHeight: Int): Int =
+            (independentHeight - dependentHeight) shr 1
 
-        fun centerVertically() = (layout.startY + calculateCenteringOffset(layout.height, placeable.height)).toInt()
-        fun centerHorizontally() = (layout.startX + calculateCenteringOffset(layout.width, placeable.width)).toInt()
+        fun centerVertically() =
+            (layout.startY + calculateCenteringOffset(layout.height, placeable.height)).toInt()
+
+        fun centerHorizontally() =
+            (layout.startX + calculateCenteringOffset(layout.width, placeable.width)).toInt()
 
         when (config.toolTipPlacement) {
             ToolTipPlacement.Start -> {
                 x = layout.startX.toInt() - placeable.width
                 y = centerVertically()
             }
+
             ToolTipPlacement.End -> {
                 x = layout.endX.toInt()
                 y = centerVertically()
             }
+
             ToolTipPlacement.Top -> {
                 x = centerHorizontally()
                 y = layout.startY.toInt() - placeable.height
             }
+
             ToolTipPlacement.Bottom -> {
                 x = centerHorizontally()
                 y = layout.endY.toInt()
