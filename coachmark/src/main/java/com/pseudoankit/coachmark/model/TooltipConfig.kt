@@ -60,11 +60,13 @@ public data class TooltipConfig(
      * @param initialAlpha denotes the starting alpha value when visibility changes
      * @param targetAlpha denotes the ending alpha value when visibility changes
      * @param tooltipAnimationSpec denotes the animation that needs to be applied when changing visibility of tooltip
+     * @param onAlphaValueUpdated callback when alpha value is animating from [initialAlpha] to [targetAlpha]
      */
     @Stable
     public data class AnimationState(
         val initialAlpha: Float = 0f,
         val targetAlpha: Float = 0f,
-        val tooltipAnimationSpec: AnimationSpec<Float>
+        val tooltipAnimationSpec: AnimationSpec<Float>,
+        val onAlphaValueUpdated: (Float) -> Unit = {}
     )
 }

@@ -12,11 +12,13 @@ import com.pseudoankit.coachmark.model.TooltipHolder
 
 /**
  * utility to create a tooltip holder which wraps the tooltip along with alpha of the view to animate
+ * @param onAlphaValueUpdated callback when alpha value is animating from initial to target alpha
  */
 @Composable
 internal fun rememberTooltipHolder(
     item: TooltipConfig,
     animationSpec: AnimationSpec<Float>,
+    onAlphaValueUpdated: (Float) -> Unit
 ): TooltipHolder {
 
     var alpha by rememberMutableStateOf(
@@ -31,6 +33,7 @@ internal fun rememberTooltipHolder(
             animationSpec = animationSpec,
             block = { value, _ ->
                 alpha = value
+                onAlphaValueUpdated(value)
             }
         )
     }

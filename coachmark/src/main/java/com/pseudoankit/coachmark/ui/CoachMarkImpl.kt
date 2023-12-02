@@ -26,6 +26,7 @@ internal fun CoachMarkImpl(
         rememberTooltipHolder(
             item = it,
             animationSpec = it.animationState.tooltipAnimationSpec,
+            onAlphaValueUpdated = it.animationState.onAlphaValueUpdated
         )
     }
 
@@ -33,6 +34,7 @@ internal fun CoachMarkImpl(
         rememberTooltipHolder(
             item = it,
             animationSpec = it.animationState.tooltipAnimationSpec,
+            onAlphaValueUpdated = it.animationState.onAlphaValueUpdated
         )
     }
 
