@@ -30,7 +30,6 @@ internal class CoachMarkScopeImpl(
 
     private var _visibleTooltips = listOf<TooltipConfig>()
         set(value) {
-            field = emptyList()
             _visibleTooltipIndex = 0
             updateVisibleItem(value, _visibleTooltipIndex)
             field = value
