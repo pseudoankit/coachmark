@@ -2,6 +2,7 @@ package com.pseudoankit.coachmark.scope
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
 import com.pseudoankit.coachmark.model.ToolTipPlacement
@@ -35,7 +36,8 @@ public interface CoachMarkScope {
         key: CoachMarkKey,
         toolTipPlacement: ToolTipPlacement,
         tooltipAnimationSpec: AnimationSpec<Float> = CoachMarkDefaults.ToolTip.animationSpec,
-        highlightedViewConfig: HighlightedViewConfig = HighlightedViewConfig()
+        highlightedViewConfig: HighlightedViewConfig = HighlightedViewConfig(),
+        minOffsetFromScreen: Dp = CoachMarkDefaults.ToolTip.minOffsetFromScreen
     ): Modifier
 
     /**

@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
@@ -54,6 +55,7 @@ internal class CoachMarkScopeImpl(
         toolTipPlacement: ToolTipPlacement,
         tooltipAnimationSpec: AnimationSpec<Float>,
         highlightedViewConfig: HighlightedViewConfig,
+        minOffsetFromScreen: Dp,
     ): Modifier = onGloballyPositioned { layoutCoordinates ->
         val startPadding =
             highlightedViewConfig.padding.calculateStartPadding(layoutDirection).toPx(density)
@@ -74,7 +76,8 @@ internal class CoachMarkScopeImpl(
             highlightedViewShape = highlightedViewConfig.shape,
             animationState = TooltipConfig.AnimationState(
                 tooltipAnimationSpec = tooltipAnimationSpec
-            )
+            ),
+            minOffsetFromScreen = minOffsetFromScreen
         )
     }
 
