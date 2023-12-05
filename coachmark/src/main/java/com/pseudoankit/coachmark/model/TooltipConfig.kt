@@ -2,7 +2,9 @@ package com.pseudoankit.coachmark.model
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.unit.Dp
 import com.pseudoankit.coachmark.scope.CoachMarkScope
+import com.pseudoankit.coachmark.util.CoachMarkDefaults
 import com.pseudoankit.coachmark.util.CoachMarkKey
 
 /**
@@ -20,7 +22,8 @@ public data class TooltipConfig(
     val toolTipPlacement: ToolTipPlacement,
     val key: CoachMarkKey,
     val highlightedViewShape: HighlightedViewConfig.Shape,
-    val animationState: AnimationState
+    val animationState: AnimationState,
+    val minOffsetFromScreen: Dp = CoachMarkDefaults.ToolTip.minOffsetFromScreen
 ) {
 
     /**

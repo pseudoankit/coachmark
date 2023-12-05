@@ -19,7 +19,7 @@ import com.pseudoankit.coachmark.util.highlightActualView
 public class DimOverlayEffect(
     private val color: Color = Color.Black.copy(alpha = .75f),
     override val overlayAnimationSpec: AnimationSpec<Float> = CoachMarkDefaults.Overlay.animationSpec,
-    private val paddingForTooltip: Dp = CoachMarkDefaults.ToolTip.paddingForTooltip,
+    private val paddingForTooltip: Dp = CoachMarkDefaults.ToolTip.minOffsetFromScreen,
 ) : UnifyOverlayEffect {
 
     @Composable
@@ -45,8 +45,7 @@ public class DimOverlayEffect(
                         highlightActualView(tooltip, density, previousTooltip.alpha)
                     }
                 },
-            content = content,
-            paddingForTooltip = paddingForTooltip,
+            content = content
         )
     }
 

@@ -31,7 +31,7 @@ public object CoachMarkDefaults {
 
     public object ToolTip {
         public val animationSpec: AnimationSpec<Float> = tween(ANIMATION_DURATION)
-        public val paddingForTooltip: Dp = 8.dp
+        public val minOffsetFromScreen: Dp = 8.dp
     }
 
     public object Overlay {

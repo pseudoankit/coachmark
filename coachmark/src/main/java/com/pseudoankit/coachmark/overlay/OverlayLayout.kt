@@ -7,11 +7,11 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Constraints
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.Density
 import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.model.TooltipConfig
-import com.pseudoankit.coachmark.util.CoachMarkDefaults
 
 /** Containing composable must use these values for layoutId on current and previous tooltip. */
 public object TooltipId {
@@ -34,15 +34,13 @@ public fun OverlayLayout(
     configCurrent: TooltipConfig?,
     configPrevious: TooltipConfig?,
     modifier: Modifier = Modifier,
-    paddingForTooltip: Dp = CoachMarkDefaults.ToolTip.paddingForTooltip,
     content: @Composable @UiComposable () -> Unit,
 ) {
+    val density = LocalDensity.current
     Layout(content, modifier) { measurables, constraints ->
 
         // child count < 2 occurs on first and last coach mark
         require(measurables.size <= 2) { "OverlayLayout cannot have more than two children" }
-
-        val gapTooltipScreenPx = paddingForTooltip.roundToPx()
 
         // measure children
         val placeableCurrent = measure(
@@ -50,14 +48,14 @@ public fun OverlayLayout(
             layoutId = TooltipId.current,
             measurables = measurables,
             constraintsParent = constraints,
-            gapTooltipScreenPx = gapTooltipScreenPx
+            density = density
         )
         val placeablePrevious = measure(
             tooltipConfig = configPrevious,
             layoutId = TooltipId.previous,
             measurables = measurables,
             constraintsParent = constraints,
-            gapTooltipScreenPx = gapTooltipScreenPx
+            density = density,
         )
 
         // place children
@@ -78,10 +76,11 @@ private fun measure(
     layoutId: Int,
     measurables: List<Measurable>,
     constraintsParent: Constraints,
-    gapTooltipScreenPx: Int,
+    density: Density,
 ): Placeable? {
     if (tooltipConfig == null) return null
 
+    val gapTooltipScreenPx = with(density) { tooltipConfig.minOffsetFromScreen.roundToPx() }
     // constrain max width to prevent tooltip running off screen
     var maxWidth = when (tooltipConfig.toolTipPlacement) {
         ToolTipPlacement.Start -> {
