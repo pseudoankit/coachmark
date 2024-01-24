@@ -6,7 +6,7 @@ plugins {
 apply from: '../publish-package.gradle'
 
 ext {
-    VERSION_NAME = "1.0.0"
+    VERSION_NAME = "1.0.1"
     ARTIFACT_ID = "coachmark"
 }
 
