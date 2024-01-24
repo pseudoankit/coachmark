@@ -1,6 +1,12 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
+def VERSION_NAME = '1.0.0'
+def GROUP_ID = 'io.github.pseudoankit'
+def POM_DESCRIPTION = 'Compose library to add coachmark'
+def POM_URL = 'https://github.com/pseudoankit/coachmark'
+def POM_SCM_CONNECTION = 'scm:git@github.com:pseudoankit/coachmark.git'
+
 task androidJavadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
@@ -44,10 +50,7 @@ afterEvaluate {
 
                 from components.release
 
-//                artifact androidJavadocJar
-//                artifact javaSourcesJar
-
-                groupId GROUP
+                groupId GROUP_ID
                 version VERSION_NAME
                 pom {
                     name = artifactId
@@ -66,9 +69,9 @@ afterEvaluate {
                     }
                     developers {
                         developer {
-                            id = POM_DEVELOPER_ID
-                            name = POM_DEVELOPER_NAME
-                            email = POM_DEVELOPER_EMAIL
+                            id = 'pseudoankit'
+                            name = 'Ankit Kumar'
+                            email = 'lostankit7@gmail.com'
                         }
                     }
                 }
