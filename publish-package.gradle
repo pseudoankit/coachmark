@@ -104,8 +104,6 @@ afterEvaluate {
 }
 
 ext {
-    VERSION_NAME = "1.0.0"
-
     GROUP_ID = "io.github.pseudoankit"
 
     POM_DESCRIPTION = "Compose library to add coachmark"
