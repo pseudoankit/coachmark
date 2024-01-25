@@ -44,10 +44,7 @@ afterEvaluate {
 
                 from components.release
 
-//                artifact androidJavadocJar
-//                artifact javaSourcesJar
-
-                groupId GROUP
+                groupId GROUP_ID
                 version VERSION_NAME
                 pom {
                     name = artifactId
@@ -55,8 +52,8 @@ afterEvaluate {
                     url = POM_URL
                     licenses {
                         license {
-                            name = 'The Apache Software License, Version 2.0'
-                            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                            name = LICENCE_NAME
+                            url = LICENCE_URL
                         }
                     }
                     scm {
@@ -66,9 +63,9 @@ afterEvaluate {
                     }
                     developers {
                         developer {
-                            id = POM_DEVELOPER_ID
-                            name = POM_DEVELOPER_NAME
-                            email = POM_DEVELOPER_EMAIL
+                            id = 'pseudoankit'
+                            name = 'Ankit Kumar'
+                            email = 'lostankit7@gmail.com'
                         }
                     }
                 }
@@ -84,8 +81,8 @@ afterEvaluate {
                 url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
 
                 credentials {
-                    username ossrhUsername
-                    password ossrhPassword
+                    username OSS_USERNAME
+                    password OSS_PASSWORD
                 }
             }
 
@@ -98,12 +95,29 @@ afterEvaluate {
                 url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
 
                 credentials {
-                    username ossrhUsername
-                    password ossrhPassword
+                    username OSS_USERNAME
+                    password OSS_PASSWORD
                 }
             }
         }
     }
+}
+
+ext {
+    GROUP_ID = "io.github.pseudoankit"
+
+    POM_DESCRIPTION = "Compose library to add coachmark"
+    POM_URL = "https://github.com/pseudoankit/coachmark"
+    POM_SCM_CONNECTION = "scm:git@github.com:pseudoankit/coachmark.git"
+
+    OSS_USERNAME = System.getenv("OSS_USERNAME")
+    OSS_PASSWORD = System.getenv("OSS_PASSWORD")
+    ext."signing.keyId" = System.getenv("SIGNING_KEY_ID")
+    ext."signing.password" = System.getenv("SIGNING_PASSWORD")
+    ext."signing.secretKeyRingFile" = System.getenv("SIGNING_SECRET_KEY_RING_FILE")
+
+    LICENCE_NAME = "The Apache Software License, Version 2.0"
+    LICENCE_URL = "https://www.apache.org/licenses/LICENSE-2.0.txt"
 }
 
 signing {
