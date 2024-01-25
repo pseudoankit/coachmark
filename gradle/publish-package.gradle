@@ -1,40 +1,26 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-task androidJavadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    android.libraryVariants.all { variant ->
-        if (variant.name == 'release') {
-            owner.classpath += variant.javaCompileProvider.get().classpath
-        }
-    }
+ext {
+    GROUP_ID = "io.github.pseudoankit"
+    VERSION_NAME = "1.0.3"
 
-    exclude '**/R.html', '**/R.*.html', '**/index.html'
-    options.encoding 'utf-8'
-    options {
-        addStringOption 'docencoding', 'utf-8'
-        addStringOption 'charset', 'utf-8'
-        links 'https://docs.oracle.com/javase/7/docs/api/'
-        links 'https://d.android.com/reference'
-        links 'https://developer.android.com/reference/androidx/'
-    }
+    POM_DESCRIPTION = "Compose library to add coachmark"
+    POM_URL = "https://github.com/pseudoankit/coachmark"
+    POM_SCM_CONNECTION = "scm:git@github.com:pseudoankit/coachmark.git"
+
+    OSS_USERNAME = System.getenv("OSS_USERNAME")
+    OSS_PASSWORD = System.getenv("OSS_PASSWORD")
+
 }
 
-task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
-    archiveClassifier.set('javadoc')
-    from androidJavadoc.destinationDir
-
-    preserveFileTimestamps = false
-    reproducibleFileOrder = true
-}
-
-task javaSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-
-    preserveFileTimestamps = false
-    reproducibleFileOrder = true
+signing {
+    useInMemoryPgpKeys(
+            System.getenv("SIGNING_KEY_ID"),
+            System.getenv("SIGNING_KEY"),
+            System.getenv("SIGNING_PASSWORD"),
+    )
+    sign publishing.publications
 }
 
 afterEvaluate {
@@ -45,15 +31,17 @@ afterEvaluate {
                 from components.release
 
                 groupId GROUP_ID
+                artifactId ARTIFACT_ID
                 version VERSION_NAME
+
                 pom {
-                    name = artifactId
+                    name = ARTIFACT_ID
                     description = POM_DESCRIPTION
                     url = POM_URL
                     licenses {
                         license {
-                            name = LICENCE_NAME
-                            url = LICENCE_URL
+                            name = "The Apache Software License, Version 2.0"
+                            url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
                         }
                     }
                     scm {
@@ -103,23 +91,38 @@ afterEvaluate {
     }
 }
 
-ext {
-    GROUP_ID = "io.github.pseudoankit"
+task androidJavadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    android.libraryVariants.all { variant ->
+        if (variant.name == 'release') {
+            owner.classpath += variant.javaCompileProvider.get().classpath
+        }
+    }
 
-    POM_DESCRIPTION = "Compose library to add coachmark"
-    POM_URL = "https://github.com/pseudoankit/coachmark"
-    POM_SCM_CONNECTION = "scm:git@github.com:pseudoankit/coachmark.git"
-
-    OSS_USERNAME = System.getenv("OSS_USERNAME")
-    OSS_PASSWORD = System.getenv("OSS_PASSWORD")
-    ext."signing.keyId" = System.getenv("SIGNING_KEY_ID")
-    ext."signing.password" = System.getenv("SIGNING_PASSWORD")
-    ext."signing.secretKeyRingFile" = System.getenv("SIGNING_SECRET_KEY_RING_FILE")
-
-    LICENCE_NAME = "The Apache Software License, Version 2.0"
-    LICENCE_URL = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+    exclude '**/R.html', '**/R.*.html', '**/index.html'
+    options.encoding 'utf-8'
+    options {
+        addStringOption 'docencoding', 'utf-8'
+        addStringOption 'charset', 'utf-8'
+        links 'https://docs.oracle.com/javase/7/docs/api/'
+        links 'https://d.android.com/reference'
+        links 'https://developer.android.com/reference/androidx/'
+    }
 }
 
-signing {
-    sign publishing.publications
+task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
+    archiveClassifier.set('javadoc')
+    from androidJavadoc.destinationDir
+
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+task javaSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
 }

@@ -3,10 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-apply from: '../publish-package.gradle'
+apply from: '../gradle/publish-package.gradle'
 
 ext {
-    VERSION_NAME = "1.0.2"
     ARTIFACT_ID = "coachmark"
 }
 
