@@ -3,24 +3,33 @@ apply plugin: 'signing'
 
 ext {
     GROUP_ID = "io.github.pseudoankit"
-    VERSION_NAME = "1.0.3"
+    VERSION = "1.0.3"
+
+    SITE_URL = 'https://github.com/pseudoankit/coachmark'
+    GIT_URL = 'https://github.com/pseudoankit/coachmark.git'
 
     POM_DESCRIPTION = "Compose library to add coachmark"
-    POM_URL = "https://github.com/pseudoankit/coachmark"
-    POM_SCM_CONNECTION = "scm:git@github.com:pseudoankit/coachmark.git"
-
-    OSS_USERNAME = System.getenv("OSS_USERNAME")
-    OSS_PASSWORD = System.getenv("OSS_PASSWORD")
-
+    POM_URL = SITE_URL
 }
 
 signing {
     useInMemoryPgpKeys(
-            System.getenv("SIGNING_KEY_ID"),
-            System.getenv("SIGNING_KEY"),
-            System.getenv("SIGNING_PASSWORD"),
+            System.getenv("OSS_SIGNING_KEY_ID"),
+            System.getenv("OSS_SIGNING_KEY"),
+            System.getenv("OSS_SIGNING_PASSWORD"),
     )
     sign publishing.publications
+}
+
+// If you want to publish your sources as well
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+    from android.sourceSets.main.kotlin.srcDirs
+}
+
+artifacts {
+    archives androidSourcesJar
 }
 
 afterEvaluate {
@@ -28,11 +37,12 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
 
-                from components.release
-
                 groupId GROUP_ID
                 artifactId ARTIFACT_ID
-                version VERSION_NAME
+                version VERSION
+
+                from components.release
+                artifact androidSourcesJar
 
                 pom {
                     name = ARTIFACT_ID
@@ -44,11 +54,7 @@ afterEvaluate {
                             url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
                         }
                     }
-                    scm {
-                        connection = POM_SCM_CONNECTION
-                        developerConnection = POM_SCM_CONNECTION
-                        url = POM_URL
-                    }
+
                     developers {
                         developer {
                             id = 'pseudoankit'
@@ -56,73 +62,15 @@ afterEvaluate {
                             email = 'lostankit7@gmail.com'
                         }
                     }
-                }
-            }
-        }
-        repositories {
-            maven {
-                name = "SonatypeSnapshot"
 
-//                def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-//                def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-//                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-                url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-
-                credentials {
-                    username OSS_USERNAME
-                    password OSS_PASSWORD
-                }
-            }
-
-            maven {
-                name = "sonatype"
-
-//                def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-//                def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-//                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-                url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-
-                credentials {
-                    username OSS_USERNAME
-                    password OSS_PASSWORD
+                    scm {
+                        connection = GIT_URL
+                        developerConnection = GIT_URL
+                        url = SITE_URL
+                    }
                 }
             }
         }
     }
 }
 
-task androidJavadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    android.libraryVariants.all { variant ->
-        if (variant.name == 'release') {
-            owner.classpath += variant.javaCompileProvider.get().classpath
-        }
-    }
-
-    exclude '**/R.html', '**/R.*.html', '**/index.html'
-    options.encoding 'utf-8'
-    options {
-        addStringOption 'docencoding', 'utf-8'
-        addStringOption 'charset', 'utf-8'
-        links 'https://docs.oracle.com/javase/7/docs/api/'
-        links 'https://d.android.com/reference'
-        links 'https://developer.android.com/reference/androidx/'
-    }
-}
-
-task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
-    archiveClassifier.set('javadoc')
-    from androidJavadoc.destinationDir
-
-    preserveFileTimestamps = false
-    reproducibleFileOrder = true
-}
-
-task javaSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-
-    preserveFileTimestamps = false
-    reproducibleFileOrder = true
-}
