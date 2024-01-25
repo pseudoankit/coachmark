@@ -1,0 +1,128 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+ext {
+    GROUP_ID = "io.github.pseudoankit"
+    VERSION_NAME = "1.0.3"
+
+    POM_DESCRIPTION = "Compose library to add coachmark"
+    POM_URL = "https://github.com/pseudoankit/coachmark"
+    POM_SCM_CONNECTION = "scm:git@github.com:pseudoankit/coachmark.git"
+
+    OSS_USERNAME = System.getenv("OSS_USERNAME")
+    OSS_PASSWORD = System.getenv("OSS_PASSWORD")
+
+}
+
+signing {
+    useInMemoryPgpKeys(
+            System.getenv("SIGNING_KEY_ID"),
+            System.getenv("SIGNING_KEY"),
+            System.getenv("SIGNING_PASSWORD"),
+    )
+    sign publishing.publications
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+
+                from components.release
+
+                groupId GROUP_ID
+                artifactId ARTIFACT_ID
+                version VERSION_NAME
+
+                pom {
+                    name = ARTIFACT_ID
+                    description = POM_DESCRIPTION
+                    url = POM_URL
+                    licenses {
+                        license {
+                            name = "The Apache Software License, Version 2.0"
+                            url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                        }
+                    }
+                    scm {
+                        connection = POM_SCM_CONNECTION
+                        developerConnection = POM_SCM_CONNECTION
+                        url = POM_URL
+                    }
+                    developers {
+                        developer {
+                            id = 'pseudoankit'
+                            name = 'Ankit Kumar'
+                            email = 'lostankit7@gmail.com'
+                        }
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = "SonatypeSnapshot"
+
+//                def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//                def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+//                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+
+                credentials {
+                    username OSS_USERNAME
+                    password OSS_PASSWORD
+                }
+            }
+
+            maven {
+                name = "sonatype"
+
+//                def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//                def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+//                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+
+                credentials {
+                    username OSS_USERNAME
+                    password OSS_PASSWORD
+                }
+            }
+        }
+    }
+}
+
+task androidJavadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    android.libraryVariants.all { variant ->
+        if (variant.name == 'release') {
+            owner.classpath += variant.javaCompileProvider.get().classpath
+        }
+    }
+
+    exclude '**/R.html', '**/R.*.html', '**/index.html'
+    options.encoding 'utf-8'
+    options {
+        addStringOption 'docencoding', 'utf-8'
+        addStringOption 'charset', 'utf-8'
+        links 'https://docs.oracle.com/javase/7/docs/api/'
+        links 'https://d.android.com/reference'
+        links 'https://developer.android.com/reference/androidx/'
+    }
+}
+
+task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
+    archiveClassifier.set('javadoc')
+    from androidJavadoc.destinationDir
+
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+task javaSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
