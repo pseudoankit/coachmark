@@ -31,5 +31,5 @@ jobs:
           OSS_SIGNING_PASSWORD: ${{ secrets.OSS_SIGNING_PASSWORD }}
           OSS_SIGNING_KEY: ${{ secrets.OSS_SIGNING_KEY }}
         run: |
-          echo "Version: $RELEASE_TAG_NAME"
+          run: echo "${{ RELEASE_TAG_NAME }}"
           ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --stacktrace
