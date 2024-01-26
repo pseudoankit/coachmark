@@ -3,7 +3,7 @@ apply plugin: 'signing'
 
 ext {
     GROUP_ID = "io.github.pseudoankit"
-    VERSION = (System.getenv("RELEASE_TAG_NAME") ?: "SNAPSHOT").replace("v", "")
+    VERSION = '1.6.1'
 
     SITE_URL = 'https://github.com/pseudoankit/coachmark'
     GIT_URL = 'https://github.com/pseudoankit/coachmark.git'
