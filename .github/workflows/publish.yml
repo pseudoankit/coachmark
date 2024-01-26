@@ -5,22 +5,22 @@ on:
     types: [ created ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  deploy:
+    timeout-minutes: 45
+    runs-on: macos-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup JDK
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
         with:
+          show-progress: false
+
+      - uses: ./.github/actions/gradle-cache
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
           java-version: 17
 
-      - name: Check
-        run: ./gradlew check --stacktrace
-
-      - name: Publish Artifact
-        run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --max-workers=1 --stacktrace
+      - name: Deploy release
         env:
           RELEASE_TAG_NAME: ${{ github.event.release.tag_name }}
           OSS_USERNAME: ${{ secrets.OSS_USERNAME }}
@@ -29,3 +29,4 @@ jobs:
           OSS_SIGNING_KEY_ID: ${{ secrets.OSS_SIGNING_KEY_ID }}
           OSS_SIGNING_PASSWORD: ${{ secrets.OSS_SIGNING_PASSWORD }}
           OSS_SIGNING_KEY: ${{ secrets.OSS_SIGNING_KEY }}
+        run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
