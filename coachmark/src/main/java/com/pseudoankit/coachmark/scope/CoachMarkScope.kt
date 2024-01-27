@@ -50,3 +50,30 @@ public interface CoachMarkScope {
      */
     public fun show(vararg keys: CoachMarkKey)
 }
+
+/**
+ * helper function to call [CoachMarkScope.enableCoachMark] when not in scope of [CoachMarkScope]
+ *
+ * Access [coachMarkScope] by LocalCoachMarkScope.current
+ * @see CoachMarkScope.enableCoachMark
+ * modifier extension to enable coachmark on a view
+ * @param coachMarkScope scope of coachmark
+ * @param key unique key to be applied for a view
+ * @param toolTipPlacement decides the placement of tooltip w.r.t the actual view
+ * @param tooltipAnimationSpec animation spec to be applied when showing/hiding tooltip
+ * @param highlightedViewConfig config to be applied to highlight the actual view when showing tooltip
+ */
+public fun Modifier.enableCoachMark(
+    coachMarkScope: CoachMarkScope,
+    key: CoachMarkKey,
+    toolTipPlacement: ToolTipPlacement,
+    tooltipAnimationSpec: AnimationSpec<Float> = CoachMarkDefaults.ToolTip.animationSpec,
+    highlightedViewConfig: HighlightedViewConfig = HighlightedViewConfig()
+): Modifier = with(coachMarkScope) {
+    enableCoachMark(
+        key = key,
+        toolTipPlacement = toolTipPlacement,
+        tooltipAnimationSpec = tooltipAnimationSpec,
+        highlightedViewConfig = highlightedViewConfig
+    )
+}

@@ -15,8 +15,8 @@ import com.pseudoankit.coachmark.ui.CoachMarkImpl
 import com.pseudoankit.coachmark.util.CoachMarkDefaults
 import com.pseudoankit.coachmark.util.CoachMarkKey
 
-public val LocalCoachMarkScope: ProvidableCompositionLocal<CoachMarkScope?> =
-    compositionLocalOf { null }
+public val LocalCoachMarkScope: ProvidableCompositionLocal<CoachMarkScope> =
+    compositionLocalOf { error("CompositionLocal CoachMarkScope not present") }
 
 @Composable
 public fun UnifyCoachmark(
