@@ -1,6 +1,6 @@
 # Jetpack Compose Coachmark/Onboarding Library
 
-[![](https://jitpack.io/v/pseudoankit/coachmark.svg)](https://jitpack.io/#pseudoankit/coachmark)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark)
 <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 
 
@@ -21,88 +21,57 @@ Now provide seamless onboarding experience to end users with just few lines of c
 
 ## Getting Started
 
-In your settings.gradle
-
-```
-dependencyResolutionManagement {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
 In your module's build.gradle
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark)
 ```
 dependencies {
-    implementation 'com.github.pseudoankit:coachmark:<version>'
+    implementation 'io.github.pseudoankit:coachmark:<latest_version🔝>'
 }
 ```
 
 ## Usage
 
+Define Keys for all coachmarks
 ```
-public enum class Keys { Text1, Text2 }
+enum class Keys { Text1, Text2 }
+```
 
+At root level make sure to wrap with UnifyCoachmark
+```
 UnifyCoachmark(
-    tooltip = { Tooltip(it) },
+    tooltip = { /* Declare Tooltip Source code below ⏬ */ Tooltip(it) },
     overlayEffect = DimOverlayEffect(Color.Black.copy(alpha = .5f)),
     onOverlayClicked = { OverlayClickEvent.GoNext }
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
+    Content()     // Source code below ⏬
+}
+```
+
+Enable coachmark for the required views with `enableCoachMark`, To access `enableCoachMark` you need to be inside `CoachmarkScope`
+If you are not in `CoachmarkScope` then get access to it via LocalCoachMarkScope.current
+```
+@Composable
+private fun Content() {
+    with(LocalCoachMarkScope.current) {    // not needed if you are already in `CoachmarkScope`
         Text(
             text = "Will show tooltip 1",
             modifier = Modifier
                 .enableCoachMark(
-                    key = Keys.Text1,
-                    toolTipPlacement = ToolTipPlacement.End,
+                    key = Keys.Text1,    // unique that we declared above
+                    toolTipPlacement = placement,
                     highlightedViewConfig = HighlightedViewConfig(
                         shape = HighlightedViewConfig.Shape.Rect(12.dp),
                         padding = PaddingValues(8.dp)
                     )
                 )
-                .padding(16.dp),
-            color = Color.Black
         )
-        Text(
-            text = "Will show tooltip 2",
-            modifier = Modifier
-                .enableCoachMark(
-                    key = Keys.Text2,
-                    toolTipPlacement = ToolTipPlacement.End,
-                    highlightedViewConfig = HighlightedViewConfig(
-                        shape = HighlightedViewConfig.Shape.Rect(12.dp),
-                        padding = PaddingValues(8.dp)
-                    )
-                )
-                .padding(16.dp),
-            color = Color.Black
-        )
-        Button(
-            onClick = {
-                show(Keys.Text1)
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        ) {
-            Text(text = "Highlight1")
-        }
-        Button(
-            onClick = {
-                show(Keys.Text1, Keys.Text2)
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        ) {
-            Text(text = "Highlight 1 & 2")
-        }
     }
 }
+```
 
+Define tooltip view (Tootip is showing when view is highlighted currently) 
+```
 @Composable
 private fun Tooltip(key: CoachMarkKey) {
     when (key) {
@@ -111,7 +80,7 @@ private fun Tooltip(key: CoachMarkKey) {
                 Text(text = "Highlighting Text1", color = Color.White)
             }
         }
-
+    
         Keys.Text2 -> {
             Balloon(arrow = Arrow.Start()) {
                 Text(text = "Highlighting Text2", color = Color.White)
@@ -120,6 +89,7 @@ private fun Tooltip(key: CoachMarkKey) {
     }
 }
 ```
+
 
 Inspired from <a href = "https://github.com/svenjacobs/reveal">reveal</a> library
 
