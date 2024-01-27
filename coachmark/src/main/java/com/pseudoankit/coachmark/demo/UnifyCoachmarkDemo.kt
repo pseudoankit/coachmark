@@ -20,6 +20,7 @@ import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
 import com.pseudoankit.coachmark.model.ToolTipPlacement
 import com.pseudoankit.coachmark.overlay.DimOverlayEffect
+import com.pseudoankit.coachmark.scope.enableCoachMark
 import com.pseudoankit.coachmark.shape.Arrow
 import com.pseudoankit.coachmark.shape.Balloon
 import com.pseudoankit.coachmark.util.CoachMarkKey
@@ -65,23 +66,22 @@ private fun ColumnScope.CoachMarkTargetText(
 ) {
     val coachMarkScope = LocalCoachMarkScope.current
 
-    coachMarkScope?.apply {
-        Text(
-            text = text,
-            modifier = Modifier
-                .align(alignment)
-                .enableCoachMark(
-                    key = key,
-                    toolTipPlacement = placement,
-                    highlightedViewConfig = HighlightedViewConfig(
-                        shape = HighlightedViewConfig.Shape.Rect(12.dp),
-                        padding = PaddingValues(8.dp)
-                    )
-                )
-                .padding(16.dp),
-            color = Color.Black
-        )
-    }
+    Text(
+        text = text,
+        modifier = Modifier
+            .align(alignment)
+            .enableCoachMark(
+                key = key,
+                toolTipPlacement = placement,
+                highlightedViewConfig = HighlightedViewConfig(
+                    shape = HighlightedViewConfig.Shape.Rect(12.dp),
+                    padding = PaddingValues(8.dp)
+                ),
+                coachMarkScope = coachMarkScope
+            )
+            .padding(16.dp),
+        color = Color.Black
+    )
 }
 
 @Preview
