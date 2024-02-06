@@ -95,7 +95,7 @@ Inspired from <a href = "https://github.com/svenjacobs/reveal">reveal</a> librar
 
 # License
 ```xml
-Copyright 2019 pseudoankit (Ankit)
+Copyright 2024 pseudoankit (Ankit)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
