@@ -4,7 +4,7 @@
 <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 
 
-A library for creating coachmarks or onboarding flows using Jetpack Compose.
+A lighweight library for creating coachmarks or onboarding flows using Jetpack Compose.
 
 <img src="https://github.com/pseudoankit/coachmark/assets/54987308/38c18ebb-5057-46f8-bdd8-6d9c966a603b" width="200" height="400"/>
 
