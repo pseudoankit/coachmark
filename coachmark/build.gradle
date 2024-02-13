@@ -15,11 +15,11 @@ kotlin {
 
 android {
     namespace 'com.pseudoankit.coachmark'
-    compileSdk 34
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdk 21
-        targetSdk 34
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
     }
 
     compileOptions {
@@ -30,7 +30,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_compiler
+        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
     }
     kotlinOptions {
         jvmTarget = '1.8'

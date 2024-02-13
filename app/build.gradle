@@ -1,31 +1,24 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    alias(libs.plugins.android.app)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace 'com.pseudoankit.coachmark_demo'
-    compileSdk 33
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         applicationId "com.pseudoankit.coachmark"
-        minSdk 24
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
+        versionCode libs.versions.versionCode.get().toInteger()
+        versionName libs.versions.versionName.get()
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -37,7 +30,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_compiler
+        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
