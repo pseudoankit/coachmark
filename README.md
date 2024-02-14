@@ -24,7 +24,7 @@ Now provide seamless onboarding experience to end users with just few lines of c
 In your module's build.gradle
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark)
-```
+```kotlin
 dependencies {
     implementation 'io.github.pseudoankit:coachmark:<latest_version🔝>'
 }
@@ -33,12 +33,12 @@ dependencies {
 ## Usage
 
 Define Keys for all coachmarks
-```
+```kotlin
 enum class Keys { Text1, Text2 }
 ```
 
 At root level make sure to wrap with UnifyCoachmark
-```
+```kotlin
 UnifyCoachmark(
     tooltip = { /* Declare Tooltip Source code below ⏬ */ Tooltip(it) },
     overlayEffect = DimOverlayEffect(Color.Black.copy(alpha = .5f)),
@@ -50,7 +50,7 @@ UnifyCoachmark(
 
 Enable coachmark for the required views with `enableCoachMark`, To access `enableCoachMark` you need to be inside `CoachmarkScope`
 If you are not in `CoachmarkScope` then get access to it via LocalCoachMarkScope.current
-```
+```kotlin
 @Composable
 private fun Content() {
     with(LocalCoachMarkScope.current) {    // not needed if you are already in `CoachmarkScope`
@@ -71,7 +71,7 @@ private fun Content() {
 ```
 
 Define tooltip view (Tootip is showing when view is highlighted currently) 
-```
+```kotlin
 @Composable
 private fun Tooltip(key: CoachMarkKey) {
     when (key) {
