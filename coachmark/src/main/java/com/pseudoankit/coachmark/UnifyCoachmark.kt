@@ -1,5 +1,6 @@
 package com.pseudoankit.coachmark
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
@@ -15,14 +16,15 @@ import com.pseudoankit.coachmark.ui.CoachMarkImpl
 import com.pseudoankit.coachmark.util.CoachMarkDefaults
 import com.pseudoankit.coachmark.util.CoachMarkKey
 
+@SuppressLint("ComposeCompositionLocalUsage")
 public val LocalCoachMarkScope: ProvidableCompositionLocal<CoachMarkScope> =
     compositionLocalOf { error("CompositionLocal CoachMarkScope not present") }
 
 @Composable
 public fun UnifyCoachmark(
+    tooltip: @Composable CoachMarkScope.(CoachMarkKey) -> Unit,
     overlayEffect: UnifyOverlayEffect = CoachMarkDefaults.Overlay.background,
     onOverlayClicked: (CoachMarkKey) -> OverlayClickEvent = { CoachMarkDefaults.Overlay.clickEvent },
-    tooltip: @Composable CoachMarkScope.(CoachMarkKey) -> Unit,
     content: @Composable CoachMarkScope.() -> Unit
 ) {
     val density = LocalDensity.current

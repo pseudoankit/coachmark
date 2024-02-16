@@ -1,6 +1,7 @@
 package com.pseudoankit.coachmark.scope
 
 import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import com.pseudoankit.coachmark.model.HighlightedViewConfig
 import com.pseudoankit.coachmark.model.OverlayClickEvent
@@ -12,6 +13,7 @@ import com.pseudoankit.coachmark.util.CoachMarkKey
 /**
  * contract containing necessary methods to interact with coachmark
  */
+@Stable
 public interface CoachMarkScope {
 
     /**

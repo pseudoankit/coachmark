@@ -11,8 +11,8 @@ android {
         applicationId "com.pseudoankit.coachmark"
         minSdk libs.versions.minSdk.get().toInteger()
         targetSdk libs.versions.targetSdk.get().toInteger()
-        versionCode libs.versions.versionCode.get().toInteger()
-        versionName libs.versions.versionName.get()
+        versionCode 1
+        versionName "1.0.0"
 
         vectorDrawables {
             useSupportLibrary true

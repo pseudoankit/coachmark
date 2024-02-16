@@ -17,31 +17,31 @@ import com.pseudoankit.coachmark.overlay.UnifyOverlayEffect
  */
 public object CoachMarkDefaults {
     public object Balloon {
-        public val bgColor: Color = Color(0xFFA4A4EB)
-        public val cornerRadius: Dp = 8.dp
-        public val shadowElevation: Dp = 2.dp
-        public val padding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 6.dp)
+        public val bgColor: Color get() = Color(0xFFA4A4EB)
+        public val cornerRadius: Dp get() = 8.dp
+        public val shadowElevation: Dp get() = 2.dp
+        public val padding: PaddingValues get() = PaddingValues(horizontal = 8.dp, vertical = 6.dp)
 
         public object Arrow {
-            public val height: Dp = 12.dp
-            public val width: Dp = 16.dp
-            public const val bias: Float = 0.5f
+            public val height: Dp get() = 12.dp
+            public val width: Dp get() = 16.dp
+            public val bias: Float get() = 0.5f
         }
     }
 
     public object ToolTip {
-        public val animationSpec: AnimationSpec<Float> = tween(ANIMATION_DURATION)
+        public val animationSpec: AnimationSpec<Float> get() = tween(ANIMATION_DURATION)
         public val paddingForTooltip: Dp = 8.dp
     }
 
     public object Overlay {
-        public val background: UnifyOverlayEffect = DimOverlayEffect()
-        public val clickEvent: OverlayClickEvent = OverlayClickEvent.GoNext
-        public val animationSpec: AnimationSpec<Float> = tween(ANIMATION_DURATION)
+        public val background: UnifyOverlayEffect get() = DimOverlayEffect()
+        public val clickEvent: OverlayClickEvent get() = OverlayClickEvent.GoNext
+        public val animationSpec: AnimationSpec<Float> get() = tween(ANIMATION_DURATION)
     }
 
     public object HighlightedView {
-        public val shape: Shape = RoundedCornerShape(12.dp)
-        public val padding: PaddingValues = PaddingValues(8.dp)
+        public val shape: Shape get() = RoundedCornerShape(12.dp)
+        public val padding: PaddingValues get() = PaddingValues(8.dp)
     }
 }

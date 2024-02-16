@@ -1,6 +1,7 @@
 package com.pseudoankit.coachmark.ui
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -53,6 +54,7 @@ internal fun CoachMarkImpl(
                     animateFloatAsState(
                         targetValue = if (currentTooltip?.isVisible == true) 1f else 0f,
                         animationSpec = overlayEffect.overlayAnimationSpec,
+                        label = "OverlayAlphaAnimation"
                     ).value
                 ),
             currentTooltip = currentTooltip,
