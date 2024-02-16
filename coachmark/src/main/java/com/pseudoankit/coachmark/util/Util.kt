@@ -1,5 +1,6 @@
 package com.pseudoankit.coachmark.util
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -31,10 +32,11 @@ internal fun <T> rememberMutableStateOf(value: T, key: Any = true) = remember(ke
     mutableStateOf(value)
 }
 
+@SuppressLint("ComposeModifierComposed")
 internal fun Modifier.clickable(
     showRipple: Boolean = true,
     onClick: () -> Unit
-) = composed {
+) = this.composed {
     clickable(
         indication = if (showRipple) LocalIndication.current else null,
         interactionSource = remember { MutableInteractionSource() },
