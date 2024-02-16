@@ -41,7 +41,7 @@ afterEvaluate {
                 artifactId ARTIFACT_ID
                 version VERSION
 
-                from components.release
+//                from components.release
                 artifact androidSourcesJar
 
                 pom {

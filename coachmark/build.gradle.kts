@@ -4,14 +4,12 @@ plugins {
     alias(libs.plugins.compose.multiplatform)
 }
 
-//includeBuild("../gradle/publish-package.gradle")
+apply(from = "../gradle/publish-package.gradle")
 
-//ext {
-//    ARTIFACT_ID = "coachmark"
-//}
+ext.set("ARTIFACT_ID", "coachmark")
 
 kotlin {
-    android {
+    androidTarget {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "11"
