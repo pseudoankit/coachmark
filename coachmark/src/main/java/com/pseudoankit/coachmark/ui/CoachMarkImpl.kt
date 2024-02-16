@@ -53,7 +53,6 @@ internal fun CoachMarkImpl(
                     animateFloatAsState(
                         targetValue = if (currentTooltip?.isVisible == true) 1f else 0f,
                         animationSpec = overlayEffect.overlayAnimationSpec,
-                        label = "OverlayAlphaAnimation", // just to avoid warning
                     ).value
                 ),
             currentTooltip = currentTooltip,

@@ -1,5 +1,6 @@
 package com.pseudoankit.coachmark.demo
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -84,6 +85,7 @@ private fun ColumnScope.CoachMarkTargetText(
     )
 }
 
+@SuppressLint("ComposePreviewPublic")
 @Preview
 @Composable
 public fun UnifyCoachmarkDemo() {
