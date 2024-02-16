@@ -12,6 +12,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "coachmark"
-include ':app'
-include ':coachmark'
+
+include(":app")
+include(":coachmark")
