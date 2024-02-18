@@ -17,5 +17,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "coachmark"
 
-//include(":app")
+include(":demo-android")
 include(":coachmark")

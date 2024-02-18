@@ -60,5 +60,5 @@ android {
 }
 
 dependencies {
-    lintChecks(libs.lint.compose)
+    lintChecks(libs.compose.lint)
 }

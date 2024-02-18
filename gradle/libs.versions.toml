@@ -1,6 +1,5 @@
 [versions]
 agp = "8.2.2"
-coachmark = "1.7.0"
 kotlin = "1.9.22"
 compose-multiplatform = "1.5.12"
 compose-compiler = "1.5.9"
@@ -10,9 +9,8 @@ compileSdk = "34"
 targetSdk = "34"
 
 [libraries]
-coachmark = { module = "io.github.pseudoankit:coachmark", version.ref = "coachmark" }
-
-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.3.1"
+compose-coachmark = "io.github.pseudoankit:coachmark:1.7.0"
+compose-lint = "com.slack.lint.compose:compose-lint-checks:1.3.1"
 
 gradle-publish = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin:2.0.0-rc-1"
 

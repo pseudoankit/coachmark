@@ -26,6 +26,44 @@ import com.pseudoankit.coachmark.util.CoachMarkKey
 
 public enum class Keys { Text1, Text2, TextStart, TextBottom, TextTop }
 
+
+@Composable
+public fun UnifyCoachmarkDemo() {
+    UnifyCoachmark(
+        tooltip = { Tooltip(it) },
+        overlayEffect = DimOverlayEffect(Color.Black.copy(alpha = .5f)),
+        onOverlayClicked = { OverlayClickEvent.GoNext }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            PlotTextsAndUseLocalCoachMarkScope()
+            Button(
+                onClick = {
+                    show(Keys.Text1)
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text(text = "Highlight 1")
+            }
+            Button(
+                onClick = {
+                    show(*Keys.values())
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text(text = "Highlight All")
+            }
+            Button(onClick = { show(Keys.TextBottom, Keys.TextTop) }) {
+                Text(text = "Highlight Some")
+            }
+        }
+    }
+}
+
 @Composable
 private fun ColumnScope.PlotTextsAndUseLocalCoachMarkScope() {
 
@@ -81,43 +119,6 @@ private fun ColumnScope.CoachMarkTargetText(
             .padding(16.dp),
         color = Color.Black
     )
-}
-
-@Composable
-public fun UnifyCoachmarkDemo() {
-    UnifyCoachmark(
-        tooltip = { Tooltip(it) },
-        overlayEffect = DimOverlayEffect(Color.Black.copy(alpha = .5f)),
-        onOverlayClicked = { OverlayClickEvent.GoNext }
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            PlotTextsAndUseLocalCoachMarkScope()
-            Button(
-                onClick = {
-                    show(Keys.Text1)
-                },
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                Text(text = "Highlight 1")
-            }
-            Button(
-                onClick = {
-                    show(*Keys.values())
-                },
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                Text(text = "Highlight All")
-            }
-            Button(onClick = { show(Keys.TextBottom, Keys.TextTop) }) {
-                Text(text = "Highlight Some")
-            }
-        }
-    }
 }
 
 @Composable
