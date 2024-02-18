@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pseudoankit.coachmark.LocalCoachMarkScope
 import com.pseudoankit.coachmark.UnifyCoachmark
@@ -84,7 +83,6 @@ private fun ColumnScope.CoachMarkTargetText(
     )
 }
 
-@Preview
 @Composable
 public fun UnifyCoachmarkDemo() {
     UnifyCoachmark(

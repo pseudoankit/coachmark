@@ -9,20 +9,30 @@ apply(from = "../gradle/publish-package.gradle")
 ext.set("ARTIFACT_ID", "coachmark")
 
 kotlin {
+    applyDefaultHierarchyTemplate()
     androidTarget {
+        publishLibraryVariants("release")
         compilations.all {
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = "1.8"
             }
         }
     }
+    jvm("desktop") {
+        jvmToolchain(11)
+    }
+    js(IR) {
+        browser()
+    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
-                implementation(compose.preview)
                 implementation(compose.material3)
             }
         }
@@ -40,18 +50,15 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     lint {
         baseline = file("lint.xml")
+    }
+    kotlin {
+        jvmToolchain(8)
     }
 }
 
