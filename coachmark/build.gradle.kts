@@ -2,11 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.multiplatform)
+    id("publication.module")
 }
-
-apply(from = "../gradle/publish-package.gradle")
-
-ext.set("ARTIFACT_ID", "coachmark")
 
 kotlin {
     applyDefaultHierarchyTemplate()
