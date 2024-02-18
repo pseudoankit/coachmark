@@ -1,3 +1,4 @@
 <lint>
     <issue id="ComposePreviewPublic" severity="ignore" />
+    <issue id="ComposeModifierMissing" severity="warning" />
 </lint>
