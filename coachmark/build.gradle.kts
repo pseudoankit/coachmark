@@ -11,19 +11,23 @@ kotlin {
         publishLibraryVariants("release")
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "11"
             }
         }
     }
-    jvm("desktop") {
-        jvmToolchain(11)
-    }
+    jvm("desktop")
     js(IR) {
         browser()
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            this.baseName = baseName
+        }
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -47,16 +51,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     lint {
         baseline = file("lint.xml")
     }
-    kotlin {
-        jvmToolchain(8)
-    }
+
 }
 
 dependencies {
