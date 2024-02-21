@@ -25,3 +25,4 @@ rootProject.name = "coachmark"
 
 include(":demo:android")
 include(":coachmark")
+include(":demo:shared")

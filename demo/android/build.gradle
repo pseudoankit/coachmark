@@ -45,7 +45,7 @@ dependencies {
         implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0')
     }
 
-    implementation project(":coachmark")
+    implementation project(":demo:shared")
 //    implementation libs.compose.coachmark
     implementation 'androidx.activity:activity-compose:1.8.2'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
