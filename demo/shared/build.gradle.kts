@@ -30,7 +30,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":coachmark"))
+                implementation(libs.compose.coachmark)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
