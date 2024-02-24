@@ -1,65 +1,89 @@
-# Jetpack Compose Coachmark/Onboarding Library
+# Compose Multiplatform Coachmark/Onboarding Library
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark)
 <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 
 
-A lighweight library for creating coachmarks or onboarding flows using Jetpack Compose.
+A lightweight Compose multiplatform library dedicated to creating seamless onboarding experiences.
 
-<img src="https://github.com/pseudoankit/coachmark/assets/54987308/38c18ebb-5057-46f8-bdd8-6d9c966a603b" width="200" height="400"/>
+| iOS | Android |
+|-|- |
 
-## Overview
+| Feature                           | Description                                                                                 |
+|----------------------------------|---------------------------------------------------------------------------------------------|
+| Custom Coachmarks                | Easily create and customize coachmarks to guide users through your app.                     |
+| Flexible and Extensible          | Customize coachmarks to match your app's design and extend functionality as needed.         |
+| Cross-Platform Compatibility    | Compatible with Android and iOS, ideal for multiplatform projects.                         |
+| Jetpack Compose Integration     | Seamlessly integrate coachmarks with Jetpack Compose UI components.                         |
+| Dynamic Tooltip Views            | Display tooltip views for each key when coachmarks are active, enhancing user guidance.     |
+| Comprehensive Documentation      | Access detailed documentation and support for easy implementation.                          |
 
-A lightweight jetpack compose library to create onboarding flow for your android app
-Now provide seamless onboarding experience to end users with just few lines of code
 
-## Features
+## Installation
 
-- Create custom coachmarks with ease.
-- Highly flexible and extensible.
-- Compatible with Jetpack Compose UI components.
-
-## Getting Started
-
-In your module's build.gradle
-
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark)
+<details>
+<summary>Android Project</summary>
+  
+<br>In your module's gradle
+    
 ```kotlin
 dependencies {
-    implementation 'io.github.pseudoankit:coachmark:<latest_version🔝>'
+    implementation("io.github.pseudoankit:coachmark:<latest_version🔝>")
 }
 ```
+</details>
+
+<details>
+<summary>Compose Multiplatform Project</summary>
+  
+<br>In your shared module gradle
+    
+```kotlin
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("io.github.pseudoankit:coachmark:<latest_version🔝>")
+            }
+        }
+    }
+}
+```
+</details>
 
 ## Usage
 
-Define Keys for all coachmarks
+[Complete Demo Code](https://github.com/pseudoankit/coachmark/blob/master/coachmark/src/commonMain/kotlin/com/pseudoankit/coachmark/demo/UnifyCoachmarkDemo.kt)
+
+Define key for all composables that needs to be higlighted.
 ```kotlin
 enum class Keys { Text1, Text2 }
 ```
 
-At root level make sure to wrap with UnifyCoachmark
+At the root level, ensure that your code is wrapped with UnifyCoachmark.
 ```kotlin
 UnifyCoachmark(
     tooltip = { /* Declare Tooltip Source code below ⏬ */ Tooltip(it) },
     overlayEffect = DimOverlayEffect(Color.Black.copy(alpha = .5f)),
     onOverlayClicked = { OverlayClickEvent.GoNext }
-) {
+) { this : CoachmarkScope
     Content()     // Source code below ⏬
 }
 ```
 
-Enable coachmark for the required views with `enableCoachMark`, To access `enableCoachMark` you need to be inside `CoachmarkScope`
-If you are not in `CoachmarkScope` then get access to it via LocalCoachMarkScope.current
+Call the enableCoachMark method in all the composables that need to be highlighted. 
+<br>This method can be invoked within the CoachmarkScope. 
+<br>If you are not in the CoachmarkScope, you can access it by calling LocalCoachMarkScope.current.
 ```kotlin
 @Composable
 private fun Content() {
-    with(LocalCoachMarkScope.current) {    // not needed if you are already in `CoachmarkScope`
+    with(LocalCoachMarkScope.current) {    // not needed if you are already in CoachmarkScope
         Text(
             text = "Will show tooltip 1",
             modifier = Modifier
                 .enableCoachMark(
-                    key = Keys.Text1,    // unique that we declared above
-                    toolTipPlacement = placement,
+                    key = Keys.Text1,    // unique key that we declared above
+                    toolTipPlacement = ToolTipPlacement.Top,
                     highlightedViewConfig = HighlightedViewConfig(
                         shape = HighlightedViewConfig.Shape.Rect(12.dp),
                         padding = PaddingValues(8.dp)
@@ -70,7 +94,7 @@ private fun Content() {
 }
 ```
 
-Define tooltip view (Tootip is showing when view is highlighted currently) 
+Define a tooltip view for each key to be displayed when any coachmark is active or highlighted.
 ```kotlin
 @Composable
 private fun Tooltip(key: CoachMarkKey) {
@@ -91,7 +115,7 @@ private fun Tooltip(key: CoachMarkKey) {
 ```
 
 
-Inspired from <a href = "https://github.com/svenjacobs/reveal">reveal</a> library
+Overlay Logic referred from <a href = "https://github.com/svenjacobs/reveal">reveal</a> library
 
 # License
 ```xml
