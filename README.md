@@ -7,7 +7,7 @@ A lightweight Compose multiplatform library dedicated to creating seamless onboa
 
 | android | iOS |
 |-|-|
-| <img alt="android" src="https://github.com/pseudoankit/coachmark/assets/54987308/04ee8a1f-54b0-48c9-a0b7-bb0bd7da8e4b" width="230" height = "500"/> | <img alt="ios" src="https://github.com/pseudoankit/coachmark/assets/54987308/39215e1b-0bb6-49c1-a1c8-32ca94e2c3f0" width="230" height = "500"/> |
+| <img alt="android" src="https://github.com/pseudoankit/coachmark/assets/54987308/a5167820-9603-42d0-bd13-e1eeccb3cff5" width="240" height = "500"/> | <img alt="ios" src="https://github.com/pseudoankit/coachmark/assets/54987308/39215e1b-0bb6-49c1-a1c8-32ca94e2c3f0" width="250" height = "500"/> |
 
 | Feature                           | Description                                                                                 |
 |----------------------------------|---------------------------------------------------------------------------------------------|
