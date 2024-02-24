@@ -1,14 +1,14 @@
 //
-//  demo_iosApp.swift
-//  demo-ios
+//  iosApp.swift
+//  ios
 //
-//  Created by Ankit Kumar on 21/02/24.
+//  Created by Ankit Kumar on 24/02/24.
 //
 
 import SwiftUI
 
 @main
-struct demo_iosApp: App {
+struct iosApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
