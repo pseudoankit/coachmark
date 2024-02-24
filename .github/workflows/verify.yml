@@ -10,18 +10,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
       - name: Setup JDK 17
         uses: actions/setup-java@v1
         with:
           java-version: 17
+      - name: Run Lint Check
+        run: ./gradlew lint
 
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
       - name: Build apk
         run: ./gradlew build --stacktrace
