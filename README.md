@@ -3,11 +3,11 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pseudoankit/coachmark)
 <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 
-
 A lightweight Compose multiplatform library dedicated to creating seamless onboarding experiences.
 
-| iOS | Android |
-|-|- |
+| android | iOS |
+|-|-|
+| <img alt="android" src="https://github.com/pseudoankit/coachmark/assets/54987308/a5167820-9603-42d0-bd13-e1eeccb3cff5" width="240" height = "500"/> | <img alt="ios" src="https://github.com/pseudoankit/coachmark/assets/54987308/39215e1b-0bb6-49c1-a1c8-32ca94e2c3f0" width="250" height = "500"/> |
 
 | Feature                           | Description                                                                                 |
 |----------------------------------|---------------------------------------------------------------------------------------------|
