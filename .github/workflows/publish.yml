@@ -3,11 +3,6 @@ name: Publish
 on:
   release:
     types: [ created ]
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version'
-        required: true
 
 jobs:
   deploy:
@@ -23,7 +18,7 @@ jobs:
 
       - name: Publish Artifact
         env:
-          RELEASE_TAG_NAME: version
+          RELEASE_TAG_NAME: ${{ github.event.release.tag_name }}
           OSS_USERNAME: ${{ secrets.OSS_USERNAME }}
           OSS_PASSWORD: ${{ secrets.OSS_PASSWORD }}
           OSS_STAGING_PROFILE_ID: ${{ secrets.OSS_STAGING_PROFILE_ID }}
