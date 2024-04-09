@@ -31,8 +31,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.compose.coachmark)
-//                implementation(project(":coachmark"))
+//                implementation(libs.compose.coachmark)
+                implementation(project(":coachmark"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
