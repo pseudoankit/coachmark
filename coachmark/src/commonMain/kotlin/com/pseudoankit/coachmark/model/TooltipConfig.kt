@@ -1,6 +1,7 @@
 package com.pseudoankit.coachmark.model
 
 import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import com.pseudoankit.coachmark.scope.CoachMarkScope
 import com.pseudoankit.coachmark.util.CoachMarkKey
@@ -20,7 +21,8 @@ public data class TooltipConfig(
     val toolTipPlacement: ToolTipPlacement,
     val key: CoachMarkKey,
     val highlightedViewShape: HighlightedViewConfig.Shape,
-    val animationState: AnimationState
+    val animationState: AnimationState,
+    val tooltip: @Composable (() -> Unit)? = null
 ) {
 
     /**

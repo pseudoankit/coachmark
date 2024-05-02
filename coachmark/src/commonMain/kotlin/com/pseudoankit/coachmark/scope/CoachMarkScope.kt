@@ -1,6 +1,7 @@
 package com.pseudoankit.coachmark.scope
 
 import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import com.pseudoankit.coachmark.model.HighlightedViewConfig
@@ -37,7 +38,8 @@ public interface CoachMarkScope {
         key: CoachMarkKey,
         toolTipPlacement: ToolTipPlacement,
         tooltipAnimationSpec: AnimationSpec<Float> = CoachMarkDefaults.ToolTip.animationSpec,
-        highlightedViewConfig: HighlightedViewConfig = HighlightedViewConfig()
+        highlightedViewConfig: HighlightedViewConfig = HighlightedViewConfig(),
+        tooltip: @Composable (() -> Unit)? = null
     ): Modifier
 
     /**
@@ -70,12 +72,14 @@ public fun Modifier.enableCoachMark(
     key: CoachMarkKey,
     toolTipPlacement: ToolTipPlacement,
     tooltipAnimationSpec: AnimationSpec<Float> = CoachMarkDefaults.ToolTip.animationSpec,
-    highlightedViewConfig: HighlightedViewConfig = HighlightedViewConfig()
+    highlightedViewConfig: HighlightedViewConfig = HighlightedViewConfig(),
+    tooltip: @Composable (() -> Unit)? = null
 ): Modifier = with(coachMarkScope) {
     enableCoachMark(
         key = key,
         toolTipPlacement = toolTipPlacement,
         tooltipAnimationSpec = tooltipAnimationSpec,
-        highlightedViewConfig = highlightedViewConfig
+        highlightedViewConfig = highlightedViewConfig,
+        tooltip = tooltip
     )
 }
