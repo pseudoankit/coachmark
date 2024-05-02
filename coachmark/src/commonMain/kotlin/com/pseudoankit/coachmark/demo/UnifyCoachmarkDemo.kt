@@ -42,22 +42,21 @@ public fun UnifyCoachmarkDemo() {
         ) {
             PlotTextsAndUseLocalCoachMarkScope()
             Button(
-                onClick = {
-                    show(Keys.Text1)
-                },
+                onClick = { show(Keys.Text1) },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(text = "Highlight 1")
             }
             Button(
-                onClick = {
-                    show(*Keys.values())
-                },
+                onClick = { show(*Keys.values()) },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(text = "Highlight All")
             }
-            Button(onClick = { show(Keys.TextBottom, Keys.TextTop) }) {
+            Button(
+                onClick = { show(Keys.TextBottom, Keys.TextTop) },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
                 Text(text = "Highlight Some")
             }
         }
@@ -67,31 +66,50 @@ public fun UnifyCoachmarkDemo() {
 @Composable
 private fun ColumnScope.PlotTextsAndUseLocalCoachMarkScope() {
 
-    CoachMarkTargetText("Will show tooltip 1", Alignment.Start, Keys.Text1, ToolTipPlacement.End)
-
-    CoachMarkTargetText("Will show tooltip 2", Alignment.Start, Keys.Text2, ToolTipPlacement.End)
-
     CoachMarkTargetText(
-        "Will show tooltip to left",
-        Alignment.End,
-        Keys.TextStart,
-        ToolTipPlacement.Start
+        text = "Will show tooltip 1",
+        alignment = Alignment.Start,
+        key = Keys.Text1,
+        placement = ToolTipPlacement.End,
+        tooltip = {
+            Balloon(arrow = Arrow.Start()) {
+                Text(text = "Highlighting Text1 at enableCoachmark method", color = Color.White)
+            }
+        }
     )
 
     CoachMarkTargetText(
-        "Will show tooltip below",
-        Alignment.CenterHorizontally,
-        Keys.TextBottom,
-        ToolTipPlacement.Bottom
+        text = "Will show tooltip 2",
+        alignment = Alignment.Start,
+        key = Keys.Text2,
+        placement = ToolTipPlacement.End
     )
 
     CoachMarkTargetText(
-        "Will show tooltip above",
-        Alignment.CenterHorizontally,
-        Keys.TextTop,
-        ToolTipPlacement.Top
+        text = "Will show tooltip to left",
+        alignment = Alignment.End,
+        key = Keys.TextStart,
+        placement = ToolTipPlacement.Start,
+        tooltip = {
+            Balloon(arrow = Arrow.End()) {
+                Text(text = "tooltip to left at enableCoachmark method", color = Color.White)
+            }
+        }
     )
 
+    CoachMarkTargetText(
+        text = "Will show tooltip below",
+        alignment = Alignment.CenterHorizontally,
+        key = Keys.TextBottom,
+        placement = ToolTipPlacement.Bottom
+    )
+
+    CoachMarkTargetText(
+        text = "Will show tooltip above",
+        alignment = Alignment.CenterHorizontally,
+        key = Keys.TextTop,
+        placement = ToolTipPlacement.Top
+    )
 }
 
 @Composable
@@ -100,6 +118,7 @@ private fun ColumnScope.CoachMarkTargetText(
     alignment: Alignment.Horizontal,
     key: Keys,
     placement: ToolTipPlacement,
+    tooltip: @Composable (() -> Unit)? = null
 ) {
     val coachMarkScope = LocalCoachMarkScope.current
 
@@ -114,7 +133,8 @@ private fun ColumnScope.CoachMarkTargetText(
                     shape = HighlightedViewConfig.Shape.Rect(12.dp),
                     padding = PaddingValues(8.dp)
                 ),
-                coachMarkScope = coachMarkScope
+                coachMarkScope = coachMarkScope,
+                tooltip = tooltip
             )
             .padding(16.dp),
         color = Color.Black
@@ -126,31 +146,31 @@ private fun Tooltip(key: CoachMarkKey) {
     when (key) {
         Keys.Text1 -> {
             Balloon(arrow = Arrow.Start()) {
-                Text(text = "Highlighting Text1", color = Color.White)
+                Text(text = "Highlighting Text1 root level", color = Color.White)
             }
         }
 
         Keys.Text2 -> {
             Balloon(arrow = Arrow.Start()) {
-                Text(text = "Highlighting Text2", color = Color.White)
+                Text(text = "Highlighting Text2  root level", color = Color.White)
             }
         }
 
         Keys.TextStart -> {
             Balloon(arrow = Arrow.End()) {
-                Text(text = "A tooltip to the left", color = Color.White)
+                Text(text = "A tooltip to the left  root level", color = Color.White)
             }
         }
 
         Keys.TextBottom -> {
             Balloon(arrow = Arrow.Top()) {
-                Text(text = "A tooltip below", color = Color.White)
+                Text(text = "A tooltip below  root level", color = Color.White)
             }
         }
 
         Keys.TextTop -> {
             Balloon(arrow = Arrow.Bottom()) {
-                Text(text = "A tooltip above", color = Color.White)
+                Text(text = "A tooltip above  root level", color = Color.White)
             }
         }
     }
