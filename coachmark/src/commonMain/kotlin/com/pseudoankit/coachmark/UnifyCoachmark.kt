@@ -44,9 +44,9 @@ public fun UnifyCoachmark(
 )
 /**
  * This method is deprecated, not recommended to pass tooltip at top level
- * now it can be passed when calling `enableCoachMark` for each view
+ * as now it can be passed when calling [enableCoachMark] method for each view
  * for backward compatibility [tooltip] field will still work as expected
- * but [enableCoachMark]'s tooltip will take priority over this for individual key.
+ * but [enableCoachMark]'s tooltip will take priority over [tooltip] if passed.
  *
  * Entry point to show coachmark,
  * This screen should to be called at the root level so that coachmark can be visible at very top
