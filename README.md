@@ -63,7 +63,7 @@ enum class Keys { Text1, Text2 }
 At the root level, ensure that your code is wrapped with UnifyCoachmark.
 ```kotlin
 UnifyCoachmark(
-    tooltip = { /* Declare Tooltip Source code below ⏬ */ Tooltip(it) },
+    tooltip = { /*@Deprecated since v2.0.4,  pass tooltip while calling `enableCoachMark` method*/ },
     overlayEffect = DimOverlayEffect(Color.Black.copy(alpha = .5f)),
     onOverlayClicked = { OverlayClickEvent.GoNext }
 ) { this : CoachmarkScope
@@ -87,33 +87,19 @@ private fun Content() {
                     highlightedViewConfig = HighlightedViewConfig(
                         shape = HighlightedViewConfig.Shape.Rect(12.dp),
                         padding = PaddingValues(8.dp)
-                    )
+                    ),
+                    tooltip = {
+                        Balloon(arrow = Arrow.Start()) {
+                            Text(
+                                text = "Highlighting Text1",
+                            )
+                        }
+                    }
                 )
         )
     }
 }
 ```
-
-Define a tooltip view for each key to be displayed when any coachmark is active or highlighted.
-```kotlin
-@Composable
-private fun Tooltip(key: CoachMarkKey) {
-    when (key) {
-        Keys.Text1 -> {
-            Balloon(arrow = Arrow.Start()) {
-                Text(text = "Highlighting Text1", color = Color.White)
-            }
-        }
-    
-        Keys.Text2 -> {
-            Balloon(arrow = Arrow.Start()) {
-                Text(text = "Highlighting Text2", color = Color.White)
-            }
-        }
-    }
-}
-```
-
 
 Overlay Logic referred from <a href = "https://github.com/svenjacobs/reveal">reveal</a> library
 
