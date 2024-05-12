@@ -3,6 +3,7 @@ package com.pseudoankit.coachmark.scope
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -54,6 +55,7 @@ internal class CoachMarkScopeImpl(
         toolTipPlacement: ToolTipPlacement,
         tooltipAnimationSpec: AnimationSpec<Float>,
         highlightedViewConfig: HighlightedViewConfig,
+        tooltip: @Composable (() -> Unit)?
     ): Modifier = onGloballyPositioned { layoutCoordinates ->
         val startPadding =
             highlightedViewConfig.padding.calculateStartPadding(layoutDirection).toPx(density)
@@ -74,7 +76,8 @@ internal class CoachMarkScopeImpl(
             highlightedViewShape = highlightedViewConfig.shape,
             animationState = TooltipConfig.AnimationState(
                 tooltipAnimationSpec = tooltipAnimationSpec
-            )
+            ),
+            tooltip = tooltip
         )
     }
 

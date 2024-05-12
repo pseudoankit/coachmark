@@ -63,13 +63,14 @@ internal fun CoachMarkImpl(
                 tooltipHolder = currentTooltip,
                 modifier = Modifier.layoutId(TooltipId.current),
             ) {
-                coachMarkScope.tooltip(it)
+                coachMarkScope.currentVisibleTooltip?.tooltip?.invoke()
+                    ?: coachMarkScope.tooltip(it)
             }
             Tooltip(
                 tooltipHolder = previousTooltip,
                 modifier = Modifier.layoutId(TooltipId.previous),
             ) {
-                coachMarkScope.tooltip(it)
+                coachMarkScope.lastVisibleTooltip?.tooltip?.invoke() ?: coachMarkScope.tooltip(it)
             }
         }
     }
