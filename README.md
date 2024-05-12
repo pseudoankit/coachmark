@@ -77,27 +77,26 @@ Call the enableCoachMark method in all the composables that need to be highlight
 ```kotlin
 @Composable
 private fun Content() {
-    with(LocalCoachMarkScope.current) {    // not needed if you are already in CoachmarkScope
-        Text(
-            text = "Will show tooltip 1",
-            modifier = Modifier
-                .enableCoachMark(
-                    key = Keys.Text1,    // unique key that we declared above
-                    toolTipPlacement = ToolTipPlacement.Top,
-                    highlightedViewConfig = HighlightedViewConfig(
-                        shape = HighlightedViewConfig.Shape.Rect(12.dp),
-                        padding = PaddingValues(8.dp)
-                    ),
-                    tooltip = {
-                        Balloon(arrow = Arrow.Start()) {
-                            Text(
-                                text = "Highlighting Text1",
-                            )
-                        }
+    Text(
+        text = "Will show tooltip 1",
+        modifier = Modifier
+            .enableCoachMark(
+                key = Keys.Text1,    // unique key that we declared above
+                toolTipPlacement = ToolTipPlacement.Top,
+                highlightedViewConfig = HighlightedViewConfig(
+                    shape = HighlightedViewConfig.Shape.Rect(12.dp),
+                    padding = PaddingValues(8.dp)
+                ),
+                tooltip = {
+                    Balloon(arrow = Arrow.Start()) {
+                        Text(
+                            text = "Highlighting Text1",
+                        )
                     }
-                )
-        )
-    }
+                },
+                coachMarkScope = LocalCoachMarkScope.current  // not needed if you are already in CoachmarkScope
+            )
+    )
 }
 ```
 
